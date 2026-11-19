@@ -206,7 +206,7 @@ input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid #
 .orbi-auth-shell{min-height:58vh;display:flex;align-items:center;justify-content:center;padding:20px 0}
 .orbi-auth-card{width:min(450px,100%);padding:33px 29px!important}
 .orbi-auth-card h1{font-size:27px;margin:12px 0}
-.orbi-auth-mark{display:inline-grid;place-items:center;width:58px;height:58px;border-radius:17px;background:#f1f1f1;font-size:30px;font-weight:800;color:#222}
+.orbi-auth-logo{width:68px;height:68px;object-fit:contain;border-radius:20px;display:block;margin:0 0 8px}.orbi-auth-mark{display:inline-grid;place-items:center;width:58px;height:58px;border-radius:17px;background:#f1f1f1;font-size:30px;font-weight:800;color:#222}
 .orbi-auth-card .muted{font-size:13px;line-height:1.6}
 .orbi-auth-card .btn{min-height:42px}
 .orbi-cloud-state{font-size:11px;color:#777;display:block;margin-top:10px}
@@ -576,7 +576,7 @@ function cloudRibbon(){
  return "";
 }
 function renderAuth(){
- return '<div class="orbi-auth-shell"><div class="card orbi-auth-card"><div class="orbi-auth-mark">O</div><h1>Acesse a Orbitrip</h1><p class="muted">Entre sem senha para compartilhar roteiros e acompanhar alterações.</p>'
+ return '<div class="orbi-auth-shell"><div class="card orbi-auth-card"><div class="orbi-auth-logo" src="./assets/apple-touch-icon.png" alt="Ícone Orbitrip"><h1>Acesse a Orbitrip</h1><p class="muted">Entre sem senha para compartilhar roteiros e acompanhar alterações.</p>'
  +(cloudAuthError?'<div class="orbi-cloud-warn" role="alert">'+esc(cloudAuthError)+'</div>':"")
  +(cloudEmail?'<p class="muted">Enviamos um código temporário para <b>'+esc(cloudEmail)+'</b>. Verifique sua caixa de entrada e spam.</p><div class="field"><label for="orbi-auth-code">Código de seis dígitos</label><input id="orbi-auth-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000"></div><div class="row">'+button("Entrar","authVerify","primary")+button("Alterar e-mail","authAgain")+'</div>'
  :'<div class="field"><label for="orbi-auth-email">Seu e-mail</label><input id="orbi-auth-email" type="email" autocomplete="email" placeholder="voce@exemplo.com"></div>'+button("Receber código por e-mail","authSend","primary"))
