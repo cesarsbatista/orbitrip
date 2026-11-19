@@ -1,3 +1,20 @@
+## Correção de conflitos de sincronização — V3.5.x (19/11/2026)
+
+**Situação observada:** a viagem "Rio de Janeiro (Visa)" estava na revisão 2 do Supabase com zero etapas. O navegador mostrava três etapas não sincronizadas e repetia `CONFLICT_OR_DENIED` ao salvar usando uma revisão anterior. Atualizar código no GitHub **não** modifica revisões das viagens nem deveria, por si só, provocar esse erro.
+
+**Correções no frontend:**
+
+- O cliente pode consultar a revisão e o conteúdo mais recentes de uma viagem autorizada com `OrbitripCloud.getTrip(id)`. As permissões RLS permanecem.
+- Quando o servidor reporta revisão desatualizada, o app tenta uma mesclagem de três versões: última sincronizada (base), alterações locais e versão atual da nuvem. Apenas alterações independentes são mescladas; alterações simultâneas conflitantes no mesmo campo ou exclusão versus edição exigem recuperação manual.
+- Caso a mesclagem seja segura, salva novamente respeitando a revisão atual do servidor e conserva as novas etapas.
+- Existe a ação **Recuperar rascunho como cópia** no aviso de sincronização pendente. Ela lê o rascunho já salvo no navegador, obtém as viagens autorizadas atuais da nuvem e cria cópias das viagens diferentes, sem sobrescrever o conteúdo original. Copiadas aparecem com o sufixo "(recuperada)".
+- O rascunho deve ser exportado antes de atualizar a aplicação, clicar em Recarregar nuvem ou sair da conta. **Recarregar nuvem** descarta alterações locais e requer confirmação.
+- Adicionada versão de cache no `cloud.js` para Safari/iPhone receber o módulo novo junto com o aplicativo.
+- Não foram executadas migrações adicionais; a proteção por revisão e as regras de acesso permanecem.
+- **Verificação:** testes simulados de rebase não conflitante, conflito real, exclusão versus edição, gravação na revisão atual e recuperação sem sobregravar o servidor passaram. Falta conferir a recuperação das três etapas reais no iPhone.
+
+**Recuperação no iPhone:** salvar um backup com **Exportar rascunho**; atualizar a ORBITRIP no Safari ou reabrir o PWA; caso o aviso indique rascunho encontrado, usar **Recuperar rascunho como cópia**; verificar os dados antes de excluir/arquivar qualquer viagem original.
+
 ## Deslocamentos com rota — atualização de 19/11/2026
 
 Ao criar ou editar uma etapa do roteiro e escolher a categoria **Deslocamento**, a ORBITRIP apresenta um cadastro de rota, preservando as etapas antigas:
