@@ -491,7 +491,7 @@ function welcomeLocal(){
  return render();
 }
 
-function render(){const a=document.getElementById("app");document.body.classList.toggle("v35-welcome-active",welcomeVisible);if(welcomeVisible){a.innerHTML=renderWelcome();return}sidebar();
+function render(){const a=document.getElementById("app");document.body.classList.toggle("v35-welcome-active",welcomeVisible);document.body.classList.toggle("v351-auth-active",!welcomeVisible&&cloudEnabled&&!cloudBypass&&!cloudActive);if(welcomeVisible){a.innerHTML=renderWelcome();return}sidebar();
 if(cloudEnabled&&cloudLoading){a.innerHTML='<div class="orbi-auth-shell"><div class="card orbi-auth-card"><h2>Conectando à Orbitrip…</h2><p class="muted">Carregando sua conta e suas viagens.</p></div></div>';return}
 if(cloudEnabled&&!cloudUser&&!cloudBypass){a.innerHTML=renderAuth();return}if(cloudEnabled&&cloudUser&&!cloudActive){a.innerHTML='<div class="orbi-auth-shell"><div class="card orbi-auth-card"><h2>Não foi possível carregar as viagens</h2><p class="muted">'+esc(cloudAuthError||cloudError||"Confira as configurações do Supabase.")+'</p>'+button("Tentar novamente","cloudReconnect","primary")+button("Sair","cloudLogout")+button("Modo local","useLocal")+"</div></div>";return}
 if(route==="account"){a.innerHTML=renderAccount();return}
@@ -970,6 +970,8 @@ async function reloadCloudManually(){
  try{cloudError="";localStorage.removeItem(cloudPendingKey());await cloudLoad();cloudRemoteHint=false;render()}
  catch(e){cloudError=e.message;render()}
 }
+document.addEventListener("focusin",e=>{if(e.target.matches?.("input,textarea,select,[contenteditable]"))document.body.classList.add("v351-input-active")});
+document.addEventListener("focusout",()=>{setTimeout(()=>{document.body.classList.toggle("v351-input-active",!!document.activeElement?.matches?.("input,textarea,select,[contenteditable]"))},0)});
 document.addEventListener("keydown",e=>{
  if(e.key!=="Enter")return;
  if(e.target.id==="orbi-auth-email"){e.preventDefault();sendCloudCode()}
