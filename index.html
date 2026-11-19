@@ -1083,6 +1083,7 @@ function queueCloudSave(){
      const updated=cloudEqual(live,JSON.parse(current))
       ?result.merged:cloudMergeValue(JSON.parse(current),live,result.merged);
      if(updated===ORBI_MERGE_CONFLICT)throw Error("CONFLICT_OR_DENIED: novas alterações locais precisam de revisão");
+     for(const key of Object.keys(live))if(!Object.prototype.hasOwnProperty.call(updated,key))delete live[key];
      Object.assign(live,updated);
     }
    }
