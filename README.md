@@ -1,3 +1,13 @@
+## Supabase ativado — Orbitrip V3.4 (19/11/2026)
+
+O projeto **Orbitrip** foi criado no Supabase Free, na região São Paulo (`sa-east-1`), e sua URL/chave pública `publishable` foram conectadas via `config.js`.
+
+- Banco instalado: `trips`, `trip_members`, `trip_invites`, RLS e RPC para convites/controle de revisões.
+- Verificação de segurança do Supabase: **sem alertas**.
+- O **login por código ainda não está liberado para uso geral**: precisa da configuração manual de templates OTP e de SMTP para enviar códigos a e-mails que não pertençam à equipe administrativa da organização.
+- A opção **Continuar no modo local** preserva o acesso aos roteiros no navegador enquanto a configuração de e-mail é concluída.
+- Guia completo: [`docs/V3.4-SUPABASE.md`](docs/V3.4-SUPABASE.md). **Não execute o SQL de instalação uma segunda vez no mesmo projeto.**
+
 # ◎ Orbitrip
 **Sua viagem, em outra dimensão.**
 
