@@ -1,45 +1,60 @@
-# VIAGENS — Planejador pessoal de viagens
+# ◎ Orbitrip
+**Sua viagem, em outra dimensão.**
 
-Aplicação web estática e responsiva, criada a partir do modelo de planejamento do usuário no arquivo `2027_01 - Rio de Janeiro.xlsx`.
+Aplicação web de planejamento de viagens, com itinerários, cenários financeiros, mapa interativo, simuladores de custo e importação de planilhas.
 
-## Versão 1.0
+## Versão atual — V2
 
-- Criação, edição, duplicação e arquivamento de múltiplas viagens.
-- Destinos, origem, datas, viajantes, modal de transporte e moeda.
-- Itinerário diário com atividades, horários, categorias, endereços, coordenadas, links e observações.
-- Cenários alternativos de planejamento em cada viagem, com eventos e despesas compartilhados ou específicos.
-- Orçamento previsto e gasto realizado, com detalhamento por categoria e comparativo entre cenários.
-- Listas de compras com quantidades, lojas, preços e estado de aquisição.
-- Backup completo e restauração por JSON.
-- Layout responsivo para computador, tablet e celular.
+- Identidade visual Orbitrip: dashboard imersivo, capas fotográficas, transições responsivas e menu escuro.
+- Múltiplas viagens com criação, edição, duplicação, arquivamento e reativação.
+- Roteiro cronológico por dia, horários, categorias, links e localizações.
+- **Mapa Leaflet + OpenStreetMap** com marcadores das etapas georreferenciadas, filtros por dia e categoria, popups e linha de sequência dos pontos. A linha não equivale a uma rota rodoviária.
+- Orçamento previsto, realizado, distribuição por categoria e cenários independentes ou compartilhados.
+- **Calculadora:** carro (combustível, consumo, distância, pedágios, aluguel) / avião (passagens, bagagens, transfers, seguro) / combinado, mais hospedagem, alimentação e margem; transferência confirmada dos resultados para Despesas.
+- Lista de compras com preços e status.
+- **Importador Excel XLSX/XLS:** leitura local no navegador, prévia das abas, cenários a partir dos três roteiros e captura de itens de compras e despesas na estrutura do arquivo do Rio de Janeiro. Importações precisam ser revisadas, especialmente linhas não estruturadas.
+- Backup completo JSON.
 
-## Executar
+## Execução
 
-Abra `index.html` em um navegador atual. A aplicação não precisa de servidor, instalação, dependências ou chaves de API.
+Abra `index.html` em um navegador moderno. Não há build nem instalação de dependências.
 
-Também pode ser publicada com GitHub Pages, após habilitar Pages nas configurações do repositório (se o plano e a visibilidade do repositório permitirem).
+**Para disponibilizar como site:** configurar GitHub Pages ou serviço de hospedagem equivalente para publicar a branch `main` e a raiz `/`. A publicação não é automática enquanto essa configuração não for feita.
 
-## Armazenamento e privacidade
+O carregamento de fotografias, mapa Leaflet e parser XLSX usa recursos de CDN; essas funções exigem conexão com a internet. Os dados pessoais registrados não são enviados a esses CDNs pelo código do aplicativo, mas o navegador solicita recursos externos, incluindo tiles do mapa.
 
-**Importante:** na V1 os dados são salvos em `localStorage` **somente no navegador/dispositivo em uso**. Não existe login, banco de dados ou sincronização automática. Limpar os dados do navegador pode apagar os roteiros; use **Dados e backup → Baixar backup JSON**. O GitHub armazena apenas o código-fonte, não os registros pessoais inseridos no aplicativo.
+## Persistência — atenção
 
-## Estrutura do projeto
+A V2 **ainda usa localStorage** do navegador. Sem banco de dados e autenticação, viagens não são sincronizadas entre aparelhos, e limpar o armazenamento local pode causar perda de registros. Exporte cópias periódicas em **Dados e backup**. Não armazene dados confidenciais nesse ambiente sem autenticação.
 
-- `index.html`: interface, estilos e lógica (aplicação sem dependências).
+O repositório contém apenas o código da aplicação, não os dados que você cria no navegador.
 
-## Próximas versões sugeridas
+## Importação do arquivo de referência
 
-1. Persistência sincronizada entre dispositivos com autenticação e banco de dados.
-2. Importação direta de planilhas XLSX legadas.
-3. Mapas, marcadores georreferenciados e visualização espacial do percurso.
-4. Custos automáticos de viagens terrestres: distância, consumo, pedágios e estimativa de combustível.
-5. Câmbio, orçamento multimoeda e exportação de roteiros em PDF.
-6. Documentos e reservas, com anexos protegidos e comprovantes.
+Estrutura tratada:
+- Roteiro Barato → cenário Econômico
+- Roteiro Intermediário → cenário Intermediário
+- Roteiro Caro → cenário Conforto
+- Lista de Compras e Vilefort Lista de Compras → itens de compras
+- Despesas → despesas estimadas
 
-## Modelo da planilha original
+O importador lê as células do Excel em posições compatíveis com o arquivo de referência e **não garante conversão perfeita** de linhas com mesclagens, fórmulas ou anotações livres. Exibe contagem e solicita confirmação antes de criar a viagem.
 
-A pasta de trabalho analisada contém três cenários de roteiro (Barato, Intermediário, Caro), duas listas de compras e uma aba de despesas. A V1 reaproveita a lógica da planilha, mas os cenários passam a ser alternativas **dentro de uma única viagem**.
+## Limitações conhecidas
 
-## Nota sobre valores
+- Roteiros com somente endereço textual não recebem marcador até receber coordenadas decimais `latitude, longitude` ou DMS.
+- Linhas de mapa ligam pontos em sequência, sem serviço de rotas viárias.
+- O cálculo usa preços inseridos pelo usuário, sem cotações em tempo real.
+- Imagens são decorativas e genéricas por enquanto; não representam necessariamente o destino do card.
+- Falta autenticação/sincronização Supabase, upload de imagens privadas, importação universal de formatos Excel e exportação PDF.
+- Aplicação entregue como código, sem publicação ou testes E2E automatizados ainda.
 
-Valores colocados nas etapas do roteiro são informativos. O total financeiro consolidado é calculado com os registros de **Despesas**; isso evita contagens duplicadas quando um custo é anotado apenas como referência na programação.
+## Roadmap
+
+1. Publicação permanente e hospedagem HTTPS.
+2. Autenticação, banco Supabase e políticas RLS.
+3. Geocodificação com consentimento e roteamento de estradas com serviços compatíveis.
+4. Importador com mapeamento de colunas para planilhas arbitrárias.
+5. Capas por destino, câmbio e exportação PDF.
+
+Especificação detalhada: [Blueprint V2](docs/ORBITRIP-V2-BLUEPRINT.md).
