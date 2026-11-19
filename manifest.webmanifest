@@ -13,12 +13,12 @@
       "src": "./assets/orbitrip-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "./assets/orbitrip-512.png",
+      "src": "./assets/orbitrip-512.webp",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/webp",
       "purpose": "any"
     }
   ]
