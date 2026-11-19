@@ -16,6 +16,16 @@ Aplicação web de planejamento de viagens, com itinerários, cenários financei
 - Backup completo JSON.
 
 
+## Ajustes visuais e de usabilidade (após V3.2)
+
+- **Capa:** cartão da viagem e prévia do editor usam a mesma proporção `1000:563`; a imagem de capa é apresentada integralmente, evitando o recorte extra por `background-size: cover`. Imagens antigas já salvas em 16:9 também seguem esta configuração.
+- **Home:** mantido o card de apresentação da viagem; logotipo e botão de criação `+` alinhados verticalmente.
+- **Cabeçalho da viagem:** retirada a linha “Minhas viagens / Planejamento”; mantido “Orbitrip / Sua viagem”.
+- **Resumo:** quatro indicadores menores, em duas colunas no celular, sem textos explicativos secundários.
+- **Busca de endereços:** sugestões com ícone, nome principal e endereço abaixo, linhas tocáveis, realce ao passar o cursor e seleção com setas/Enter ou toque; Escape fecha a lista. Resultados continuam dependendo da disponibilidade de Photon/OpenStreetMap.
+
+Código JavaScript validado sintaticamente; testes completos no navegador e a disponibilidade da API pública ainda não estão certificados.
+
 ## V3.2 — Home, capas e visual monocromático
 
 - Home reduzida aos cards das viagens, marca Orbitrip e botão discreto **+**. O título explicativo, os quatro indicadores e o banner promocional foram removidos.
