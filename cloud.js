@@ -32,6 +32,10 @@
    for(const t of items)if(t.owner_id===user.id)roles[t.id]="owner";
    return {trips:items,roles,user};
   },
+  async getTrip(id){
+   const c=getClient();
+   return checked(await c.from("trips").select("id,owner_id,payload,revision,updated_at").eq("id",id).maybeSingle());
+  },
   async write(t,revision,userId){
    const c=getClient();
    if(revision==null){
