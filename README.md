@@ -1,3 +1,19 @@
+## Deslocamentos com rota — atualização de 19/11/2026
+
+Ao criar ou editar uma etapa do roteiro e escolher a categoria **Deslocamento**, a ORBITRIP apresenta um cadastro de rota, preservando as etapas antigas:
+
+- **Origem e destino:** nome de local, endereço ou coordenadas. São necessários para criar uma rota completa.
+- **Paradas intermediárias:** até três, uma por linha, mantidas na ordem informada (limite compatível com links Google Maps em navegador móvel).
+- **Transporte:** carro, caminhada, transporte público ou bicicleta.
+- **Prévia:** dois links gerados automaticamente no formulário para conferir a rota antes de salvar.
+- **Roteiro salvo:** mostra origem → destino, possíveis paradas e links **Mapas da Apple** e **Google Maps** na etapa. O atalho **Próxima parada** também utiliza o destino cadastrado.
+- **Integração:** Google Maps URLs (`api=1`, `origin`, `destination`, `travelmode`, `waypoints`) e URL unificada do Apple Maps (`/directions?source=...&destination=...&waypoint=...&mode=...`), suportada no iOS 18.4+. Nenhuma chave paga/API de rotas é necessária.
+- **Dados:** origem, destino, modo e paradas são propriedades adicionais do JSON da etapa, compatíveis com o banco existente. O campo de endereço/localização da etapa permanece para uso de marcadores no mapa interno.
+- **Limites:** a ORBITRIP não calcula, desenha nem valida trajetos rodoviários; o serviço externo realiza a geocodificação e o cálculo da rota ao abrir o link. A disponibilidade de rotas ou paradas varia por serviço e transporte.
+- **Verificações:** JavaScript compila; links gerados para os dois mapas, codificação de caracteres, paradas, bicicleta, compatibilidade com links de destino antigos e alternância de campos por categoria foram testados em ambiente simulado. Abertura em aplicativos físicos no iPhone ainda não foi verificada.
+
+**Referências oficiais:** [Google Maps URLs](https://developers.google.com/maps/documentation/urls/get-started) · [Apple Maps — Unified URLs](https://developer.apple.com/documentation/mapkit/unified-map-urls).
+
 ## Correção da sincronização RLS — 19/11/2026
 
 - **Sintoma:** ao criar uma viagem com uma conta autenticada, PostgREST retornava erro 42501 (`new row violates row-level security policy for table "trips"`) no `INSERT ... RETURNING revision`.
