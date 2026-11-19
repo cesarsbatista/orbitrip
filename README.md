@@ -1,3 +1,15 @@
+## V3.5 — Capa de abertura (19/11/2026)
+
+- **Tela de boas-vindas antes do login:** a capa aparece sempre que a aplicação carrega; o usuário não é encaminhado automaticamente para a tela de autenticação.
+- **Identidade visual:** ícone oficial Orbitrip, composição editorial minimalista em branco, cinza e preto, paisagem monocromática suave, órbitas decorativas e transições sutis.
+- **Texto aprovado:** "Toda grande viagem começa com um bom planejamento." e "Planeje roteiros, organize gastos e acompanhe cada etapa da sua viagem."
+- **Começar:** abre o acesso à conta Supabase. Se já existir uma sessão válida, entra diretamente no painel sem solicitar novo código.
+- **Continuar no modo local:** abre as viagens armazenadas no navegador sem exigir autenticação e sem misturar os dados locais com os dados da nuvem.
+- **Voltar à capa:** disponível na tela de login. A opção "Começar" reativa o fluxo da conta mesmo se antes foi escolhido o modo local.
+- **Responsividade:** composição adaptada a computador e celular; respeita a preferência de reduzir animações do sistema.
+- **Preservação:** o código V3.4 de login, compartilhamento, mapas, despesas e backup não foi removido; o novo fluxo só altera a entrada na aplicação.
+- **Validação técnica:** sintaxe JavaScript conferida e cenários de abertura, acesso, retorno à capa, modo local e sessão Supabase ativa testados com ambiente simulado. Testes visuais manuais nos dispositivos ainda recomendados.
+
 ## Supabase ativado — Orbitrip V3.4 (19/11/2026)
 
 O projeto **Orbitrip** foi criado no Supabase Free, na região São Paulo (`sa-east-1`), e sua URL/chave pública `publishable` foram conectadas via `config.js`.
