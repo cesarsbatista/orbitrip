@@ -52,7 +52,10 @@ alter table public.trips enable row level security;
 alter table public.trip_members enable row level security;
 alter table public.trip_invites enable row level security;
 
-create policy trips_select on public.trips for select to authenticated using(orbitrip_private.can_view(id));
+-- O proprietário é identificado diretamente para permitir INSERT ... RETURNING
+-- na mesma instrução; a verificação de colaboradores continua em can_view.
+create policy trips_select on public.trips for select to authenticated
+ using(owner_id=(select auth.uid()) or orbitrip_private.can_view(id));
 create policy trips_insert on public.trips for insert to authenticated
  with check(owner_id=(select auth.uid()) and payload->>'id'=id::text);
 create policy trips_delete on public.trips for delete to authenticated using(orbitrip_private.is_owner(id));
