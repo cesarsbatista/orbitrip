@@ -3,7 +3,7 @@
 
 Aplicação web de planejamento de viagens, com itinerários, cenários financeiros, mapa interativo, simuladores de custo e importação de planilhas.
 
-## Versão atual — V3
+## Versão atual — V3.1
 
 - Identidade visual Orbitrip: dashboard imersivo, capas fotográficas, transições responsivas e menu escuro.
 - Múltiplas viagens com criação, edição, duplicação, arquivamento e reativação.
@@ -16,7 +16,15 @@ Aplicação web de planejamento de viagens, com itinerários, cenários financei
 - Backup completo JSON.
 
 
-## V3 — Diário de bordo (19/11/2026)
+## V3.1 — Interface minimalista
+
+O estilo de passaporte da V3 foi substituído por uma linguagem **moderna, minimalista e mobile-first**. A V3.1 utiliza fundo branco/cinza-claro, tipografia sem serifa, um único acento turquesa, fotografias de viagem em áreas pontuais, superfícies discretas e navegação inferior flutuante em celulares.
+
+A mudança foi **visual**, com preservação da estrutura de dados `viagens_v1` e das funcionalidades da V3: itinerários, mapas, categorias, calculadoras, importação Excel e busca de locais por Photon. As categorias continuam com as cores definidas anteriormente (hospedagem verde, deslocamento vermelho, atrações azul, restaurante amarelo e demais categorias com cores complementares).
+
+A sintaxe JavaScript foi verificada antes do envio, mas **não houve execução de testes automatizados ponta a ponta** nem confirmação de publicação em domínio externo. A aplicação depende de recursos externos para mapas, fotos e importação Excel; os dados continuam apenas no armazenamento local do navegador.
+
+## V3 — Histórico do design (19/11/2026)
 
 A interface foi redesenhada para uso prioritário no celular, inspirada em páginas de passaporte e diário de viagem, sem reproduzir documentos oficiais: textura visível de papel, azul de capa, selos, tipografia sóbria, navegação inferior com cinco atalhos e transições discretas.
 
