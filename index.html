@@ -215,10 +215,100 @@ input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid #
 .orbi-share-box{overflow-wrap:anywhere;background:#f8f8f8;border-radius:10px;padding:12px;color:#333;font-size:12px}
 .orbi-addr-footer{font-size:11px;color:#999}
 @media(max-width:750px){.orbi-maplinks a{padding:8px 10px}.orbi-auth-card{padding:25px 20px!important}}
+
+/* ORBITRIP V3.5 — capa editorial (sempre antes do acesso à conta) */
+body.v35-welcome-active{background:#f9f9f7!important;overflow-x:hidden}
+.v35-welcome-active .shell{display:block!important;min-height:100svh!important}
+.v35-welcome-active .sidebar,.v35-welcome-active .orbit-bottom{display:none!important}
+.v35-welcome-active .main{padding:0!important;margin:0!important;max-width:none!important;width:100%!important;background:#f9f9f7!important}
+.v35-welcome{background:#f9f9f7;color:#1b1f20;min-height:100svh;isolation:isolate;font-family:'DM Sans',Inter,system-ui,sans-serif}
+.v35-frame{max-width:1530px;min-height:100svh;margin:0 auto;padding:clamp(20px,2.8vw,47px) clamp(20px,4vw,68px);display:grid;grid-template-rows:auto 1fr auto;gap:clamp(20px,2.7vw,43px)}
+.v35-header,.v35-footer{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.v35-brand{display:inline-flex;align-items:center;gap:12px;color:#202425;text-decoration:none}
+.v35-brand-logo{width:45px;height:45px;object-fit:cover;border-radius:13px;box-shadow:0 8px 25px #171b1c12}
+.v35-brand-name{font:800 18px Outfit,'DM Sans',sans-serif;letter-spacing:.16em}
+.v35-header-note,.v35-footer{font-size:10px;font-weight:700;letter-spacing:.17em;color:#838889;text-transform:uppercase}
+.v35-header-note{display:inline-flex;align-items:center;gap:13px}
+.v35-header-note:before{content:"";width:27px;height:1px;background:#b3b8b8}
+.v35-main{display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:clamp(32px,5.5vw,104px);min-height:clamp(510px,calc(100dvh - 200px),820px)}
+.v35-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:clamp(10px,3vw,50px) 0}
+.v35-kicker{display:inline-flex;align-items:center;gap:10px;color:#6f7879;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin:0 0 clamp(25px,3vw,50px)}
+.v35-kicker:before{content:"";width:6px;height:6px;border-radius:50%;background:#606c6e}
+.v35-title{font:650 clamp(47px,5vw,83px)/1.045 Outfit,Inter,system-ui,sans-serif!important;letter-spacing:-.065em!important;color:#181e1f!important;max-width:690px;margin:0 0 27px!important;text-wrap:balance}
+.v35-title span{font-weight:440;color:#7b8485}
+.v35-lead{color:#697476!important;font-size:clamp(14px,1.25vw,18px);font-weight:450;line-height:1.68;max-width:490px;margin:0 0 clamp(30px,4vw,56px)}
+.v35-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:23px}
+.v35-cta,.v35-local{font-family:'DM Sans',Inter,sans-serif!important;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;gap:26px;min-height:55px;padding:0 26px;white-space:nowrap;font-size:13px;font-weight:750;transition:transform .2s ease,background .2s ease,border-color .2s ease}
+.v35-cta{color:#fff;background:#1e2527;box-shadow:0 9px 20px #161b1a13}
+.v35-cta:hover{background:#41494a;transform:translateY(-2px)}
+.v35-cta span{font-size:21px;font-weight:400}
+.v35-local{color:#343c3e;background:#fff;border:1px solid #dfe4e3}
+.v35-local:hover{border-color:#b2bcbc;background:#f2f4f3;transform:translateY(-2px)}
+.v35-local span{font-size:19px;font-weight:400}
+.v35-privacy{font-size:11px;color:#929999;line-height:1.5;margin:0}
+.v35-visual{position:relative;overflow:hidden;min-height:450px;border-radius:clamp(17px,2vw,28px);background:#575f5d;isolation:isolate;box-shadow:0 24px 48px #141b1c15}
+.v35-landscape{position:absolute;inset:0;background:linear-gradient(0deg,#171d20a8 0%,#202b3128 48%,#0f1b250d 100%),url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1500&auto=format&fit=crop&q=85') center/cover;filter:grayscale(1);transform:scale(1.015)}
+.v35-visual:after{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(105deg,#3d494a16,transparent 65%);pointer-events:none}
+.v35-orbit{position:absolute;border:1px solid #ffffff55;width:490px;height:490px;max-width:110%;aspect-ratio:1;border-radius:50%;right:-195px;top:-190px;transform:rotate(-20deg);z-index:1;pointer-events:none}
+.v35-orbit.two{right:-132px;top:-135px;width:370px;height:370px;border-color:#ffffff4a}
+.v35-orbit.three{right:-70px;top:-82px;width:246px;height:246px;border-color:#ffffff68}
+.v35-visual-top,.v35-visual-bottom{position:absolute;z-index:2;left:clamp(21px,3vw,42px);right:clamp(21px,3vw,42px);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.v35-visual-top{top:clamp(22px,3vw,42px);font-size:10px;letter-spacing:.2em;font-weight:700;text-shadow:0 1px 8px #0003}
+.v35-visual-top .v35-signal{width:8px;height:8px;background:#fff;border-radius:50%;opacity:.95}
+.v35-visual-bottom{bottom:clamp(24px,3.2vw,46px);align-items:flex-end}
+.v35-visual-message{font:550 clamp(25px,2.5vw,41px)/1.15 Outfit,'DM Sans',sans-serif;letter-spacing:-.025em;max-width:340px}
+.v35-visual-index{font-size:10px;letter-spacing:.2em;border:1px solid #ffffff70;border-radius:999px;padding:11px 13px;white-space:nowrap}
+.v35-footer{font-size:10px;letter-spacing:.16em}
+.v35-footer span:first-child b{font-weight:400;opacity:.35;padding:0 8px}
+.v35-auth-back{padding:0;margin-bottom:20px;color:#737d7e;background:transparent;font-size:12px;font-weight:700;text-align:left}
+.v35-auth-back:hover{color:#1c2527}
+@media(max-width:950px){
+ .v35-main{grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:28px}
+ .v35-title{font-size:clamp(43px,5vw,67px)!important}
+ .v35-cta,.v35-local{padding:0 19px;gap:12px}
+}
+@media(max-width:750px){
+ .v35-frame{padding:20px 19px 24px;gap:20px}
+ .v35-brand-logo{height:37px;width:37px;border-radius:11px}
+ .v35-brand-name{font-size:16px}
+ .v35-header-note{font-size:9px;letter-spacing:.09em}
+ .v35-header-note:before{width:12px}
+ .v35-main{display:flex;flex-direction:column;min-height:0;gap:22px}
+ .v35-copy{padding:12px 0 0}
+ .v35-kicker{margin-bottom:21px}
+ .v35-title{font-size:clamp(40px,9.6vw,57px)!important;line-height:1.045!important;max-width:550px;margin-bottom:19px!important}
+ .v35-lead{font-size:14px;margin-bottom:26px;line-height:1.6}
+ .v35-actions{gap:10px;margin-bottom:14px;width:100%}
+ .v35-cta,.v35-local{min-height:50px;font-size:12px}
+ .v35-visual{min-height:210px;height:31svh;max-height:330px}
+ .v35-visual-message{font-size:27px}
+ .v35-visual-bottom{left:22px;right:22px;bottom:20px}
+ .v35-visual-top{left:22px;right:22px;top:20px}
+ .v35-footer{font-size:9px;letter-spacing:.09em}
+}
+@media(max-width:415px){
+ .v35-header-note{display:none}
+ .v35-actions{display:grid;grid-template-columns:1fr}
+ .v35-cta,.v35-local{width:100%;justify-content:space-between;padding:0 19px}
+ .v35-visual{min-height:172px;height:23svh}
+ .v35-visual-message{font-size:22px}
+ .v35-visual-index{font-size:9px;padding:8px}
+ .v35-privacy{font-size:10px}
+}
+@media(prefers-reduced-motion:no-preference){
+ .v35-copy>*{animation:v35FadeUp .55s ease both}
+ .v35-copy>*:nth-child(2){animation-delay:.09s}
+ .v35-copy>*:nth-child(3){animation-delay:.16s}
+ .v35-copy>*:nth-child(4){animation-delay:.23s}
+ .v35-visual{animation:v35FadeIn .7s ease both}
+}
+@keyframes v35FadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes v35FadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script></head>
 <body>
-<div class="shell"><aside class="sidebar"><div class="brand">◎ ORBITRIP<small>PLANEJADOR DE VIAGENS</small></div><nav class="nav"><button data-route="home" class="active">◫ &nbsp; Minhas viagens</button><button data-route="archived">▤ &nbsp; Arquivadas</button><button data-route="data">↥ &nbsp; Dados e backup</button><button data-route="account">◎ &nbsp; Conta e compartilhamento</button></nav><div class="sidefoot">Planeje cada etapa.<br>Revise seus custos.<br>Guarde suas histórias.<br><br>Orbitrip V3.4 · Mapas gratuitos</div></aside><main class="main" id="app"></main></div><nav class="orbit-bottom" aria-label="Navegação principal"><button data-mobile="home"><span class="icon">⌂</span>Início</button><button data-mobile="route"><span class="icon">▤</span>Roteiro</button><button data-mobile="map"><span class="icon">⌾</span>Mapa</button><button data-mobile="budget"><span class="icon">◈</span>Gastos</button><button data-mobile="more"><span class="icon">☷</span>Mais</button></nav><div id="modal-root"></div>
+<div class="shell"><aside class="sidebar"><div class="brand">◎ ORBITRIP<small>PLANEJADOR DE VIAGENS</small></div><nav class="nav"><button data-route="home" class="active">◫ &nbsp; Minhas viagens</button><button data-route="archived">▤ &nbsp; Arquivadas</button><button data-route="data">↥ &nbsp; Dados e backup</button><button data-route="account">◎ &nbsp; Conta e compartilhamento</button></nav><div class="sidefoot">Planeje cada etapa.<br>Revise seus custos.<br>Guarde suas histórias.<br><br>Orbitrip V3.5 · Mapas gratuitos</div></aside><main class="main" id="app"></main></div><nav class="orbit-bottom" aria-label="Navegação principal"><button data-mobile="home"><span class="icon">⌂</span>Início</button><button data-mobile="route"><span class="icon">▤</span>Roteiro</button><button data-mobile="map"><span class="icon">⌾</span>Mapa</button><button data-mobile="budget"><span class="icon">◈</span>Gastos</button><button data-mobile="more"><span class="icon">☷</span>Mais</button></nav><div id="modal-root"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script><script src="./config.js"></script><script src="./cloud.js"></script>
 <script>
 (()=>{
@@ -230,6 +320,7 @@ const fresh=()=>({version:1,trips:[]});
 const parse=()=>{try{const d=JSON.parse(localStorage.getItem(KEY));return d&&Array.isArray(d.trips)?d:fresh()}catch{return fresh()}};
 let db=parse(),route="home",tripId=null,tab="route",scenarioId=null;
 const cloudApi=window.OrbitripCloud,cloudEnabled=Boolean(cloudApi?.configured);let cloudBypass=window.sessionStorage.getItem('orbitrip-local-mode')==='1';
+let welcomeVisible=true;
 let cloudActive=false,cloudLoading=cloudEnabled,cloudUser=null,cloudRoles={},cloudRevisions=new Map(),cloudSaved=new Map(),cloudJobs=Promise.resolve(),cloudWrites=0,cloudError="",cloudRemoteHint=false,cloudRemoteTimer=null,cloudAuthError="",cloudEmail="",cloudInfo="";
 const save=()=>cloudActive?queueCloudSave():localStorage.setItem(KEY,JSON.stringify(db));
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -245,7 +336,46 @@ const totalEvents=t=>t.events.length;
 function navigate(r,id){route=r;if(id)tripId=id;tab="route";scenarioId=null;orbitMapDay="";orbitMapCategory="";render()}
 function sidebar(){document.querySelectorAll("[data-route]").forEach(b=>b.classList.toggle("active",b.dataset.route===route||(route==="trip"&&b.dataset.route==="home")));document.querySelectorAll("[data-mobile]").forEach(b=>{const v=b.dataset.mobile;b.classList.toggle("active",v==="home"?(route==="home"||route==="archived"||route==="data"):(route==="trip"&&(v===tab||(v==="more"&&!["route","map","budget"].includes(tab)))))})}
 const button=(label,action,kind="ghost")=>'<button class="btn '+kind+' small" data-action="'+action+'">'+label+'</button>';
-function render(){sidebar();const a=document.getElementById("app");
+
+/* A capa V3.5 é mostrada sempre que a página abre, antes do login.
+   Sessões Supabase existentes continuam intactas. */
+function renderWelcome(){
+ return '<section class="v35-welcome" aria-labelledby="v35-welcome-title"><div class="v35-frame">'
+ +'<header class="v35-header"><div class="v35-brand"><img class="v35-brand-logo" src="./assets/apple-touch-icon.png" alt=""><span class="v35-brand-name">ORBITRIP</span></div><span class="v35-header-note">PLANEJAMENTO DE VIAGENS</span></header>'
+ +'<div class="v35-main"><div class="v35-copy"><div class="v35-kicker">UM MUNDO DE POSSIBILIDADES</div>'
+ +'<h1 id="v35-welcome-title" class="v35-title">Toda grande viagem começa com um <span>bom planejamento.</span></h1>'
+ +'<p class="v35-lead">Planeje roteiros, organize gastos e acompanhe cada etapa da sua viagem.</p>'
+ +'<div class="v35-actions"><button type="button" class="v35-cta" data-action="welcomeStart">Começar <span aria-hidden="true">↗</span></button>'
+ +'<button type="button" class="v35-local" data-action="welcomeLocal">Continuar no modo local <span aria-hidden="true">→</span></button></div>'
+ +'<p class="v35-privacy">Planeje no seu dispositivo ou acesse seus roteiros pela nuvem.</p></div>'
+ +'<div class="v35-visual" role="img" aria-label="Paisagem natural e montanhas em uma composição monocromática">'
+ +'<div class="v35-landscape"></div><div class="v35-orbit"></div><div class="v35-orbit two"></div><div class="v35-orbit three"></div>'
+ +'<div class="v35-visual-top"><span>EXPLORAR O MUNDO</span><span class="v35-signal" aria-hidden="true"></span></div>'
+ +'<div class="v35-visual-bottom"><div class="v35-visual-message">A jornada começa<br>antes da partida.</div><span class="v35-visual-index">ORBITRIP / 01</span></div></div></div>'
+ +'<footer class="v35-footer"><span>ROTEIROS <b>·</b> MAPAS <b>·</b> DESPESAS</span><span>SUA VIAGEM, EM OUTRA DIMENSÃO.</span></footer>'
+ +'</div></section>';
+}
+function welcomeStart(){
+ welcomeVisible=false;cloudBypass=false;
+ sessionStorage.removeItem("orbitrip-local-mode");
+ route="home";tripId=null;
+ if(!cloudEnabled)return render();
+ if(cloudActive&&cloudUser)return render();
+ cloudUser=null;
+ return cloudBoot();
+}
+function welcomeLocal(){
+ welcomeVisible=false;
+ if(cloudWrites){alert("Aguarde a sincronização das alterações antes de mudar de modo.");welcomeVisible=true;return render()}
+ if(cloudError){alert("Há alterações na nuvem ainda não sincronizadas. Exporte o rascunho antes de utilizar o modo local.");welcomeVisible=true;return render()}
+ if(cloudApi?.configured)cloudApi.stop();
+ cloudBypass=true;cloudActive=false;cloudLoading=false;cloudUser=null;cloudError="";cloudAuthError="";
+ sessionStorage.setItem("orbitrip-local-mode","1");
+ db=parse();route="home";tripId=null;
+ return render();
+}
+
+function render(){const a=document.getElementById("app");document.body.classList.toggle("v35-welcome-active",welcomeVisible);if(welcomeVisible){a.innerHTML=renderWelcome();return}sidebar();
 if(cloudEnabled&&cloudLoading){a.innerHTML='<div class="orbi-auth-shell"><div class="card orbi-auth-card"><h2>Conectando à Orbitrip…</h2><p class="muted">Carregando sua conta e suas viagens.</p></div></div>';return}
 if(cloudEnabled&&!cloudUser&&!cloudBypass){a.innerHTML=renderAuth();return}if(cloudEnabled&&cloudUser&&!cloudActive){a.innerHTML='<div class="orbi-auth-shell"><div class="card orbi-auth-card"><h2>Não foi possível carregar as viagens</h2><p class="muted">'+esc(cloudAuthError||cloudError||"Confira as configurações do Supabase.")+'</p>'+button("Tentar novamente","cloudReconnect","primary")+button("Sair","cloudLogout")+button("Modo local","useLocal")+"</div></div>";return}
 if(route==="account"){a.innerHTML=renderAccount();return}
@@ -298,7 +428,7 @@ function itemForm(i){const t=trip();modal(i?"Editar item":"Novo item",'<div clas
 const getObj=f=>Object.fromEntries(new FormData(f).entries());
 function submit(form){const [kind,id]=form.dataset.submit.split(":");if(cloudActive&&cloudRoles[tripId]==="viewer"&&!(kind==="trip"&&id==="new")){alert("Viagem somente para leitura.");return}const v=getObj(form);const t=trip();if(kind==="trip"){if(v.start&&v.end&&v.end<v.start){alert("A data final deve ser posterior à inicial.");return}if(id==="new"){const x={...v,id:uid(),archived:false,scenarios:[{id:uid(),name:"Principal",notes:""}],events:[],expenses:[],shopping:[]};db.trips.push(x);tripId=x.id;route="trip";scenarioId=x.scenarios[0].id}else Object.assign(t,v)}else if(kind==="scenario"){const x={...v,id:id==="new"?uid():id};if(id==="new"){t.scenarios.push(x);scenarioId=x.id}else Object.assign(t.scenarios.find(z=>z.id===id),v)}else {const list={event:"events",expense:"expenses",item:"shopping"}[kind];const normalized={...v};if(kind==="event"){normalized.estimated=money(v.estimated);normalized.latitude=v.latitude!==""&&Number.isFinite(Number(v.latitude))?Number(v.latitude):null;normalized.longitude=v.longitude!==""&&Number.isFinite(Number(v.longitude))?Number(v.longitude):null;if(v.url&&!/^https?:\/\//i.test(v.url)){alert("O link deve começar com http:// ou https://");return}}if(kind==="expense"){normalized.planned=money(v.planned);normalized.actual=money(v.actual)}if(kind==="item"){normalized.price=money(v.price);normalized.bought=id==="new"?false:t.shopping.find(z=>z.id===id)?.bought}if(id==="new")t[list].push({...normalized,id:uid()});else Object.assign(t[list].find(z=>z.id===id),normalized)}save();close();render()}
 function del(list,id){const t=trip();const item=t[list].find(z=>z.id===id);if(!item)return;if(!confirm("Excluir este registro?"))return;t[list]=t[list].filter(x=>x.id!==id);save();render()}
-function action(a){const t=trip();if(a==="calcSave")return saveCalculation();if(a==="importConfirm")return confirmImport();if(a==="importParse")return parseWorkbook();if(a==="mapFocus")return initializeMap();if(a==="nextStop")return nextStop();if(a==="goAccount")return navigate("account");if(a==="goData")return navigate("data");if(a==="authSend")return sendCloudCode();if(a==="authVerify")return verifyCloudCode();if(a==="authAgain"){cloudEmail="";cloudAuthError="";return render()}if(a==="cloudLogout")return logoutCloud();if(a==="cloudReconnect")return activateCloud(cloudUser);if(a==="useLocal"){cloudBypass=true;cloudActive=false;cloudLoading=false;cloudUser=null;cloudError="";cloudAuthError="";sessionStorage.setItem("orbitrip-local-mode","1");db=parse();route="home";return render()}if(a==="tryCloud"){cloudBypass=false;sessionStorage.removeItem("orbitrip-local-mode");cloudUser=null;cloudLoading=false;return cloudBoot()}if(a==="shareTrip")return shareTrip();if(a==="createInvite")return createCloudInvite();if(a==="inviteAccept")return acceptCloudInvitation();if(a==="cloudMigrate")return migrateLocalTrips();if(a==="cloudReload")return reloadCloudManually();if(a==="cloudRetry")return queueCloudSave();if(a==="cloudPendingBackup")return downloadPendingBackup();if(a==="copyInvite"){const v=document.getElementById("orbi-invite-link")?.textContent||"";if(v&&navigator.clipboard?.writeText)navigator.clipboard.writeText(v).then(()=>alert("Link copiado.")).catch(()=>alert("Selecione e copie o link exibido."));return}if(cloudActive&&route==="trip"&&t&&cloudRoles[t.id]==="viewer"&&/^(editTrip|duplicateTrip|deleteTrip|archive|restore|newEvent|editEvent:|removeEvent:|newExpense|editExpense:|removeExpense:|newScenario|editScenario:|removeScenario:|newItem|editItem:|removeItem|toggleItem|cover:|calcSave|importConfirm|importParse)/.test(a)){alert("Esta viagem permite apenas visualização.");return}if(a==="newTrip")return tripForm();if(a==="homeNav")return navigate("home");if(a.startsWith("cover:"))return openCoverEditor(a.slice(6));if(a==="coverSave")return saveCover();if(a==="coverRemove")return removeCover();if(a==="close")return close();if(a==="back")return navigate("home");if(a.startsWith("open:"))return navigate("trip",a.slice(5));if(a==="editTrip")return tripForm(t);if(a==="newEvent")return eventForm();if(a.startsWith("editEvent:"))return eventForm(t.events.find(x=>x.id===a.slice(10)));if(a.startsWith("removeEvent:"))return del("events",a.slice(12));if(a==="newExpense")return expenseForm();if(a.startsWith("editExpense:"))return expenseForm(t.expenses.find(x=>x.id===a.slice(12)));if(a.startsWith("removeExpense:"))return del("expenses",a.slice(14));if(a==="newScenario")return scenarioForm();if(a.startsWith("editScenario:"))return scenarioForm(t.scenarios.find(x=>x.id===a.slice(13)));if(a.startsWith("chooseScenario:")){scenarioId=a.slice(15);tab="route";return render()}if(a.startsWith("removeScenario:")){const id=a.slice(15);if(t.scenarios.length===1)return;if(!confirm("Excluir o cenário e todos os registros exclusivos dele?"))return;t.scenarios=t.scenarios.filter(x=>x.id!==id);for(const k of ["events","expenses","shopping"])t[k]=t[k].filter(x=>x.scenarioId!==id);scenarioId=t.scenarios[0].id;save();return render()}if(a==="newItem")return itemForm();if(a.startsWith("editItem:"))return itemForm(t.shopping.find(x=>x.id===a.slice(9)));if(a.startsWith("removeItem:"))return del("shopping",a.slice(11));if(a.startsWith("toggleItem:")){const x=t.shopping.find(i=>i.id===a.slice(11));if(x)x.bought=!x.bought;save();return render()}if(a==="archive"||a==="restore"){t.archived=a==="archive";save();return navigate(t.archived?"archived":"home")}if(a==="duplicateTrip"){const clone=JSON.parse(JSON.stringify(t));const map=new Map();clone.id=uid();clone.title+=" (cópia)";clone.archived=false;clone.scenarios.forEach(s=>{const old=s.id;s.id=uid();map.set(old,s.id)});for(const k of ["events","expenses","shopping"])clone[k].forEach(e=>{e.id=uid();if(e.scenarioId)e.scenarioId=map.get(e.scenarioId)||""});db.trips.push(clone);save();return navigate("trip",clone.id)}if(a==="deleteTrip"){if(cloudActive&&cloudRoles[t.id]!=="owner"){alert("Só o proprietário pode excluir esta viagem.");return}if(!confirm("Excluir definitivamente esta viagem e todos os dados relacionados?"))return;db.trips=db.trips.filter(x=>x.id!==t.id);save();return navigate("home")}if(a==="export"){const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),el=document.createElement("a");el.href=url;el.download="viagens-backup-"+new Date().toISOString().slice(0,10)+".json";el.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}}
+function action(a){if(a==="welcomeStart")return welcomeStart();if(a==="welcomeLocal")return welcomeLocal();if(a==="welcomeBack"){welcomeVisible=true;return render()}const t=trip();if(a==="calcSave")return saveCalculation();if(a==="importConfirm")return confirmImport();if(a==="importParse")return parseWorkbook();if(a==="mapFocus")return initializeMap();if(a==="nextStop")return nextStop();if(a==="goAccount")return navigate("account");if(a==="goData")return navigate("data");if(a==="authSend")return sendCloudCode();if(a==="authVerify")return verifyCloudCode();if(a==="authAgain"){cloudEmail="";cloudAuthError="";return render()}if(a==="cloudLogout")return logoutCloud();if(a==="cloudReconnect")return activateCloud(cloudUser);if(a==="useLocal"){cloudBypass=true;cloudActive=false;cloudLoading=false;cloudUser=null;cloudError="";cloudAuthError="";sessionStorage.setItem("orbitrip-local-mode","1");db=parse();route="home";return render()}if(a==="tryCloud"){cloudBypass=false;sessionStorage.removeItem("orbitrip-local-mode");cloudUser=null;cloudLoading=false;return cloudBoot()}if(a==="shareTrip")return shareTrip();if(a==="createInvite")return createCloudInvite();if(a==="inviteAccept")return acceptCloudInvitation();if(a==="cloudMigrate")return migrateLocalTrips();if(a==="cloudReload")return reloadCloudManually();if(a==="cloudRetry")return queueCloudSave();if(a==="cloudPendingBackup")return downloadPendingBackup();if(a==="copyInvite"){const v=document.getElementById("orbi-invite-link")?.textContent||"";if(v&&navigator.clipboard?.writeText)navigator.clipboard.writeText(v).then(()=>alert("Link copiado.")).catch(()=>alert("Selecione e copie o link exibido."));return}if(cloudActive&&route==="trip"&&t&&cloudRoles[t.id]==="viewer"&&/^(editTrip|duplicateTrip|deleteTrip|archive|restore|newEvent|editEvent:|removeEvent:|newExpense|editExpense:|removeExpense:|newScenario|editScenario:|removeScenario:|newItem|editItem:|removeItem|toggleItem|cover:|calcSave|importConfirm|importParse)/.test(a)){alert("Esta viagem permite apenas visualização.");return}if(a==="newTrip")return tripForm();if(a==="homeNav")return navigate("home");if(a.startsWith("cover:"))return openCoverEditor(a.slice(6));if(a==="coverSave")return saveCover();if(a==="coverRemove")return removeCover();if(a==="close")return close();if(a==="back")return navigate("home");if(a.startsWith("open:"))return navigate("trip",a.slice(5));if(a==="editTrip")return tripForm(t);if(a==="newEvent")return eventForm();if(a.startsWith("editEvent:"))return eventForm(t.events.find(x=>x.id===a.slice(10)));if(a.startsWith("removeEvent:"))return del("events",a.slice(12));if(a==="newExpense")return expenseForm();if(a.startsWith("editExpense:"))return expenseForm(t.expenses.find(x=>x.id===a.slice(12)));if(a.startsWith("removeExpense:"))return del("expenses",a.slice(14));if(a==="newScenario")return scenarioForm();if(a.startsWith("editScenario:"))return scenarioForm(t.scenarios.find(x=>x.id===a.slice(13)));if(a.startsWith("chooseScenario:")){scenarioId=a.slice(15);tab="route";return render()}if(a.startsWith("removeScenario:")){const id=a.slice(15);if(t.scenarios.length===1)return;if(!confirm("Excluir o cenário e todos os registros exclusivos dele?"))return;t.scenarios=t.scenarios.filter(x=>x.id!==id);for(const k of ["events","expenses","shopping"])t[k]=t[k].filter(x=>x.scenarioId!==id);scenarioId=t.scenarios[0].id;save();return render()}if(a==="newItem")return itemForm();if(a.startsWith("editItem:"))return itemForm(t.shopping.find(x=>x.id===a.slice(9)));if(a.startsWith("removeItem:"))return del("shopping",a.slice(11));if(a.startsWith("toggleItem:")){const x=t.shopping.find(i=>i.id===a.slice(11));if(x)x.bought=!x.bought;save();return render()}if(a==="archive"||a==="restore"){t.archived=a==="archive";save();return navigate(t.archived?"archived":"home")}if(a==="duplicateTrip"){const clone=JSON.parse(JSON.stringify(t));const map=new Map();clone.id=uid();clone.title+=" (cópia)";clone.archived=false;clone.scenarios.forEach(s=>{const old=s.id;s.id=uid();map.set(old,s.id)});for(const k of ["events","expenses","shopping"])clone[k].forEach(e=>{e.id=uid();if(e.scenarioId)e.scenarioId=map.get(e.scenarioId)||""});db.trips.push(clone);save();return navigate("trip",clone.id)}if(a==="deleteTrip"){if(cloudActive&&cloudRoles[t.id]!=="owner"){alert("Só o proprietário pode excluir esta viagem.");return}if(!confirm("Excluir definitivamente esta viagem e todos os dados relacionados?"))return;db.trips=db.trips.filter(x=>x.id!==t.id);save();return navigate("home")}if(a==="export"){const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),el=document.createElement("a");el.href=url;el.download="viagens-backup-"+new Date().toISOString().slice(0,10)+".json";el.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}}
 document.addEventListener("click",e=>{const mobile=e.target.closest("[data-mobile]");if(mobile){const view=mobile.dataset.mobile;if(view==="home"){navigate("home");return}if(view==="more"){if(route!=="trip"){navigate(cloudActive?"account":"data");return}tab="info";render();return}if(!tripId||!db.trips.some(t=>t.id===tripId)){navigate("home");return}route="trip";tab=view;render();return}const b=e.target.closest("[data-action],[data-route],[data-tab]");if(!b)return;if(b.tagName==="A")e.preventDefault();if(b.dataset.route)return navigate(b.dataset.route);if(b.dataset.tab){tab=b.dataset.tab;return render()}if(b.dataset.action)return action(b.dataset.action)});
 document.addEventListener("change",async e=>{if(e.target.id==="map-day"||e.target.id==="map-category"){if(e.target.id==="map-day")orbitMapDay=e.target.value;else orbitMapCategory=e.target.value;initializeMap()}if(e.target.id==="calc-mode"){orbitCalcMode=e.target.value;render()}if(e.target.id==="scenario-select"){scenarioId=e.target.value;orbitMapDay="";orbitMapCategory="";render()}if(e.target.id==="import-file"){const file=e.target.files?.[0];if(!file)return;try{const d=JSON.parse(await file.text());if(!d||!Array.isArray(d.trips)||d.trips.some(t=>!t.id||!Array.isArray(t.scenarios)||!Array.isArray(t.events)||!Array.isArray(t.expenses)||!Array.isArray(t.shopping)))throw Error("Estrutura inválida.");if(cloudActive){if(!confirm("Adicionar cópias destas viagens à sua conta? Os roteiros na nuvem não serão substituídos."))return;d.trips.forEach(t=>{const clone=JSON.parse(JSON.stringify(t));clone.id=uid();db.trips.push(clone)});save();navigate("home");return}if(!confirm("Substituir todos os dados atuais pelo backup selecionado?"))return;db={version:1,trips:d.trips};save();navigate("home")}catch(err){alert("Não foi possível importar o arquivo: "+err.message)}}});
 document.addEventListener("input",e=>{if(e.target.closest("#calculator-form"))calculateLive()});
@@ -576,7 +706,7 @@ function cloudRibbon(){
  return "";
 }
 function renderAuth(){
- return '<div class="orbi-auth-shell"><div class="card orbi-auth-card"><img class="orbi-auth-logo" src="./assets/apple-touch-icon.png" alt="Ícone Orbitrip"><h1>Acesse a Orbitrip</h1><p class="muted">Entre sem senha para compartilhar roteiros e acompanhar alterações.</p>'
+ return '<div class="orbi-auth-shell"><div class="card orbi-auth-card"><button type="button" class="v35-auth-back" data-action="welcomeBack">← Voltar à capa</button><img class="orbi-auth-logo" src="./assets/apple-touch-icon.png" alt="Ícone Orbitrip"><h1>Acesse a Orbitrip</h1><p class="muted">Entre sem senha para compartilhar roteiros e acompanhar alterações.</p>'
  +(cloudAuthError?'<div class="orbi-cloud-warn" role="alert">'+esc(cloudAuthError)+'</div>':"")
  +(cloudEmail?'<p class="muted">Enviamos um código temporário para <b>'+esc(cloudEmail)+'</b>. Verifique sua caixa de entrada e spam.</p><div class="field"><label for="orbi-auth-code">Código recebido por e-mail</label><input id="orbi-auth-code" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*" placeholder="Digite o código completo"></div><div class="row">'+button("Entrar","authVerify","primary")+button("Alterar e-mail","authAgain")+'</div>'
  :'<div class="field"><label for="orbi-auth-email">Seu e-mail</label><input id="orbi-auth-email" type="email" autocomplete="email" placeholder="voce@exemplo.com"></div>'+button("Receber código por e-mail","authSend","primary"))
@@ -731,7 +861,7 @@ document.addEventListener("keydown",e=>{
  if(e.target.id==="orbi-invite-code"){e.preventDefault();acceptCloudInvitation()}
 });
 
-cloudBoot();
+render();
 if(route==="trip"&&tab==="calculator")setTimeout(calculateLive,0);
 })();
 </script>
