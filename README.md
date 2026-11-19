@@ -3,7 +3,7 @@
 
 Aplicação web de planejamento de viagens, com itinerários, cenários financeiros, mapa interativo, simuladores de custo e importação de planilhas.
 
-## Versão atual — V3.1
+## Versão atual — V3.2
 
 - Identidade visual Orbitrip: dashboard imersivo, capas fotográficas, transições responsivas e menu escuro.
 - Múltiplas viagens com criação, edição, duplicação, arquivamento e reativação.
@@ -15,6 +15,17 @@ Aplicação web de planejamento de viagens, com itinerários, cenários financei
 - **Importador Excel XLSX/XLS:** leitura local no navegador, prévia das abas, cenários a partir dos três roteiros e captura de itens de compras e despesas na estrutura do arquivo do Rio de Janeiro. Importações precisam ser revisadas, especialmente linhas não estruturadas.
 - Backup completo JSON.
 
+
+## V3.2 — Home, capas e visual monocromático
+
+- Home reduzida aos cards das viagens, marca Orbitrip e botão discreto **+**. O título explicativo, os quatro indicadores e o banner promocional foram removidos.
+- Fotos de capa independentes por viagem: carregamento de JPEG/PNG/WebP de até 12 MB, corte 16:9 com zoom e reposicionamento, compressão JPEG e remoção de capa. A edição pode ser aberta no card da viagem e em Informações.
+- Paleta predominantemente branco, cinza e preto. Indicadores de categorias no roteiro e no mapa continuam com suas cores funcionais (verde, vermelho, azul, amarelo e complementares).
+- Photon: removido `lang=pt` da URL que gerava erro HTTP 400 na instância pública. Sugestões aparecem após três caracteres e atraso de 850 ms, seleção preenche endereço e coordenadas. Exibição de erro de rede/limite de consultas; a interface permanece em português.
+- Latitude e longitude não exibem campos técnicos visíveis no formulário; seus valores continuam gravados nos dados da etapa.
+- O conteúdo da capa fica no mesmo armazenamento local usado pelos roteiros e está incluído nos backups JSON. O navegador tem cota de armazenamento; a aplicação informa quando o salvamento falha.
+
+**Testes:** sintaxe JavaScript verificada; integração completa em navegador e disponibilidade do servidor público Photon não foram testadas de ponta a ponta.
 
 ## V3.1 — Interface minimalista
 
