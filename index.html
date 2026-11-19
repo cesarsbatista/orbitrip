@@ -1097,7 +1097,7 @@ function queueCloudSave(){
   cloudError="";
  }).catch(err=>{
   cloudError=/CONFLICT_OR_DENIED/.test(String(err?.message))?
-    "Conflito de edição: este roteiro foi alterado em outro dispositivo. Exporte seu rascunho antes de atualizar.":(err.message||"Não foi possível sincronizar. Confira a conexão.");
+    "Conflito de versões: a nuvem possui uma revisão diferente deste roteiro. Seu rascunho permanece neste dispositivo. Exporte-o ou recupere-o como cópia antes de recarregar.":(err.message||"Não foi possível sincronizar. Confira a conexão.");
  }).finally(()=>{
   cloudWrites=Math.max(0,cloudWrites-1);
   if(!cloudWrites){
