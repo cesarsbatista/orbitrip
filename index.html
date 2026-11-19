@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101d2d">
+<meta name="theme-color" content="#F5F7F7">
 <title>Orbitrip — Planejamento de viagens</title>
 <style>
 :root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#172436;background:#f4f6f9;font-size:14px}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}button:disabled{opacity:.5;cursor:default}a{color:#1678b7}.shell{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.sidebar{background:#122238;color:#e7eff8;padding:28px 17px;display:flex;flex-direction:column;gap:23px}.brand{font-weight:850;letter-spacing:.13em;font-size:22px;margin:0 12px}.brand small{display:block;font-size:10px;font-weight:500;letter-spacing:.1em;color:#8daac7;margin-top:4px}.nav{display:grid;gap:5px}.nav button{text-align:left;background:none;color:#b4c7da;border-radius:11px;padding:12px 14px}.nav button:hover,.nav button.active{background:#253a52;color:white}.sidefoot{margin-top:auto;color:#829eb8;font-size:12px;line-height:1.7;padding:0 12px}.main{padding:32px clamp(18px,4vw,64px);max-width:1600px;width:100%;margin:auto}.top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:27px;flex-wrap:wrap}h1{font-size:28px;margin:0 0 7px;letter-spacing:-.04em}h2{font-size:18px;letter-spacing:-.025em;margin:0}h3{font-size:15px;margin:0 0 12px}p{margin:6px 0}.muted{color:#738196}.eyebrow{font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:800;color:#57718a;margin:0 0 9px}.btn{background:#192d45;color:white;padding:11px 16px;border-radius:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn:hover{background:#2a4968}.btn.ghost{background:white;color:#2c4660;border:1px solid #d9e1e8}.btn.ghost:hover{background:#f1f5f8}.btn.danger{color:#b43636}.btn.small{padding:7px 11px;font-size:12px}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}.card{background:white;border:1px solid #e5eaf0;border-radius:16px;padding:22px;box-shadow:0 4px 14px #243e5a06}.trip{display:flex;flex-direction:column;gap:17px}.trip h2{font-size:21px}.trip .foot{border-top:1px solid #edf0f4;padding-top:15px;display:flex;align-items:center;justify-content:space-between;gap:10px}.chip{display:inline-block;background:#edf4fb;color:#365e86;border-radius:99px;padding:5px 10px;font-size:11px;font-weight:750}.chip.archived{background:#f1f1f1;color:#777}.chip.ongoing{background:#e6f7ec;color:#237b51}.statgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:22px}.stat{padding:19px}.stat strong{font-size:23px;display:block;letter-spacing:-.03em;margin:10px 0 4px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid #e2e7ee;margin-bottom:23px}.tabs button{background:none;padding:13px 15px;color:#6b7e93;font-weight:750;border-bottom:3px solid transparent}.tabs button.active{color:#173451;border-bottom-color:#173451}.list{display:grid;gap:12px}.item{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:17px 20px;border:1px solid #e8ecf2;border-radius:13px;background:white}.item .details{min-width:0}.item strong{display:block;font-size:15px;margin-bottom:4px}.item .meta{color:#7a8998;font-size:12px;line-height:1.7}.item .amount{text-align:right;font-weight:800;white-space:nowrap}.empty{text-align:center;background:white;border:1px dashed #d3dce6;border-radius:16px;padding:52px 15px;color:#788a9a}.empty h3{color:#2a3d52}.day{margin:20px 0 10px;display:flex;align-items:center;gap:15px;font-weight:800;color:#36516d}.day:after{content:"";height:1px;background:#dfe5eb;flex:1}.field{display:grid;gap:6px;margin:0 0 15px}.field label{font-weight:700;color:#3d5065;font-size:12px}input,select,textarea{width:100%;border:1px solid #d8e1eb;border-radius:9px;padding:11px 12px;background:white;color:#1b2c3d}textarea{resize:vertical;min-height:82px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.wide{grid-column:1/-1}.modalbg{position:fixed;inset:0;background:#07162799;display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}.modal{width:min(650px,100%);max-height:90vh;overflow:auto;background:white;border-radius:18px;padding:26px;box-shadow:0 15px 80px #001a3340}.modal header{display:flex;justify-content:space-between;align-items:center;margin-bottom:23px}.modal header button{background:none;font-size:24px;color:#8795a5}.formfooter{display:flex;gap:10px;justify-content:flex-end;margin-top:9px}.bar{background:#e8eff6;border-radius:99px;height:9px;overflow:hidden;margin:12px 0}.bar span{display:block;background:#4e84b5;height:100%;border-radius:99px}.two{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.summarylist{display:grid;gap:12px}.summaryline{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #edf1f5}.note{border-left:3px solid #5c8db5;padding:11px 14px;background:#f0f6fb;color:#57718a;font-size:12px;border-radius:4px}.badge{font-size:11px;color:#7490a9;text-transform:uppercase;letter-spacing:.1em}.selectmini{width:auto;min-width:165px}.actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.linksmall{font-size:12px;text-decoration:none}.number{font-variant-numeric:tabular-nums}.hidden{display:none!important}@media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}.statgrid{grid-template-columns:repeat(2,1fr)}}@media(max-width:750px){.shell{display:block}.sidebar{padding:14px 16px;display:block}.brand{font-size:18px;margin:0 0 12px}.sidefoot{display:none}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:10px}.main{padding:22px 14px}.grid,.two{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.statgrid{gap:9px}.item{align-items:flex-start;flex-direction:column}.item .amount{text-align:left}.modal{padding:18px}h1{font-size:24px}}
@@ -45,98 +45,137 @@ h1,h2,h3,.brand{font-family:Outfit,'DM Sans',sans-serif}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media(max-width:850px){.map-grid,.calcgrid{grid-template-columns:1fr}.map-side{max-height:240px}.orbit-hero{padding:24px;min-height:230px}}
 
-/* ORBITRIP V3 — diário de viagem mobile-first, papel e carimbos */
-:root{--paper:#f4ead7;--paper-light:#fbf6e9;--ink:#263c45;--ocean:#183b4d;--gold:#bb9554;--rule:#cdbda0;--category-attraction:#3376bf;--category-stay:#30845c;--category-move:#c64b49;--category-food:#b58a18;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:#e8dcc6}
-body{background:#e8dcc6;color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:15px}
-body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.29;background:repeating-linear-gradient(35deg,transparent 0px,#745f3e09 1px,transparent 3px,transparent 7px)}
-h1,h2,h3,.brand{font-family:'Outfit',Arial,sans-serif}
-p,.muted{line-height:1.55}.shell{grid-template-columns:210px 1fr}
-.sidebar{background:#183b4d;box-shadow:none;border-right:4px double #bda46f}
-.sidebar .brand{font-size:23px;letter-spacing:.07em}.sidebar .brand small{color:#e4c993}
-.sidebar .nav button{font-family:Georgia,serif;font-size:15px}
-.sidebar .nav button.active{background:#f2e7d325;color:#fff4d3;border-left-color:#caa76a}
-.main{background:var(--paper);max-width:1380px;min-height:100vh;padding:32px clamp(20px,4vw,60px) 70px;position:relative;box-shadow:inset 0 0 60px #927b5322}
-.main:before{content:"";pointer-events:none;position:absolute;inset:0;opacity:.52;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.48' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.11'/%3E%3C/svg%3E")}
-.main>*{position:relative}.top h1{color:#143d51}.eyebrow{color:#986f35;letter-spacing:.18em}
-.card,.item{background:#fcf7eb;border-radius:5px;border:1px solid #cebea1;box-shadow:3px 4px 0 #d4c4a630}
-.card:hover,.trip:hover{box-shadow:4px 6px 0 #c4b18d55}.trip:hover{transform:translateY(-2px)}
-.chip,.chip.ongoing,.chip.archived{border-radius:3px;letter-spacing:.035em;text-transform:uppercase;font-size:10px;background:#ece1cc;color:#60563f;border:1px solid #d6c39f}
-.stat{border-top:3px double #b49a6e}.stat strong{color:#193f4c}.stat .badge{font-family:Georgia,serif;color:#8b754f}
-.btn{border-radius:4px;background:#1f4d56;letter-spacing:.035em;font-family:'DM Sans',Arial,sans-serif;font-size:12px;box-shadow:none}
-.btn:hover{background:#295e65}.btn.ghost{background:#fcf8ef;border:1px solid #baaa8a;color:#25434b}.btn.primary{background:#205b60;box-shadow:none}
-input,select,textarea{background:#fffaf0;border:1px solid #cbbc9d;border-radius:4px;color:#253c44}
-input:focus,select:focus,textarea:focus,button:focus-visible{outline:3px solid #dcb771;outline-offset:2px}
-.tabs{border-bottom:2px solid #bfa985;gap:4px}
-.tabs button{font-family:'DM Sans',Arial,sans-serif;color:#786a54;border-radius:3px 3px 0 0;border:1px solid transparent;font-size:12px;padding:13px 11px}
-.tabs button.active{color:#143b4c;background:#e4d3b5;border:1px solid #cdb58a;border-bottom-color:#e4d3b5}
-.item{border-left:4px solid #bca67e}.item strong{color:#1d3d4b}.day{font-family:Outfit,Arial,sans-serif;letter-spacing:.03em;color:#77542e}
-.day:after{background:#ba9d71}.note{background:#ebe0c9;color:#63563d;border-color:#bb975b}
-.orbit-hero{background:linear-gradient(90deg,#173f4ef2,#173f4ecf 66%,#173f4e82),url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1400&auto=format&fit=crop&q=80') center/cover;border:8px solid #f6eddb;border-radius:5px;outline:1px solid #bfa87b;min-height:232px}
-.orbit-hero:after{border-color:#dbc99a55;box-shadow:0 0 0 55px #fff4d20a,0 0 0 105px #fff4d20b}
-.orbit-hero h1{font-family:Outfit,Arial,sans-serif;font-size:clamp(29px,4vw,48px)}
-.orbit-hero .eyebrow{color:#e8c98c}.orbit-hero .btn{color:#1d4753;background:#f7eedc}
-.trip-photo{border-radius:4px 4px 0 0;filter:saturate(.78) sepia(.11);border-bottom:5px solid #e0ceb0}
-.trip{position:relative}.trip:after{content:"✦";position:absolute;right:18px;top:102px;font-size:20px;color:#d4a968;text-shadow:0 1px 2px #fff}
-.passport-heading{display:flex;align-items:center;gap:12px;margin-bottom:15px;color:#345866;font-family:Outfit,Arial,sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase}
-.passport-heading:after{content:"";flex:1;border-bottom:1px solid #bca47a}
-.passport-stamp{display:inline-grid;place-items:center;border:3px double #a88954;color:#866b40;border-radius:50%;width:98px;height:98px;transform:rotate(-12deg);font-family:Outfit,Arial,sans-serif;font-size:10px;letter-spacing:.12em;text-align:center;line-height:1.5;opacity:.82}
-.passport-cover{background:linear-gradient(145deg,#173e50,#0f293b);color:#f3e9cf;padding:26px;border:4px double #c0a674;min-height:210px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:5px 7px 0 #b5a384}
-.passport-cover h1{color:#fff3d7;font-size:clamp(25px,4vw,38px);font-family:Georgia,serif;font-weight:500}
-.passport-cover .eyebrow{color:#cbb17b}.passport-cover p{color:#e6dbc3}
-.passport-cover .btn{background:#e8d6a9;color:#173c49}
-.passport-cover .passport-stamp{border-color:#d5bc85;color:#d5bc85}
-.passport-intro{display:grid;grid-template-columns:1fr 110px;align-items:center;gap:14px}
-.passport-trip .foot{border-top:1px dashed #bba783}
-.passport-trip{overflow:hidden}.passport-trip .trip-photo{height:128px}
-.stamp-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.stamp-row .passport-stamp{width:58px;height:58px;font-size:8px;transform:rotate(-9deg);border-width:2px}
-.passport-page-title{border-bottom:3px double #b7a17c;padding-bottom:12px;margin-bottom:17px}
-.passport-page-title h1{font-family:Georgia,serif;letter-spacing:-.035em}
-.journal-day{background:#e8ddc6;border:1px solid #ccb793;padding:11px 15px;margin:20px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:Outfit,Arial,sans-serif}
-.journal-day b{letter-spacing:.04em}.journal-day span{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#927549}
-.journal-entry{position:relative;margin-bottom:10px}.journal-entry:before{content:"";position:absolute;top:0;bottom:0;left:0;width:6px;background:var(--cat-color,#9c8a64)}
-.category-stamp{--cat-color:#7a7465;display:inline-flex;align-items:center;gap:5px;border:1px solid currentColor;background:color-mix(in srgb,var(--cat-color) 9%,#fffaf0);color:var(--cat-color);padding:5px 8px;border-radius:2px;font-family:Outfit,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.03em}
-.category-stamp:before{content:"✦";font-size:9px}
-.journal-entry .details{padding-left:8px}.journal-entry .meta{max-width:650px}
-.orbit-marker{background:var(--cat-color,#276d79);border:2px solid #fff5df;border-radius:50%;box-shadow:0 3px 9px #20323b77}
-#orbit-map{border:4px solid #e5d7bc;border-radius:2px}
-.map-side .map-entry{border-radius:3px;background:#fffaed;border-color:#d2c09f}
-.map-side .map-entry:hover{background:#f1e6d0;border-color:#b89c6e}
-.modalbg{background:#172e38b5}.modal{border-radius:5px;background:#f5ecd9;border:5px double #bda47a;box-shadow:0 20px 80px #152a3380}
-.modal header{border-bottom:1px solid #c7b18c;padding-bottom:12px}
-.orbit-bottom{display:none}.geo-results{position:relative;background:#fffaf0;border:1px solid #cab693;margin-top:4px;z-index:10;max-height:240px;overflow:auto}
-.geo-result{display:block;width:100%;text-align:left;background:transparent;padding:11px;border-bottom:1px solid #ebdfca;color:#273e43}
-.geo-result:hover,.geo-result:focus-visible{background:#eee0c4}.geo-result small{display:block;color:#806f54;margin-top:3px;font-size:11px}
-.geo-help{font-size:12px;color:#7a6a50;line-height:1.5}.geo-badge{font-size:10px;font-weight:700;letter-spacing:.06em;color:#617f6c;margin-top:4px}
+
+/* ORBITRIP 3.1 — visual editorial minimalista, mobile-first */
+:root{--bg:#F5F7F7;--surface:#FFFFFF;--ink:#152A33;--muted:#6B8087;--line:#E3E9EA;--accent:#087E7B;--accent-pale:#E7F5F1;--category-attraction:#3673C9;--category-stay:#268659;--category-move:#D34B4D;--category-food:#BD8A18;font-family:'DM Sans',Inter,system-ui,sans-serif!important;color:var(--ink);background:var(--bg)}
+html{scroll-behavior:smooth}body{margin:0;background:var(--bg)!important;color:var(--ink)!important;font-family:'DM Sans',Inter,system-ui,sans-serif!important;font-size:14px;letter-spacing:-.005em}
+body:before,.main:before{display:none!important}
+h1,h2,h3,.brand{font-family:Outfit,Inter,system-ui,sans-serif!important;font-weight:650;letter-spacing:-.035em}
+h1{font-size:clamp(26px,3vw,36px);line-height:1.12}
+h2{font-size:19px;line-height:1.25}
+p{line-height:1.55}
+.muted{color:var(--muted)!important}
+.shell{grid-template-columns:225px 1fr;min-height:100vh}
+.sidebar{background:#fff!important;border-right:1px solid var(--line)!important;box-shadow:none!important;color:var(--ink);padding:29px 14px}
+.sidebar .brand{color:#12323D;letter-spacing:-.045em;font-size:26px;margin-bottom:4px}
+.sidebar .brand small{color:#6C8B91;letter-spacing:.11em;font:600 9px 'DM Sans',sans-serif}
+.sidebar .nav button{color:#5C727A!important;font:600 13px 'DM Sans',sans-serif!important;transition:.18s}
+.sidebar .nav button.active{background:#EAF5F2!important;color:#087E7B!important;border:0!important}
+.sidebar .nav button:hover{background:#F2F6F7}
+.sidefoot{color:#90A0A7}
+.main{background:var(--bg)!important;box-shadow:none!important;padding:34px clamp(20px,4vw,55px) 90px;max-width:1510px}
+.eyebrow,.badge{font:700 10px 'DM Sans',sans-serif!important;letter-spacing:.13em;text-transform:uppercase;color:#72858D!important}
+.top{margin-bottom:23px}
+.top h1{color:var(--ink)!important;font-size:clamp(26px,3vw,36px)}
+.top .muted{font-size:13px}
+a{color:var(--accent)}
+.btn{background:#153E47!important;color:white!important;border-radius:12px!important;box-shadow:none!important;letter-spacing:0!important;font:650 12px 'DM Sans',sans-serif!important;padding:10px 15px;transition:transform .18s,background .18s}
+.btn:hover{background:#0D7573!important;transform:translateY(-1px)}
+.btn.ghost{background:white!important;color:#284650!important;border:1px solid #DBE5E7!important}
+.btn.ghost:hover{background:#F5FAF9!important}
+.btn.primary{background:#087E7B!important;color:#fff!important}
+.card,.item{background:#fff!important;border:1px solid var(--line)!important;border-radius:17px!important;box-shadow:0 3px 15px #153A4010!important;transition:transform .18s,box-shadow .18s}
+.card:hover{box-shadow:0 7px 22px #153A4015!important}.trip:hover{transform:translateY(-3px)}
+.item{box-shadow:none!important}
+.stat{border:1px solid var(--line)!important;padding:20px}
+.stat strong{color:#163A44!important;font-size:25px}
+.stat .badge{color:#71858B!important}
+.chip,.chip.ongoing,.chip.archived{display:inline-flex;align-items:center;border:0!important;border-radius:30px!important;background:#EEF3F4!important;color:#587078!important;font:650 11px 'DM Sans',sans-serif!important;text-transform:none!important;letter-spacing:0!important;padding:6px 11px}
+.chip.ongoing{background:#E5F5EF!important;color:#198267!important}
+.chip.archived{background:#EDEFF1!important;color:#697A82!important}
+.orbit-hero,.passport-cover{position:relative;overflow:hidden;min-height:240px;background:linear-gradient(90deg,#102A3BD9 0%,#103846B0 52%,#0B4D5550 100%),url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1600&auto=format&fit=crop&q=85') center 46%/cover!important;border:none!important;outline:none!important;border-radius:23px!important;padding:34px!important;box-shadow:none!important;color:white!important;display:flex;justify-content:center;flex-direction:column}
+.passport-cover h1,.orbit-hero h1{color:#fff!important;font:650 clamp(33px,4vw,51px)/1.04 Outfit,sans-serif!important;max-width:670px;margin:11px 0}
+.passport-cover p,.orbit-hero p{color:#E5F1F3!important;max-width:490px;font:450 14px/1.6 'DM Sans',sans-serif!important}
+.passport-cover .eyebrow{color:#AFECE0!important;font-size:10px!important}
+.passport-cover .passport-intro{display:block!important}
+.passport-cover .passport-stamp{display:none!important}
+.passport-cover .btn{background:white!important;color:#16565D!important}
+.passport-cover .btn:hover{background:#DDF5EC!important}
+.passport-cover:after{content:"";position:absolute;pointer-events:none;right:-65px;bottom:-155px;width:340px;height:340px;border-radius:50%;border:1px solid #FFFFFF50;box-shadow:0 0 0 55px #ffffff09,0 0 0 105px #ffffff08}
+.trip-photo{margin:-22px -22px 16px!important;height:152px!important;border-radius:17px 17px 0 0!important;filter:none!important;border:0!important}
+.trip:after{display:none!important}
+.passport-trip .foot,.trip .foot{border-top:1px solid #E8EEF0!important}
+.passport-trip{overflow:hidden}
+.passport-trip .row{position:relative;z-index:1}
+.passport-trip h2{font-size:22px}
+.passport-heading{display:flex;align-items:center;gap:12px;color:#6B8990!important;font:750 10px 'DM Sans',sans-serif!important;letter-spacing:.15em!important;margin-bottom:14px}
+.passport-heading:after{border-color:#DFE7E8!important}
+.passport-page-title{border-bottom:1px solid var(--line)!important;padding-bottom:15px}
+.passport-page-title h1{font:650 clamp(27px,3vw,36px) Outfit,sans-serif!important}
+.journal-day{background:transparent!important;border:0!important;border-bottom:1px solid #DCE6E8!important;margin:24px 0 13px;padding:7px 0 12px;font:650 15px Outfit,sans-serif!important;color:var(--ink)}
+.journal-day span{font:600 10px 'DM Sans',sans-serif!important;letter-spacing:.07em;color:#8EA0A5!important}
+.journal-entry{position:relative;border-left:3px solid var(--cat-color,#8B9DA1)!important;padding:18px!important}
+.journal-entry:before{display:none!important}
+.journal-entry .details{padding:0}
+.category-stamp{display:inline-flex;align-items:center;padding:6px 10px;border-radius:40px!important;background:color-mix(in srgb,var(--cat-color,#8B9DA1) 11%,white)!important;color:var(--cat-color,#6B7C81)!important;border:none!important;font:700 11px 'DM Sans',sans-serif!important;letter-spacing:0!important}
+.category-stamp:before{display:none!important}
+.day{font:700 16px Outfit,sans-serif!important}
+.tabs{border-bottom:1px solid var(--line)!important;gap:3px}
+.tabs button{border:0!important;background:transparent!important;border-radius:0!important;font:650 12px 'DM Sans',sans-serif!important;color:#7D8D92!important;padding:13px 14px!important}
+.tabs button.active{color:#087E7B!important;border-bottom:2px solid #087E7B!important}
+.toolbar{margin-bottom:18px}
+input,textarea,select{border-radius:10px!important;background:white!important;border:1px solid #D9E4E6!important;color:#1D3C46!important;font-family:'DM Sans',sans-serif!important}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid #0A9691!important;outline-offset:2px!important}
+.modal{border:none!important;background:white!important;border-radius:22px!important;box-shadow:0 20px 75px #0D35414D!important}
+.modal header{border-bottom:1px solid var(--line)}
+.modalbg{background:#102A3880!important}
+.note{background:#EDF7F6!important;color:#557A7C!important;border-left:3px solid #0F9990!important;border-radius:8px}
+.empty{background:#fff;border:1px dashed #BFD0D4;border-radius:18px}
+.empty h3{color:#2D555D}
+.geo-results,.geo-result{background:white!important;border-color:#DDE8E9!important}
+.geo-result:hover{background:#E9F6F3!important}
+.geo-help{color:#647C84!important}
+.geo-badge{color:#16866D!important}
+#orbit-map{border:0!important;border-radius:14px!important}
+.map-side .map-entry{border-radius:12px!important;background:#F9FBFB!important;border-color:#DDE8EA!important}
+.map-side .map-entry:hover{background:#EAF6F4!important}
+.orbit-marker{border:2px solid white!important;box-shadow:0 3px 10px #1D43475A!important}
+.calc-total{background:linear-gradient(140deg,#123A48,#0B7774)!important;border-radius:17px!important}
+.importbox{background:#F5F9F9!important;border-color:#B5D1D0!important;border-radius:17px!important}
+.bar{background:#E6EEEE}.bar span{background:#0F8D87}
+.orbit-bottom{display:none}
+@keyframes orbitRise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1000px){.shell{grid-template-columns:175px 1fr}.sidebar{padding:23px 10px}.sidebar .brand{font-size:22px}}
 @media(max-width:750px){
- html,body{overflow-x:hidden}.shell{display:block}
+ html,body{overflow-x:hidden}
+ .shell{display:block}
  .sidebar{display:none}
- .main{padding:20px 15px calc(110px + env(safe-area-inset-bottom));box-shadow:inset 0 0 45px #bca88326;min-height:100dvh}
- .top{align-items:center;gap:11px;margin-bottom:20px}
- .top h1{font-size:26px}.top .row{gap:6px}
- .top .row .btn{font-size:11px;padding:8px}
+ .main{padding:20px 15px calc(113px + env(safe-area-inset-bottom))!important;min-height:100dvh}
+ .top{align-items:flex-start;gap:12px;margin-bottom:18px}
+ .top h1{font-size:28px}
+ .top .row{gap:7px;display:flex;max-width:100%}
+ .top .row .btn{font-size:11px!important;padding:8px 11px}
  .grid{grid-template-columns:1fr}
- .statgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
- .stat{padding:13px}.stat strong{font-size:18px}.stat .badge{font-size:10px}
- .card{padding:16px}.trip-photo{margin:-16px -16px 9px}.orbit-hero{padding:23px;min-height:250px}
- .orbit-hero h1{font-size:33px}.orbit-hero p{font-size:13px}
- .tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -15px 19px;padding-left:15px}.tabs button{white-space:nowrap}
- .item{align-items:flex-start;flex-direction:column;padding:15px 13px}.item .row{gap:6px}
- .journal-day{margin:16px 0 10px}
- .passport-page-title h1{font-size:29px}
- .passport-intro{grid-template-columns:1fr 78px}.passport-intro .passport-stamp{width:70px;height:70px;font-size:8px}
- .orbit-bottom{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;bottom:0;left:0;right:0;z-index:18;background:#183b4d;border-top:3px double #d6bc89;padding:8px 7px calc(9px + env(safe-area-inset-bottom));box-shadow:0 -8px 28px #1f2e2b33}
- .orbit-bottom button{background:transparent;color:#e3d4b5;min-height:55px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;font-size:10px;font-family:Outfit,Arial,sans-serif;letter-spacing:.02em;padding:4px}
- .orbit-bottom button .icon{font-size:21px;line-height:1}
- .orbit-bottom button.active{background:#345767;color:#fff4dc}
- .modalbg{align-items:flex-end;padding:0}.modal{border-radius:18px 18px 0 0;width:100%;max-height:94dvh;padding:19px 17px calc(20px + env(safe-area-inset-bottom));border:0;border-top:5px double #c0a579}
- .formgrid{grid-template-columns:1fr}.field{margin-bottom:13px}
- .geo-results{max-height:185px}
+ .statgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .stat{padding:14px!important}.stat strong{font-size:20px!important}.stat .badge{font-size:9px!important}
+ .card{padding:17px}
+ .trip-photo{margin:-17px -17px 15px!important;height:150px!important}
+ .orbit-hero,.passport-cover{padding:25px!important;min-height:265px;border-radius:20px!important}
+ .passport-cover h1{font-size:38px!important;max-width:300px}
+ .passport-cover p{font-size:13px!important}
+ .passport-cover:after{right:-195px;bottom:-120px}
+ .tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -15px 21px;padding-left:15px}
+ .tabs button{white-space:nowrap}
+ .item{align-items:flex-start;flex-direction:column;padding:16px!important}
+ .journal-entry{padding:16px!important}
+ .journal-day{margin:18px 0 11px}
+ .passport-page-title h1{font-size:29px!important}
+ .orbit-bottom{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;left:10px;right:10px;bottom:calc(9px + env(safe-area-inset-bottom));z-index:18;background:#FFFFFFF7!important;backdrop-filter:blur(16px);border:1px solid #DFE7E7!important;box-shadow:0 10px 40px #1B42452B!important;border-radius:22px!important;padding:8px 6px!important}
+ .orbit-bottom button{background:transparent!important;color:#82969C!important;min-height:52px;border-radius:15px!important;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;font:650 10px 'DM Sans',sans-serif!important;letter-spacing:0!important;padding:4px!important}
+ .orbit-bottom button .icon{font-size:20px;line-height:1}
+ .orbit-bottom button.active{background:#E6F5F1!important;color:#087E7B!important}
+ .modalbg{align-items:flex-end;padding:0}
+ .modal{border-radius:22px 22px 0 0!important;width:100%;max-height:94dvh;padding:22px 18px calc(22px + env(safe-area-inset-bottom))!important}
+ .formgrid{grid-template-columns:1fr}
+ .map-grid,.calcgrid{grid-template-columns:1fr}
+ .map-side{max-height:235px}
 }
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script></head>
 <body>
-<div class="shell"><aside class="sidebar"><div class="brand">◎ ORBITRIP<small>SUA VIAGEM, EM OUTRA DIMENSÃO</small></div><nav class="nav"><button data-route="home" class="active">◫ &nbsp; Minhas viagens</button><button data-route="archived">▤ &nbsp; Arquivadas</button><button data-route="data">↥ &nbsp; Dados e backup</button></nav><div class="sidefoot">Planeje cada etapa.<br>Revise seus custos.<br>Guarde suas histórias.<br><br>Versão 1.0 · Dados neste navegador</div></aside><main class="main" id="app"></main></div><nav class="orbit-bottom" aria-label="Navegação principal"><button data-mobile="home"><span class="icon">⌂</span>Início</button><button data-mobile="route"><span class="icon">▤</span>Roteiro</button><button data-mobile="map"><span class="icon">⌾</span>Mapa</button><button data-mobile="budget"><span class="icon">◈</span>Gastos</button><button data-mobile="more"><span class="icon">☷</span>Mais</button></nav><div id="modal-root"></div>
+<div class="shell"><aside class="sidebar"><div class="brand">◎ ORBITRIP<small>PLANEJADOR DE VIAGENS</small></div><nav class="nav"><button data-route="home" class="active">◫ &nbsp; Minhas viagens</button><button data-route="archived">▤ &nbsp; Arquivadas</button><button data-route="data">↥ &nbsp; Dados e backup</button></nav><div class="sidefoot">Planeje cada etapa.<br>Revise seus custos.<br>Guarde suas histórias.<br><br>Versão 1.0 · Dados neste navegador</div></aside><main class="main" id="app"></main></div><nav class="orbit-bottom" aria-label="Navegação principal"><button data-mobile="home"><span class="icon">⌂</span>Início</button><button data-mobile="route"><span class="icon">▤</span>Roteiro</button><button data-mobile="map"><span class="icon">⌾</span>Mapa</button><button data-mobile="budget"><span class="icon">◈</span>Gastos</button><button data-mobile="more"><span class="icon">☷</span>Mais</button></nav><div id="modal-root"></div>
 <script>
 (()=>{
 "use strict";
@@ -161,9 +200,9 @@ function navigate(r,id){route=r;if(id)tripId=id;tab="route";scenarioId=null;orbi
 function sidebar(){document.querySelectorAll("[data-route]").forEach(b=>b.classList.toggle("active",b.dataset.route===route||(route==="trip"&&b.dataset.route==="home")));document.querySelectorAll("[data-mobile]").forEach(b=>{const v=b.dataset.mobile;b.classList.toggle("active",v==="home"?(route==="home"||route==="archived"||route==="data"):(route==="trip"&&(v===tab||(v==="more"&&!["route","map","budget"].includes(tab)))))})}
 const button=(label,action,kind="ghost")=>'<button class="btn '+kind+' small" data-action="'+action+'">'+label+'</button>';
 function render(){sidebar();const a=document.getElementById("app");if(route==="home"||route==="archived")a.innerHTML=home(route==="archived");else if(route==="trip")a.innerHTML=detail();else a.innerHTML=dataPage();if(route==="trip"&&tab==="map")setTimeout(initializeMap,50);if(route==="trip"&&tab==="calculator")setTimeout(calculateLive,0)}
-function home(archived){const items=db.trips.filter(t=>!!t.archived===archived).sort((a,b)=>(a.start||"").localeCompare(b.start||""));const future=db.trips.filter(t=>!t.archived);return '<div class="top"><div><div class="eyebrow">PAINEL DE VIAGENS</div><h1>'+(archived?"Viagens arquivadas":"Minhas viagens")+'</h1><p class="muted">'+(archived?"Histórico das experiências já realizadas.":"Organize múltiplas viagens, roteiros e orçamentos em um só lugar.")+'</p></div>'+button("+ Nova viagem","newTrip","")+'</div>'+(archived?"":'<div class="statgrid"><div class="card stat"><div class="badge">Viagens ativas</div><strong>'+future.length+'</strong><span class="muted">Em planejamento</span></div><div class="card stat"><div class="badge">Arquivadas</div><strong>'+db.trips.filter(t=>t.archived).length+'</strong><span class="muted">No histórico</span></div><div class="card stat"><div class="badge">Atividades</div><strong>'+sum(future.map(t=>totalEvents(t)))+'</strong><span class="muted">Programadas</span></div><div class="card stat"><div class="badge">Cenários</div><strong>'+sum(future.map(t=>t.scenarios.length))+'</strong><span class="muted">Opções de orçamento</span></div></div>')+(archived?"":'<section class="passport-cover"><div class="passport-intro"><div><div class="eyebrow">REPÚBLICA DAS POSSIBILIDADES · DIÁRIO DE VIAGENS</div><h1>Um mundo inteiro para carimbar.</h1><p>Seu passaporte pessoal para roteiros, descobertas e memórias.</p></div><div class="passport-stamp">ORBITRIP<br>EXPLORE<br>✦</div></div><div style="margin-top:20px">'+button("✦ Registrar nova viagem","newTrip","primary")+'</div></section>')+(items.length?'<div class="grid">'+items.map(t=>'<article class="card trip passport-trip"><div class="trip-photo" aria-hidden="true"></div><div class="row" style="justify-content:space-between"><span class="chip '+(archived?"archived":"ongoing")+'">'+(archived?"Arquivada":"Planejamento")+'</span><span class="muted">'+esc(t.transport||"A definir")+'</span></div><div><h2>'+esc(t.title)+'</h2><p class="muted">'+esc(t.destinations||"Destino a definir")+'</p><p class="muted">'+period(t)+'</p></div><div class="row"><span class="chip">'+t.events.length+' etapas</span><span class="chip">'+t.scenarios.length+' cenários</span></div><div class="foot"><div><div class="muted" style="font-size:11px">Previsão inicial</div><strong>'+fmt(cost(t,t.scenarios[0]?.id),t.currency)+'</strong></div>'+button("Abrir viagem","open:"+t.id,"")+'</div></article>').join("")+'</div>':'<div class="empty"><h3>'+(archived?"Nenhuma viagem arquivada":"Seu primeiro roteiro começa aqui")+'</h3><p>'+(archived?"As viagens concluídas aparecerão neste espaço.":"Crie uma viagem para organizar destinos, programação, cenários e despesas.")+'</p><br>'+button("+ Criar viagem","newTrip","")+'</div>')}
-function detail(){const t=trip();if(!t){route="home";return home(false)}if(!scenarioId)scenarioId=t.scenarios[0]?.id;let s=scenario(t);const predicted=cost(t,s?.id),actual=cost(t,s?.id,true);return '<div class="passport-heading">ORBITRIP · CADERNO DE VIAGEM</div><div class="top passport-page-title"><div><div class="eyebrow"><a href="#" data-action="back">Minhas viagens</a> / '+(t.archived?"ARQUIVADA":"PLANEJAMENTO")+'</div><h1>'+esc(t.title)+'</h1><p class="muted">'+esc(t.destinations||"Sem destino definido")+' · '+period(t)+' · '+esc(t.transport||"Transporte a definir")+'</p></div><div class="row">'+button("Editar viagem","editTrip")+button("Duplicar","duplicateTrip")+button(t.archived?"Reativar":"Arquivar",t.archived?"restore":"archive")+'</div></div><div class="statgrid"><div class="card stat"><div class="badge">Orçamento previsto</div><strong class="number">'+fmt(predicted,t.currency)+'</strong><span class="muted">Cenário selecionado</span></div><div class="card stat"><div class="badge">Valor realizado</div><strong class="number">'+fmt(actual,t.currency)+'</strong><span class="muted">Gastos registrados</span></div><div class="card stat"><div class="badge">Diferença</div><strong class="number">'+fmt(predicted-actual,t.currency)+'</strong><span class="muted">Previsto menos realizado</span></div><div class="card stat"><div class="badge">Programação</div><strong>'+t.events.length+'</strong><span class="muted">Atividades e deslocamentos</span></div></div><div class="toolbar"><div class="row"><span class="muted"><b>Cenário:</b></span><select class="selectmini" id="scenario-select">'+t.scenarios.map(x=>'<option value="'+x.id+'" '+(s?.id===x.id?"selected":"")+'>'+esc(x.name)+'</option>').join("")+'</select></div>'+button("+ Cenário","newScenario")+'</div><div class="tabs">'+[["route","Roteiro"],["map","Mapa interativo"],["budget","Despesas"],["calculator","Calculadora"],["compare","Cenários"],["shopping","Compras"],["import","Importar Excel"],["info","Informações"]].map(([id,label])=>'<button class="'+(tab===id?"active":"")+'" data-tab="'+id+'">'+label+'</button>').join("")+'</div>'+({route:renderRoute,map:renderMap,budget:renderBudget,calculator:renderCalculator,compare:renderCompare,shopping:renderShopping,import:renderImporter,info:renderInfo}[tab]||renderRoute)(t,s)}
-function renderRoute(t,s){const events=t.events.filter(e=>!e.scenarioId||e.scenarioId===s.id).slice().sort((a,b)=>(a.day+" "+a.startTime).localeCompare(b.day+" "+b.startTime));let prev="";return '<div class="passport-heading">REGISTROS DE BORDO · CRONOLOGIA</div><div class="toolbar"><div><h2>Programação por dia</h2><p class="muted">Horários, atrações, hospedagens e deslocamentos.</p></div>'+button("+ Adicionar etapa","newEvent","")+'</div>'+(events.length?events.map(e=>{let h="";if(e.day!==prev){prev=e.day;h='<div class="journal-day"><b>✧ '+date(e.day)+'</b><span>Registro de viagem</span></div>'}return h+'<article class="item"><div class="details"><div class="row"><span class="chip">'+esc(e.category||"Atividade")+'</span><span class="muted">'+esc([e.startTime,e.endTime].filter(Boolean).join(" — "))+'</span></div><strong style="margin-top:9px">'+esc(e.title)+'</strong><div class="meta">'+esc(e.address||"")+(e.address&&e.notes?" · ":"")+esc(e.notes||"")+'</div>'+(e.url?'<a class="linksmall" href="'+esc(e.url)+'" target="_blank" rel="noopener noreferrer">Abrir link ↗</a>':"")+'</div><div class="row">'+(e.estimated?'<div class="amount">'+fmt(e.estimated,t.currency)+'</div>':"")+button("Editar","editEvent:"+e.id)+button("Excluir","removeEvent:"+e.id,"ghost danger")+'</div></article>'}).join(""):'<div class="empty"><h3>Nenhuma etapa neste cenário</h3><p>Adicione atividades, visitas, transportes ou hospedagens.</p></div>')+'<p class="note" style="margin-top:20px">Etapas marcadas como “Todos os cenários” aparecem em qualquer alternativa da viagem. Valores informados nas etapas são indicativos; o orçamento consolidado é calculado na aba Despesas.</p>'}
+function home(archived){const items=db.trips.filter(t=>!!t.archived===archived).sort((a,b)=>(a.start||"").localeCompare(b.start||""));const future=db.trips.filter(t=>!t.archived);return '<div class="top"><div><div class="eyebrow">PAINEL DE VIAGENS</div><h1>'+(archived?"Viagens arquivadas":"Minhas viagens")+'</h1><p class="muted">'+(archived?"Histórico das experiências já realizadas.":"Organize múltiplas viagens, roteiros e orçamentos em um só lugar.")+'</p></div>'+button("+ Nova viagem","newTrip","")+'</div>'+(archived?"":'<div class="statgrid"><div class="card stat"><div class="badge">Viagens ativas</div><strong>'+future.length+'</strong><span class="muted">Em planejamento</span></div><div class="card stat"><div class="badge">Arquivadas</div><strong>'+db.trips.filter(t=>t.archived).length+'</strong><span class="muted">No histórico</span></div><div class="card stat"><div class="badge">Atividades</div><strong>'+sum(future.map(t=>totalEvents(t)))+'</strong><span class="muted">Programadas</span></div><div class="card stat"><div class="badge">Cenários</div><strong>'+sum(future.map(t=>t.scenarios.length))+'</strong><span class="muted">Opções de orçamento</span></div></div>')+(archived?"":'<section class="passport-cover"><div class="passport-intro"><div><div class="eyebrow">PLANEJE SEU PRÓXIMO DESTINO</div><h1>O mundo começa no próximo roteiro.</h1><p>Todas as suas viagens em um só lugar. Organize trajetos, descubra lugares e acompanhe cada detalhe.</p></div></div><div style="margin-top:20px">'+button("Criar uma viagem","newTrip","primary")+'</div></section>')+(items.length?'<div class="grid">'+items.map(t=>'<article class="card trip passport-trip"><div class="trip-photo" aria-hidden="true"></div><div class="row" style="justify-content:space-between"><span class="chip '+(archived?"archived":"ongoing")+'">'+(archived?"Arquivada":"Planejamento")+'</span><span class="muted">'+esc(t.transport||"A definir")+'</span></div><div><h2>'+esc(t.title)+'</h2><p class="muted">'+esc(t.destinations||"Destino a definir")+'</p><p class="muted">'+period(t)+'</p></div><div class="row"><span class="chip">'+t.events.length+' etapas</span><span class="chip">'+t.scenarios.length+' cenários</span></div><div class="foot"><div><div class="muted" style="font-size:11px">Previsão inicial</div><strong>'+fmt(cost(t,t.scenarios[0]?.id),t.currency)+'</strong></div>'+button("Abrir viagem","open:"+t.id,"")+'</div></article>').join("")+'</div>':'<div class="empty"><h3>'+(archived?"Nenhuma viagem arquivada":"Seu primeiro roteiro começa aqui")+'</h3><p>'+(archived?"As viagens concluídas aparecerão neste espaço.":"Crie uma viagem para organizar destinos, programação, cenários e despesas.")+'</p><br>'+button("+ Criar viagem","newTrip","")+'</div>')}
+function detail(){const t=trip();if(!t){route="home";return home(false)}if(!scenarioId)scenarioId=t.scenarios[0]?.id;let s=scenario(t);const predicted=cost(t,s?.id),actual=cost(t,s?.id,true);return '<div class="passport-heading">ORBITRIP / SUA VIAGEM</div><div class="top passport-page-title"><div><div class="eyebrow"><a href="#" data-action="back">Minhas viagens</a> / '+(t.archived?"ARQUIVADA":"PLANEJAMENTO")+'</div><h1>'+esc(t.title)+'</h1><p class="muted">'+esc(t.destinations||"Sem destino definido")+' · '+period(t)+' · '+esc(t.transport||"Transporte a definir")+'</p></div><div class="row">'+button("Editar viagem","editTrip")+button("Duplicar","duplicateTrip")+button(t.archived?"Reativar":"Arquivar",t.archived?"restore":"archive")+'</div></div><div class="statgrid"><div class="card stat"><div class="badge">Orçamento previsto</div><strong class="number">'+fmt(predicted,t.currency)+'</strong><span class="muted">Cenário selecionado</span></div><div class="card stat"><div class="badge">Valor realizado</div><strong class="number">'+fmt(actual,t.currency)+'</strong><span class="muted">Gastos registrados</span></div><div class="card stat"><div class="badge">Diferença</div><strong class="number">'+fmt(predicted-actual,t.currency)+'</strong><span class="muted">Previsto menos realizado</span></div><div class="card stat"><div class="badge">Programação</div><strong>'+t.events.length+'</strong><span class="muted">Atividades e deslocamentos</span></div></div><div class="toolbar"><div class="row"><span class="muted"><b>Cenário:</b></span><select class="selectmini" id="scenario-select">'+t.scenarios.map(x=>'<option value="'+x.id+'" '+(s?.id===x.id?"selected":"")+'>'+esc(x.name)+'</option>').join("")+'</select></div>'+button("+ Cenário","newScenario")+'</div><div class="tabs">'+[["route","Roteiro"],["map","Mapa interativo"],["budget","Despesas"],["calculator","Calculadora"],["compare","Cenários"],["shopping","Compras"],["import","Importar Excel"],["info","Informações"]].map(([id,label])=>'<button class="'+(tab===id?"active":"")+'" data-tab="'+id+'">'+label+'</button>').join("")+'</div>'+({route:renderRoute,map:renderMap,budget:renderBudget,calculator:renderCalculator,compare:renderCompare,shopping:renderShopping,import:renderImporter,info:renderInfo}[tab]||renderRoute)(t,s)}
+function renderRoute(t,s){const events=t.events.filter(e=>!e.scenarioId||e.scenarioId===s.id).slice().sort((a,b)=>(a.day+" "+a.startTime).localeCompare(b.day+" "+b.startTime));let prev="";return '<div class="passport-heading">ROTEIRO / PROGRAMAÇÃO</div><div class="toolbar"><div><h2>Programação por dia</h2><p class="muted">Horários, atrações, hospedagens e deslocamentos.</p></div>'+button("+ Adicionar etapa","newEvent","")+'</div>'+(events.length?events.map(e=>{let h="";if(e.day!==prev){prev=e.day;h='<div class="journal-day"><b>'+date(e.day)+'</b><span>Agenda do dia</span></div>'}return h+'<article class="item journal-entry" style="--cat-color:'+categoryColor(e.category)+'"><div class="details"><div class="row"><span class="category-stamp">'+esc(e.category||"Atividade")+'</span><span class="muted">'+esc([e.startTime,e.endTime].filter(Boolean).join(" — "))+'</span></div><strong style="margin-top:9px">'+esc(e.title)+'</strong><div class="meta">'+esc(e.address||"")+(e.address&&e.notes?" · ":"")+esc(e.notes||"")+'</div>'+(e.url?'<a class="linksmall" href="'+esc(e.url)+'" target="_blank" rel="noopener noreferrer">Abrir link ↗</a>':"")+'</div><div class="row">'+(e.estimated?'<div class="amount">'+fmt(e.estimated,t.currency)+'</div>':"")+button("Editar","editEvent:"+e.id)+button("Excluir","removeEvent:"+e.id,"ghost danger")+'</div></article>'}).join(""):'<div class="empty"><h3>Nenhuma etapa neste cenário</h3><p>Adicione atividades, visitas, transportes ou hospedagens.</p></div>')+'<p class="note" style="margin-top:20px">Etapas marcadas como “Todos os cenários” aparecem em qualquer alternativa da viagem. Valores informados nas etapas são indicativos; o orçamento consolidado é calculado na aba Despesas.</p>'}
 function renderBudget(t,s){const expenses=t.expenses.filter(e=>!e.scenarioId||e.scenarioId===s.id);const cats=[...new Set(expenses.map(e=>e.category))];return '<div class="toolbar"><div><h2>Orçamento e despesas</h2><p class="muted">Compare os valores planejados e os efetivamente gastos.</p></div>'+button("+ Adicionar despesa","newExpense","")+'</div><div class="two"><div class="list">'+(expenses.length?expenses.map(e=>'<article class="item"><div class="details"><span class="chip">'+esc(e.category)+'</span><strong style="margin-top:9px">'+esc(e.title)+'</strong><div class="meta">'+(e.day?date(e.day)+" · ":"")+(e.scenarioId?"Exclusivo deste cenário":"Todos os cenários")+'</div></div><div><div class="amount">'+fmt(e.planned,t.currency)+'</div><div class="meta">Real: '+fmt(e.actual,t.currency)+'</div><div class="actions">'+button("Editar","editExpense:"+e.id)+button("Excluir","removeExpense:"+e.id,"ghost danger")+'</div></div></article>').join(""):'<div class="empty"><h3>Sem despesas</h3><p>Cadastre hospedagem, alimentação, combustível, passagens e atrações.</p></div>')+'</div><div class="card"><h3>Distribuição do orçamento</h3>'+(cats.length?cats.map(c=>{const v=sum(expenses.filter(e=>e.category===c).map(e=>e.planned));return '<div class="summaryline"><span>'+esc(c)+'</span><strong>'+fmt(v,t.currency)+'</strong></div><div class="bar"><span style="width:'+Math.min(100,predictedPercent(v,cost(t,s.id)))+'%"></span></div>'}).join(""):'<p class="muted">Categorias aparecerão após o primeiro lançamento.</p>')+'</div></div>'}
 function predictedPercent(x,total){return total?x/total*100:0}
 function renderCompare(t,s){return '<div class="toolbar"><div><h2>Comparativo de cenários</h2><p class="muted">Alternativas de custo para a mesma viagem.</p></div>'+button("+ Criar cenário","newScenario","")+'</div><div class="grid">'+t.scenarios.map(x=>'<article class="card"><div class="row" style="justify-content:space-between"><span class="chip">'+(x.id===s?.id?"Selecionado":"Alternativa")+'</span></div><h2 style="margin-top:16px">'+esc(x.name)+'</h2><p class="muted">'+esc(x.notes||"Sem observações")+'</p><strong style="font-size:25px;display:block;margin:24px 0 3px">'+fmt(cost(t,x.id),t.currency)+'</strong><p class="muted">Orçamento estimado</p><div class="row" style="margin-top:18px">'+button("Selecionar","chooseScenario:"+x.id)+button("Editar","editScenario:"+x.id)+(t.scenarios.length>1?button("Excluir","removeScenario:"+x.id,"ghost danger"):"")+'</div></article>').join("")+'</div><p class="note" style="margin-top:20px">Uma despesa pode valer para todos os cenários ou apenas para um cenário. Despesas compartilhadas entram no cálculo de todos eles.</p>'}
