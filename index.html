@@ -567,7 +567,170 @@ document.addEventListener("keydown",e=>{
  box.querySelectorAll("[data-geo-index]").forEach(el=>{const selected=Number(el.dataset.geoIndex)===geoSelectedIndex;el.setAttribute("aria-selected",String(selected));if(selected)el.scrollIntoView({block:"nearest"})});
 });
 
-render();
+
+/* Orbitrip V3.4 — autenticação e armazenamento colaborativo (opcionais) */
+function cloudRibbon(){
+ if(cloudError)return '<div class="orbi-cloud-warn" role="alert"><b>Sincronização pendente.</b> '+esc(cloudError)+'<div class="row" style="margin-top:9px">'+button("Tentar novamente","cloudRetry")+button("Exportar rascunho","cloudPendingBackup")+button("Recarregar nuvem","cloudReload")+'</div></div>';
+ if(cloudRemoteHint)return '<div class="orbi-cloud-good">Existem alterações de outra sessão. Termine a edição atual para atualizar. '+button("Atualizar","cloudReload")+'</div>';
+ if(cloudWrites)return '<div class="orbi-cloud-good">Sincronizando alterações…</div>';
+ return "";
+}
+function renderAuth(){
+ return '<div class="orbi-auth-shell"><div class="card orbi-auth-card"><div class="orbi-auth-mark">O</div><h1>Acesse a Orbitrip</h1><p class="muted">Entre sem senha para compartilhar roteiros e acompanhar alterações.</p>'
+ +(cloudAuthError?'<div class="orbi-cloud-warn" role="alert">'+esc(cloudAuthError)+'</div>':"")
+ +(cloudEmail?'<p class="muted">Enviamos um código temporário para <b>'+esc(cloudEmail)+'</b>. Verifique sua caixa de entrada e spam.</p><div class="field"><label for="orbi-auth-code">Código de seis dígitos</label><input id="orbi-auth-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000"></div><div class="row">'+button("Entrar","authVerify","primary")+button("Alterar e-mail","authAgain")+'</div>'
+ :'<div class="field"><label for="orbi-auth-email">Seu e-mail</label><input id="orbi-auth-email" type="email" autocomplete="email" placeholder="voce@exemplo.com"></div>'+button("Receber código por e-mail","authSend","primary"))
+ +'<p class="orbi-cloud-state">Autenticação pelo Supabase. Cada participante usa seu próprio e-mail.</p></div></div>';
+}
+function renderAccount(){
+ if(!cloudActive)return '<div class="top"><div><h1>Conta e compartilhamento</h1><p class="muted">O aplicativo está no modo local.</p></div></div><div class="card"><h2>Ativar a nuvem</h2><p>Para entrar com código por e-mail e compartilhar viagens, configure o Supabase conforme <b>docs/V3.4-SUPABASE.md</b> no repositório. Não publique chaves secretas.</p>'+button("Dados e backup","goData")+'</div>';
+ const n=parse().trips.length,already=localStorage.getItem("orbitrip-migrated-"+cloudUser.id);
+ return '<div class="top"><div><div class="eyebrow">ORBITRIP / SUA CONTA</div><h1>Conta e compartilhamento</h1><p class="muted">'+esc(cloudUser.email||"Conta conectada")+'</p></div>'+button("Sair da conta","cloudLogout")+'</div>'
+ +(cloudInfo?'<div class="orbi-cloud-good">'+esc(cloudInfo)+'</div>':"")
+ +'<div class="two"><div class="card"><h3>Participar de uma viagem</h3><p class="muted">Recebeu um código? Digite-o aqui. Convites por link também funcionam após o login.</p><div class="field"><label for="orbi-invite-code">Código de convite</label><input id="orbi-invite-code" autocomplete="off" placeholder="Código compartilhado"></div>'+button("Participar da viagem","inviteAccept","primary")+'</div>'
+ +'<div class="card"><h3>Viagens deste navegador</h3><p class="muted">'+n+' viagem(ns) armazenada(s) no navegador antes de ativar a nuvem.</p>'+(n&&!already?button("Copiar minhas viagens para a nuvem","cloudMigrate"):'<p class="muted">Nenhuma migração pendente nesta conta.</p>')+'<p class="orbi-cloud-state">A migração cria cópias; as viagens locais não são apagadas.</p></div></div><div class="card" style="margin-top:16px"><h3>Segurança e portabilidade</h3><p>Somente participantes autorizados podem visualizar cada viagem. Faça backups JSON regularmente.</p>'+button("Dados e backup","goData")+'</div>';
+}
+function cloudPendingKey(){return "orbitrip-unsynced-"+(cloudUser?.id||"unknown")}
+function queueCloudSave(){
+ if(!cloudActive||!cloudUser)return Promise.resolve();
+ cloudWrites++;
+ try{localStorage.setItem(cloudPendingKey(),JSON.stringify(db))}catch{}
+ cloudJobs=cloudJobs.then(async()=>{
+  const currentIds=new Set();
+  for(const t of db.trips.slice()){
+   currentIds.add(t.id);
+   const current=JSON.stringify(t);if(cloudSaved.get(t.id)===current)continue;
+   if(cloudRoles[t.id]==="viewer")throw Error("Esta viagem está no modo visualização.");
+   const rev=cloudRevisions.get(t.id);
+   const next=await cloudApi.write(JSON.parse(current),rev,cloudUser.id);
+   cloudRevisions.set(t.id,next);cloudSaved.set(t.id,current);
+   if(!cloudRoles[t.id])cloudRoles[t.id]="owner";
+  }
+  for(const id of [...cloudRevisions.keys()]){
+   if(currentIds.has(id))continue;
+   if(cloudRoles[id]!=="owner")throw Error("Somente o proprietário pode excluir viagens.");
+   await cloudApi.remove(id);cloudRevisions.delete(id);cloudSaved.delete(id);delete cloudRoles[id];
+  }
+  cloudError="";
+ }).catch(err=>{
+  cloudError=/CONFLICT_OR_DENIED/.test(String(err?.message))?
+    "Conflito de edição: este roteiro foi alterado em outro dispositivo. Exporte seu rascunho antes de atualizar.":(err.message||"Não foi possível sincronizar. Confira a conexão.");
+ }).finally(()=>{
+  cloudWrites=Math.max(0,cloudWrites-1);
+  if(!cloudWrites){
+   if(!cloudError){try{localStorage.removeItem(cloudPendingKey())}catch{}}
+   if(cloudRemoteHint&&!cloudError)queueCloudRefresh();
+   else if(cloudError)render();
+   else if(!document.getElementById("modal-root")?.firstElementChild&&route==="trip")render();
+  }
+ });
+ return cloudJobs;
+}
+async function cloudLoad(){
+ const result=await cloudApi.list();cloudRoles=result.roles;
+ db={version:1,trips:result.trips.map(r=>({...r.payload,id:r.id}))};
+ cloudRevisions=new Map(result.trips.map(r=>[r.id,Number(r.revision)]));
+ cloudSaved=new Map(db.trips.map(t=>[t.id,JSON.stringify(t)]));
+ cloudActive=true;cloudRemoteHint=false;
+ if(route==="trip"&&!db.trips.some(t=>t.id===tripId)){route="home";tripId=null}
+ if(localStorage.getItem(cloudPendingKey()))cloudError="Foi encontrado um rascunho local ainda não sincronizado. Exporte-o antes de continuar.";
+}
+function getInviteCode(){return new URLSearchParams(location.hash.replace(/^#/,"")).get("convite")||""}
+function clearInviteCode(){if(getInviteCode())history.replaceState(null,"",location.pathname+location.search)}
+async function acceptLinkInvite(){
+ const code=getInviteCode();if(!code)return;
+ try{await cloudApi.accept(code);cloudInfo="Convite aceito. A viagem foi adicionada à sua conta."}
+ catch(e){cloudInfo="Não foi possível aceitar o convite: "+e.message}
+ clearInviteCode();
+}
+function queueCloudRefresh(){
+ clearTimeout(cloudRemoteTimer);
+ cloudRemoteTimer=setTimeout(async()=>{
+  if(!cloudActive)return;
+  if(cloudWrites||cloudError||document.querySelector("#modal-root")?.firstElementChild){cloudRemoteHint=true;return}
+  try{await cloudLoad();render()}catch(e){cloudError=e.message;render()}
+ },1100);
+}
+async function activateCloud(user){
+ cloudUser=user;cloudLoading=true;render();
+ try{
+  await acceptLinkInvite();
+  await cloudLoad();
+  cloudApi.listen(()=>{cloudRemoteHint=true;queueCloudRefresh()});
+ }catch(err){cloudError=err.message||"Erro ao carregar viagens";cloudActive=false;cloudAuthError=cloudError}
+ finally{cloudLoading=false;render()}
+}
+async function cloudBoot(){
+ if(!cloudEnabled){render();return}
+ cloudLoading=true;render();
+ try{const user=await cloudApi.init();if(user){await activateCloud(user);return}}
+ catch(err){cloudAuthError=err.message||"Falha ao iniciar a sessão";cloudUser=null}
+ cloudLoading=false;render();
+}
+async function sendCloudCode(){
+ const email=(document.getElementById("orbi-auth-email")?.value||"").trim().toLowerCase();
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){cloudAuthError="Informe um endereço de e-mail válido.";return render()}
+ try{cloudAuthError="";await cloudApi.requestCode(email);cloudEmail=email;render()}
+ catch(err){cloudAuthError=err.message||"Falha ao enviar o código.";render()}
+}
+async function verifyCloudCode(){
+ const token=(document.getElementById("orbi-auth-code")?.value||"").trim();
+ if(!/^\d{6}$/.test(token)){cloudAuthError="Digite os seis dígitos recebidos por e-mail.";return render()}
+ try{cloudAuthError="";const user=await cloudApi.verify(cloudEmail,token);if(!user)throw Error("Sessão não encontrada.");await activateCloud(user)}
+ catch(err){cloudAuthError=err.message||"Código inválido ou expirado.";render()}
+}
+async function logoutCloud(){
+ if(cloudWrites)return alert("Conclua a sincronização antes de sair.");
+ if(cloudError&&!confirm("Existem dados não sincronizados. Faça backup antes de sair. Continuar?"))return;
+ try{await cloudApi.signOut()}catch(err){alert(err.message);return}
+ cloudApi.stop();cloudActive=false;cloudUser=null;cloudRoles={};cloudEmail="";cloudAuthError="";cloudInfo="";cloudError="";db=parse();route="home";render();
+}
+function shareTrip(){
+ const t=trip();if(!cloudActive||!t||cloudRoles[t.id]!=="owner")return alert("Somente o proprietário pode compartilhar.");
+ document.getElementById("modal-root").innerHTML='<div class="modalbg"><section class="modal" role="dialog" aria-modal="true" aria-label="Compartilhar viagem"><header><h2>Compartilhar viagem</h2><button data-action="close" aria-label="Fechar">×</button></header><p class="muted">Gere um convite de uso único válido por sete dias. A outra pessoa deverá entrar com o e-mail dela.</p><div class="field"><label for="orbi-invite-role">Permissão</label><select id="orbi-invite-role"><option value="editor">Editor — pode modificar o roteiro</option><option value="viewer">Visualizador — somente consulta</option></select></div><div id="orbi-created-invite"></div><div class="formfooter">'+button("Gerar convite","createInvite","primary")+button("Fechar","close")+'</div></section></div>';
+}
+async function createCloudInvite(){
+ try{
+  const role=document.getElementById("orbi-invite-role")?.value||"editor";
+  const inv=await cloudApi.invite(tripId,role,cloudUser.id);
+  const link=location.origin+location.pathname+"#convite="+encodeURIComponent(inv.code);
+  const box=document.getElementById("orbi-created-invite");
+  if(box)box.innerHTML='<div class="orbi-cloud-good"><b>Código:</b> '+esc(inv.code)+'<p class="muted">Link de convite:</p><div class="orbi-share-box" id="orbi-invite-link">'+esc(link)+'</div><p class="muted">Expira em '+new Date(inv.expires_at).toLocaleDateString("pt-BR")+'. Compartilhe somente com quem você conhece.</p>'+button("Copiar link","copyInvite")+'</div>';
+ }catch(e){alert("Falha ao criar convite: "+e.message)}
+}
+async function acceptCloudInvitation(){
+ const code=(document.getElementById("orbi-invite-code")?.value||"").trim();
+ if(!code)return alert("Informe o código recebido.");
+ try{await cloudApi.accept(code);cloudInfo="Convite aceito. A viagem foi adicionada à conta.";await cloudLoad();route="home";render()}
+ catch(e){alert("Convite não aceito: "+e.message)}
+}
+async function migrateLocalTrips(){
+ if(!cloudActive)return;
+ const local=parse().trips;if(!local.length)return alert("Nenhuma viagem local encontrada.");
+ if(!confirm("Copiar "+local.length+" viagem(ns) para a nuvem? As versões locais serão preservadas."))return;
+ for(const t of local){const clone=JSON.parse(JSON.stringify(t));clone.id=uid();db.trips.push(clone)}
+ await queueCloudSave();
+ if(!cloudError){localStorage.setItem("orbitrip-migrated-"+cloudUser.id,"1");cloudInfo="Viagens copiadas para a nuvem.";route="home";render()}
+}
+function downloadPendingBackup(){
+ const json=localStorage.getItem(cloudPendingKey())||JSON.stringify(db);
+ const blob=new Blob([json],{type:"application/json"}),a=document.createElement("a"),url=URL.createObjectURL(blob);
+ a.href=url;a.download="orbitrip-rascunho-nao-sincronizado.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
+}
+async function reloadCloudManually(){
+ if(cloudWrites)return alert("Sincronização em andamento.");
+ if(cloudError&&!confirm("Recarregar a nuvem descarta as alterações locais não sincronizadas. Exporte o rascunho antes. Continuar?"))return;
+ try{cloudError="";localStorage.removeItem(cloudPendingKey());await cloudLoad();cloudRemoteHint=false;render()}
+ catch(e){cloudError=e.message;render()}
+}
+document.addEventListener("keydown",e=>{
+ if(e.key!=="Enter")return;
+ if(e.target.id==="orbi-auth-email"){e.preventDefault();sendCloudCode()}
+ if(e.target.id==="orbi-auth-code"){e.preventDefault();verifyCloudCode()}
+ if(e.target.id==="orbi-invite-code"){e.preventDefault();acceptCloudInvitation()}
+});
+
+cloudBoot();
 if(route==="trip"&&tab==="calculator")setTimeout(calculateLive,0);
 })();
 </script>
