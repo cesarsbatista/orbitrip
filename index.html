@@ -432,6 +432,53 @@ document.addEventListener("click",e=>{
  const badge=document.getElementById("geo-badge");if(badge)badge.textContent="✓ Local vinculado ao mapa · "+data.latitude.toFixed(5)+", "+data.longitude.toFixed(5);
 });
 
+
+let coverTripId=null,coverImage=null;
+function openCoverEditor(id){
+ const t=db.trips.find(x=>x.id===id);if(!t)return;
+ coverTripId=id;coverImage=null;
+ document.getElementById("modal-root").innerHTML='<div class="modalbg"><section class="modal" role="dialog" aria-modal="true" aria-label="Editar imagem de capa"><header><h2>Imagem de capa</h2><button data-action="close" aria-label="Fechar">×</button></header><div class="field"><label for="cover-file">Escolher fotografia</label><input type="file" id="cover-file" accept="image/jpeg,image/png,image/webp"></div><canvas id="cover-canvas" width="1000" height="563" class="v32-cover-preview" aria-label="Prévia do enquadramento"></canvas><div class="v32-controls"><label for="cover-zoom">Ampliar</label><input type="range" min="100" max="250" value="100" id="cover-zoom"><label for="cover-x">Posição horizontal</label><input type="range" min="-100" max="100" value="0" id="cover-x"><label for="cover-y">Posição vertical</label><input type="range" min="-100" max="100" value="0" id="cover-y"></div><p class="v32-cover-note">Enquadramento 16:9. A fotografia será comprimida e salva neste navegador, inclusive no backup JSON.</p><div class="formfooter">'+button("Remover capa","coverRemove","ghost danger")+button("Cancelar","close")+button("Salvar imagem","coverSave","")+'</div></section></div>';
+ if(t.cover){const image=new Image();image.onload=()=>{if(coverTripId===id){coverImage=image;drawCover()}};image.src=t.cover}else drawCover();
+}
+function drawCover(){
+ const canvas=document.getElementById("cover-canvas");if(!canvas)return;
+ const ctx=canvas.getContext("2d");if(!ctx)return;
+ const w=canvas.width,h=canvas.height;ctx.fillStyle="#eeeeee";ctx.fillRect(0,0,w,h);
+ if(!coverImage){ctx.fillStyle="#777";ctx.font="22px sans-serif";ctx.textAlign="center";ctx.fillText("Escolha uma fotografia",w/2,h/2);return}
+ const zoom=Number(document.getElementById("cover-zoom")?.value||100)/100;
+ const scale=Math.max(w/coverImage.naturalWidth,h/coverImage.naturalHeight)*zoom;
+ const iw=coverImage.naturalWidth*scale,ih=coverImage.naturalHeight*scale;
+ const ox=(Number(document.getElementById("cover-x")?.value||0)+100)/200,oy=(Number(document.getElementById("cover-y")?.value||0)+100)/200;
+ ctx.drawImage(coverImage,-Math.max(0,iw-w)*ox,-Math.max(0,ih-h)*oy,iw,ih);
+}
+function saveCover(){
+ const t=db.trips.find(x=>x.id===coverTripId);if(!t||!coverImage){alert("Selecione uma imagem.");return}
+ drawCover();
+ const prev=t.cover;t.cover=document.getElementById("cover-canvas").toDataURL("image/jpeg",0.78);
+ try{save()}catch(e){t.cover=prev;alert("Armazenamento insuficiente. Salve um backup e experimente uma foto menor.");return}
+ coverTripId=null;coverImage=null;close();render();
+}
+function removeCover(){
+ const t=db.trips.find(x=>x.id===coverTripId);if(!t)return;
+ if(!confirm("Restaurar imagem padrão desta viagem?"))return;
+ const prev=t.cover;delete t.cover;
+ try{save()}catch(e){t.cover=prev;alert("Falha ao salvar.");return}
+ coverTripId=null;coverImage=null;close();render();
+}
+document.addEventListener("change",e=>{
+ if(e.target.id!=="cover-file")return;
+ const file=e.target.files?.[0];if(!file)return;
+ if(!/^image\/(?:jpeg|png|webp)$/.test(file.type)||file.size>12*1024*1024){alert("Selecione JPG, PNG ou WebP de até 12 MB.");return}
+ const reader=new FileReader();
+ reader.onload=()=>{
+  const im=new Image();
+  im.onload=()=>{coverImage=im;["cover-x","cover-y"].forEach(id=>document.getElementById(id).value="0");document.getElementById("cover-zoom").value="100";drawCover()};
+  im.onerror=()=>alert("Não foi possível abrir a fotografia.");im.src=String(reader.result);
+ };
+ reader.readAsDataURL(file);
+});
+document.addEventListener("input",e=>{if(["cover-zoom","cover-x","cover-y"].includes(e.target.id))drawCover()});
+
 render();
 if(route==="trip"&&tab==="calculator")setTimeout(calculateLive,0);
 })();
