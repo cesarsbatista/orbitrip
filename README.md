@@ -1,7 +1,22 @@
+## V3.5.1 — Otimização para iPhone 16 Pro Max (19/11/2026)
+
+**Dispositivo de referência:** iPhone 16 Pro Max, viewport de 440 × 956 pixels CSS em retrato. O design utiliza áreas seguras dinâmicas do iOS, não valores fixos.
+
+- **Capa mobile-first:** tela inicial antes do login, marca ORBITRIP na tipografia original, sem ícone no cabeçalho, sem frase superior e sem rodapé textual; textos principais e ações preservados.
+- **Dynamic Island e barra de início:** viewport-fit=cover e CSS env(safe-area-inset-*) no topo, laterais e base, inclusive na capa e no menu inferior.
+- **Barra de navegação:** cinco áreas de toque otimizadas; oculta durante autenticação e ao usar campos de formulário para reduzir interferência com o teclado.
+- **Formulários e diálogos:** entradas com 16 px no celular para evitar zoom involuntário no Safari, áreas de toque de pelo menos 44 px e modais em formato de folha inferior com rolagem e espaço protegido.
+- **PWA:** metadados para instalação pela Tela de Início do iPhone, preservando o manifesto e o ícone oficial da aplicação.
+- **Preservação:** login OTP (6–10 dígitos), Supabase, modo local, viagens, mapas, despesas e compartilhamento permanecem implementados.
+- **Validação:** sintaxe JavaScript e 11 verificações automáticas/simuladas dos fluxos de abertura, login, sessão existente e modo local aprovadas. A conferência visual e tátil em iPhone físico permanece pendente.
+- **Observação:** modo local usa dados deste navegador; não equivale a garantia de uso offline completo da PWA.
+
+**Instalação no iPhone:** abrir a URL da Orbitrip no Safari → Compartilhar → Adicionar à Tela de Início. Depois, iniciar pelo ícone na Tela de Início.
+
 ## V3.5 — Capa de abertura (19/11/2026)
 
 - **Tela de boas-vindas antes do login:** a capa aparece sempre que a aplicação carrega; o usuário não é encaminhado automaticamente para a tela de autenticação.
-- **Identidade visual:** ícone oficial Orbitrip, composição editorial minimalista em branco, cinza e preto, paisagem monocromática suave, órbitas decorativas e transições sutis.
+- **Identidade visual:** cabeçalho apenas com o nome ORBITRIP na fonte Outfit original, composição editorial minimalista em branco, cinza e preto, paisagem monocromática suave, órbitas decorativas e transições sutis.
 - **Texto aprovado:** "Toda grande viagem começa com um bom planejamento." e "Planeje roteiros, organize gastos e acompanhe cada etapa da sua viagem."
 - **Começar:** abre o acesso à conta Supabase. Se já existir uma sessão válida, entra diretamente no painel sem solicitar novo código.
 - **Continuar no modo local:** abre as viagens armazenadas no navegador sem exigir autenticação e sem misturar os dados locais com os dados da nuvem.
@@ -16,8 +31,8 @@ O projeto **Orbitrip** foi criado no Supabase Free, na região São Paulo (`sa-e
 
 - Banco instalado: `trips`, `trip_members`, `trip_invites`, RLS e RPC para convites/controle de revisões.
 - Verificação de segurança do Supabase: **sem alertas**.
-- O **login por código ainda não está liberado para uso geral**: precisa da configuração manual de templates OTP e de SMTP para enviar códigos a e-mails que não pertençam à equipe administrativa da organização.
-- A opção **Continuar no modo local** preserva o acesso aos roteiros no navegador enquanto a configuração de e-mail é concluída.
+- **Login por código operacional:** SMTP da Brevo e templates OTP foram configurados e o primeiro acesso real foi confirmado; o teste de colaboração entre duas contas ainda está pendente.
+- A opção **Continuar no modo local** permite manter viagens no navegador, sem sincronização com a nuvem.
 - Guia completo: [`docs/V3.4-SUPABASE.md`](docs/V3.4-SUPABASE.md). **Não execute o SQL de instalação uma segunda vez no mesmo projeto.**
 
 # ◎ Orbitrip
@@ -25,7 +40,7 @@ O projeto **Orbitrip** foi criado no Supabase Free, na região São Paulo (`sa-e
 
 Aplicação web de planejamento de viagens, com itinerários, cenários financeiros, mapa interativo, simuladores de custo e importação de planilhas.
 
-## Versão atual — V3.4
+## Versão atual — V3.5.1
 
 - Identidade visual Orbitrip: dashboard imersivo, capas fotográficas, transições responsivas e menu escuro.
 - Múltiplas viagens com criação, edição, duplicação, arquivamento e reativação.
@@ -46,22 +61,18 @@ Aplicação web de planejamento de viagens, com itinerários, cenários financei
 - **Próxima parada:** atalho para a próxima atividade futura com endereço ou coordenadas.
 - **Mapa interno mantido:** Leaflet + OpenStreetMap, marcadores categorizados e Photon para pesquisa.
 - **Ícone oficial aprovado:** arquivos em `assets/`, favicon, `apple-touch-icon` (180×180) e manifesto web com ícones 192×192 PNG e 512×512 WebP.
-- **Contas por código de e-mail (OTP):** tela de login com código de seis dígitos, sem senha, com sessão persistente através do Supabase.
+- **Contas por código de e-mail (OTP):** tela de login com código numérico de 6–10 dígitos, sem senha, com sessão persistente através do Supabase.
 - **Viagens compartilhadas:** convite por link ou código de uso único (expira em sete dias), com papéis proprietário/editor/visualizador.
 - **Banco na nuvem com RLS:** esquema em [`supabase/schema.sql`](supabase/schema.sql), protegendo leitura e escrita por participante.
 - **Sincronização:** carregamento dos roteiros autorizados, assinatura de alterações Realtime e verificação de revisão para evitar perda silenciosa quando dois usuários editam o mesmo roteiro ao mesmo tempo.
 - **Migração de dados locais:** transferência opcional dos roteiros anteriores para a nuvem, mantendo os originais; importação JSON em modo nuvem adiciona cópias, sem excluir viagens existentes.
 - **Segurança:** nenhuma chave secreta ou conta pessoal foi inserida no repositório.
 
-### Ativação necessária para duas pessoas usarem o mesmo roteiro
+### Compartilhamento: próximo teste
 
-**A autenticação e a colaboração ainda não estão ativadas em um Supabase real.** O arquivo [`config.js`](config.js) está propositalmente sem URL e chave pública, pois você ainda não criou/conectou o projeto Supabase.
+A autenticação por e-mail e o Supabase já estão configurados. O código de compartilhamento está disponível, mas a edição simultânea **ainda não foi validada com duas contas reais**.
 
-Enquanto essas informações não forem preenchidas e o SQL não tiver sido executado, a aplicação **continua no modo local**, sem login nem sincronização de viagens. Não existe uma conta compartilhada já criada, e os dados existentes no navegador permanecem intactos.
-
-Siga o guia [**Configurar Supabase para a Orbitrip V3.4**](docs/V3.4-SUPABASE.md) para habilitar todos os recursos. Nunca inserir `service_role` nem outras chaves secretas no JavaScript público.
-
-**Validação:** sintaxe JavaScript e conteúdo publicado no GitHub verificados. Ainda faltam testes de ponta a ponta no navegador e testes reais com duas contas, após ativação do Supabase. Restrições e limites dos serviços externos continuam aplicáveis.
+Guia de manutenção: [**Configurar Supabase para a Orbitrip V3.4**](docs/V3.4-SUPABASE.md). **Não execute novamente o SQL de instalação no projeto existente e nunca publique chaves secretas no JavaScript.**
 
 ## Ajustes visuais e de usabilidade (após V3.2)
 
