@@ -1,3 +1,12 @@
+## Correção da sincronização RLS — 19/11/2026
+
+- **Sintoma:** ao criar uma viagem com uma conta autenticada, PostgREST retornava erro 42501 (`new row violates row-level security policy for table "trips"`) no `INSERT ... RETURNING revision`.
+- **Diagnóstico:** a política `trips_select` dependia exclusivamente de um helper de leitura que consultava a própria tabela. Na operação com `RETURNING`, isso impedia a visualização imediata da linha recém-inserida.
+- **Correção aplicada no banco existente:** `ALTER POLICY trips_select ON public.trips USING (owner_id = (select auth.uid()) OR orbitrip_private.can_view(id));`. Não foi necessário desabilitar RLS.
+- **Esquema de referência:** `supabase/schema.sql` atualizado para replicar a política correta em projetos novos. **Não executar o arquivo inteiro no projeto existente**.
+- **Verificação:** `INSERT ... RETURNING` autenticado passou em transação revertida; leitura simulada com identidade não proprietária retornou zero linhas; os dados de produção não foram alterados. Resta testar o botão **Tentar novamente** na ORBITRIP com o rascunho real.
+- **Proteção de dados:** enquanto houver erro de sincronização, exportar rascunho antes de qualquer tentativa de recarga de nuvem. Não usar **Recarregar nuvem** se houver alterações não sincronizadas.
+
 ## V3.5.1 — Otimização para iPhone 16 Pro Max (19/11/2026)
 
 **Dispositivo de referência:** iPhone 16 Pro Max, viewport de 440 × 956 pixels CSS em retrato. O design utiliza áreas seguras dinâmicas do iOS, não valores fixos.
