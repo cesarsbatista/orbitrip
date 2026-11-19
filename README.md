@@ -3,7 +3,7 @@
 
 Aplicação web de planejamento de viagens, com itinerários, cenários financeiros, mapa interativo, simuladores de custo e importação de planilhas.
 
-## Versão atual — V3.2
+## Versão atual — V3.4
 
 - Identidade visual Orbitrip: dashboard imersivo, capas fotográficas, transições responsivas e menu escuro.
 - Múltiplas viagens com criação, edição, duplicação, arquivamento e reativação.
@@ -15,6 +15,31 @@ Aplicação web de planejamento de viagens, com itinerários, cenários financei
 - **Importador Excel XLSX/XLS:** leitura local no navegador, prévia das abas, cenários a partir dos três roteiros e captura de itens de compras e despesas na estrutura do arquivo do Rio de Janeiro. Importações precisam ser revisadas, especialmente linhas não estruturadas.
 - Backup completo JSON.
 
+
+## V3.4 — Mapa, ícone e colaboração (19/11/2026)
+
+### Disponível no código
+
+- **Apple Maps e Google Maps:** botões nas atividades que abrem direções para o destino pelo link oficial, sem precisar contratar as APIs de mapas.
+- **Próxima parada:** atalho para a próxima atividade futura com endereço ou coordenadas.
+- **Mapa interno mantido:** Leaflet + OpenStreetMap, marcadores categorizados e Photon para pesquisa.
+- **Ícone oficial aprovado:** arquivos em `assets/`, favicon, `apple-touch-icon` (180×180) e manifesto web com ícones 192×192 PNG e 512×512 WebP.
+- **Contas por código de e-mail (OTP):** tela de login com código de seis dígitos, sem senha, com sessão persistente através do Supabase.
+- **Viagens compartilhadas:** convite por link ou código de uso único (expira em sete dias), com papéis proprietário/editor/visualizador.
+- **Banco na nuvem com RLS:** esquema em [`supabase/schema.sql`](supabase/schema.sql), protegendo leitura e escrita por participante.
+- **Sincronização:** carregamento dos roteiros autorizados, assinatura de alterações Realtime e verificação de revisão para evitar perda silenciosa quando dois usuários editam o mesmo roteiro ao mesmo tempo.
+- **Migração de dados locais:** transferência opcional dos roteiros anteriores para a nuvem, mantendo os originais; importação JSON em modo nuvem adiciona cópias, sem excluir viagens existentes.
+- **Segurança:** nenhuma chave secreta ou conta pessoal foi inserida no repositório.
+
+### Ativação necessária para duas pessoas usarem o mesmo roteiro
+
+**A autenticação e a colaboração ainda não estão ativadas em um Supabase real.** O arquivo [`config.js`](config.js) está propositalmente sem URL e chave pública, pois você ainda não criou/conectou o projeto Supabase.
+
+Enquanto essas informações não forem preenchidas e o SQL não tiver sido executado, a aplicação **continua no modo local**, sem login nem sincronização de viagens. Não existe uma conta compartilhada já criada, e os dados existentes no navegador permanecem intactos.
+
+Siga o guia [**Configurar Supabase para a Orbitrip V3.4**](docs/V3.4-SUPABASE.md) para habilitar todos os recursos. Nunca inserir `service_role` nem outras chaves secretas no JavaScript público.
+
+**Validação:** sintaxe JavaScript e conteúdo publicado no GitHub verificados. Ainda faltam testes de ponta a ponta no navegador e testes reais com duas contas, após ativação do Supabase. Restrições e limites dos serviços externos continuam aplicáveis.
 
 ## Ajustes visuais e de usabilidade (após V3.2)
 
