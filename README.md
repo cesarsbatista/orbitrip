@@ -3,7 +3,7 @@
 
 Aplicação web de planejamento de viagens, com itinerários, cenários financeiros, mapa interativo, simuladores de custo e importação de planilhas.
 
-## Versão atual — V2
+## Versão atual — V3
 
 - Identidade visual Orbitrip: dashboard imersivo, capas fotográficas, transições responsivas e menu escuro.
 - Múltiplas viagens com criação, edição, duplicação, arquivamento e reativação.
@@ -14,6 +14,25 @@ Aplicação web de planejamento de viagens, com itinerários, cenários financei
 - Lista de compras com preços e status.
 - **Importador Excel XLSX/XLS:** leitura local no navegador, prévia das abas, cenários a partir dos três roteiros e captura de itens de compras e despesas na estrutura do arquivo do Rio de Janeiro. Importações precisam ser revisadas, especialmente linhas não estruturadas.
 - Backup completo JSON.
+
+
+## V3 — Diário de bordo (19/11/2026)
+
+A interface foi redesenhada para uso prioritário no celular, inspirada em páginas de passaporte e diário de viagem, sem reproduzir documentos oficiais: textura visível de papel, azul de capa, selos, tipografia sóbria, navegação inferior com cinco atalhos e transições discretas.
+
+**Novidades:**
+- Navegação inferior mobile: Início, Roteiro, Mapa, Gastos e Mais. As demais abas permanecem acessíveis no detalhe de cada viagem.
+- Categorias de atividades com cores consistentes no roteiro e nos marcadores do mapa: hospedagem verde, deslocamento vermelho, atração azul, restaurante amarelo, voo roxo, passeio turquesa, compromisso laranja e outros cinza.
+- Endereços: consulta do serviço público [Photon](https://github.com/komoot/photon) com dados do OpenStreetMap, iniciada após digitar ao menos três caracteres, com pequena espera entre digitação e solicitações. Escolher uma sugestão grava endereço e latitude/longitude na atividade; os marcadores aparecem na aba Mapa.
+- Calendário de viagem: selecionar a data inicial limita a data de término ao mesmo dia ou a datas posteriores; ao alterar o início, a data final incompatível é limpa. O navegador tenta abrir automaticamente o calendário final quando permitido.
+
+**Limites técnicos:**
+- A instância pública Photon é um serviço demonstrativo, sujeita a restrição de uso e indisponibilidade. Para uso intenso ou comercial, provisionar instância própria ou outro provedor de geocodificação.
+- As consultas de localização são enviadas ao provedor externo **enquanto você digita** no campo de endereço. Não use nomes confidenciais nesse campo.
+- Mesmo após selecionar um resultado, valide a localização no mapa antes da viagem.
+- Os dados permanecem no armazenamento local do navegador. A V3 não implementa login, banco remoto ou sincronização.
+- Fotos, bibliotecas de mapas e parser Excel requerem conectividade.
+- Código inspecionado e sintaxe JavaScript validada, mas sem suíte de testes ponta a ponta; recomenda-se conferir os fluxos em um navegador antes de depender da aplicação durante uma viagem.
 
 ## Execução
 
