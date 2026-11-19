@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#F7F7F7"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Orbitrip"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./assets/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F9F9F7"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Orbitrip"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./assets/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png">
 <title>Orbitrip — Planejamento de viagens</title>
 <style>
 :root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#172436;background:#f4f6f9;font-size:14px}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}button:disabled{opacity:.5;cursor:default}a{color:#1678b7}.shell{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.sidebar{background:#122238;color:#e7eff8;padding:28px 17px;display:flex;flex-direction:column;gap:23px}.brand{font-weight:850;letter-spacing:.13em;font-size:22px;margin:0 12px}.brand small{display:block;font-size:10px;font-weight:500;letter-spacing:.1em;color:#8daac7;margin-top:4px}.nav{display:grid;gap:5px}.nav button{text-align:left;background:none;color:#b4c7da;border-radius:11px;padding:12px 14px}.nav button:hover,.nav button.active{background:#253a52;color:white}.sidefoot{margin-top:auto;color:#829eb8;font-size:12px;line-height:1.7;padding:0 12px}.main{padding:32px clamp(18px,4vw,64px);max-width:1600px;width:100%;margin:auto}.top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:27px;flex-wrap:wrap}h1{font-size:28px;margin:0 0 7px;letter-spacing:-.04em}h2{font-size:18px;letter-spacing:-.025em;margin:0}h3{font-size:15px;margin:0 0 12px}p{margin:6px 0}.muted{color:#738196}.eyebrow{font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:800;color:#57718a;margin:0 0 9px}.btn{background:#192d45;color:white;padding:11px 16px;border-radius:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn:hover{background:#2a4968}.btn.ghost{background:white;color:#2c4660;border:1px solid #d9e1e8}.btn.ghost:hover{background:#f1f5f8}.btn.danger{color:#b43636}.btn.small{padding:7px 11px;font-size:12px}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}.card{background:white;border:1px solid #e5eaf0;border-radius:16px;padding:22px;box-shadow:0 4px 14px #243e5a06}.trip{display:flex;flex-direction:column;gap:17px}.trip h2{font-size:21px}.trip .foot{border-top:1px solid #edf0f4;padding-top:15px;display:flex;align-items:center;justify-content:space-between;gap:10px}.chip{display:inline-block;background:#edf4fb;color:#365e86;border-radius:99px;padding:5px 10px;font-size:11px;font-weight:750}.chip.archived{background:#f1f1f1;color:#777}.chip.ongoing{background:#e6f7ec;color:#237b51}.statgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:22px}.stat{padding:19px}.stat strong{font-size:23px;display:block;letter-spacing:-.03em;margin:10px 0 4px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid #e2e7ee;margin-bottom:23px}.tabs button{background:none;padding:13px 15px;color:#6b7e93;font-weight:750;border-bottom:3px solid transparent}.tabs button.active{color:#173451;border-bottom-color:#173451}.list{display:grid;gap:12px}.item{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:17px 20px;border:1px solid #e8ecf2;border-radius:13px;background:white}.item .details{min-width:0}.item strong{display:block;font-size:15px;margin-bottom:4px}.item .meta{color:#7a8998;font-size:12px;line-height:1.7}.item .amount{text-align:right;font-weight:800;white-space:nowrap}.empty{text-align:center;background:white;border:1px dashed #d3dce6;border-radius:16px;padding:52px 15px;color:#788a9a}.empty h3{color:#2a3d52}.day{margin:20px 0 10px;display:flex;align-items:center;gap:15px;font-weight:800;color:#36516d}.day:after{content:"";height:1px;background:#dfe5eb;flex:1}.field{display:grid;gap:6px;margin:0 0 15px}.field label{font-weight:700;color:#3d5065;font-size:12px}input,select,textarea{width:100%;border:1px solid #d8e1eb;border-radius:9px;padding:11px 12px;background:white;color:#1b2c3d}textarea{resize:vertical;min-height:82px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.wide{grid-column:1/-1}.modalbg{position:fixed;inset:0;background:#07162799;display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}.modal{width:min(650px,100%);max-height:90vh;overflow:auto;background:white;border-radius:18px;padding:26px;box-shadow:0 15px 80px #001a3340}.modal header{display:flex;justify-content:space-between;align-items:center;margin-bottom:23px}.modal header button{background:none;font-size:24px;color:#8795a5}.formfooter{display:flex;gap:10px;justify-content:flex-end;margin-top:9px}.bar{background:#e8eff6;border-radius:99px;height:9px;overflow:hidden;margin:12px 0}.bar span{display:block;background:#4e84b5;height:100%;border-radius:99px}.two{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.summarylist{display:grid;gap:12px}.summaryline{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #edf1f5}.note{border-left:3px solid #5c8db5;padding:11px 14px;background:#f0f6fb;color:#57718a;font-size:12px;border-radius:4px}.badge{font-size:11px;color:#7490a9;text-transform:uppercase;letter-spacing:.1em}.selectmini{width:auto;min-width:165px}.actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.linksmall{font-size:12px;text-decoration:none}.number{font-variant-numeric:tabular-nums}.hidden{display:none!important}@media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}.statgrid{grid-template-columns:repeat(2,1fr)}}@media(max-width:750px){.shell{display:block}.sidebar{padding:14px 16px;display:block}.brand{font-size:18px;margin:0 0 12px}.sidefoot{display:none}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:10px}.main{padding:22px 14px}.grid,.two{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.statgrid{gap:9px}.item{align-items:flex-start;flex-direction:column}.item .amount{text-align:left}.modal{padding:18px}h1{font-size:24px}}
@@ -305,10 +305,126 @@ body.v35-welcome-active{background:#f9f9f7!important;overflow-x:hidden}
 @keyframes v35FadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes v35FadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
+
+/* V3.5.1 — mobile-first no iPhone 16 Pro Max (440 x 956 CSS px).
+   env() protege a Dynamic Island e o indicador de início em Safari / PWA. */
+html{-webkit-text-size-adjust:100%;scroll-padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
+body{overscroll-behavior-x:none}
+button,a,[role="button"]{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+body.v351-auth-active .orbit-bottom,body.v351-input-active .orbit-bottom{display:none!important}
+@media(max-width:750px){
+ :root{--orbi-mobile-gutter:clamp(17px,4.5vw,23px)}
+ html,body{max-width:100%;overflow-x:hidden}
+ .shell{min-height:100dvh}
+ .main{
+  max-width:none!important;min-width:0;width:100%!important;min-height:100dvh;
+  padding-top:max(20px,calc(env(safe-area-inset-top,0px) + 12px))!important;
+  padding-right:calc(var(--orbi-mobile-gutter) + env(safe-area-inset-right,0px))!important;
+  padding-bottom:calc(112px + env(safe-area-inset-bottom,0px))!important;
+  padding-left:calc(var(--orbi-mobile-gutter) + env(safe-area-inset-left,0px))!important;
+ }
+ .orbit-bottom{
+  left:calc(9px + env(safe-area-inset-left,0px))!important;
+  right:calc(9px + env(safe-area-inset-right,0px))!important;
+  bottom:calc(9px + env(safe-area-inset-bottom,0px))!important;
+  width:auto!important;grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:2px!important;border-radius:23px!important;padding:6px!important;
+  border-color:#e9e9e9!important;background:rgba(255,255,255,.97)!important;
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  box-shadow:0 10px 30px #1b1b1b18!important;
+ }
+ .orbit-bottom button{
+  min-width:0;width:100%;min-height:54px!important;padding:5px 1px!important;
+  font:700 10px 'DM Sans',sans-serif!important;color:#858a8b!important;
+  line-height:1.2;border-radius:17px!important;
+ }
+ .orbit-bottom button .icon{font-size:21px!important;line-height:1.1}
+ .orbit-bottom button.active{background:#f0f0f0!important;color:#262b2c!important}
+ .orbit-bottom button:focus-visible{outline:2px solid #454545;outline-offset:-3px}
+ input,select,textarea{font-size:16px!important;max-width:100%;min-height:47px;line-height:1.35;border-radius:12px}
+ input[type=checkbox],input[type=radio]{min-height:auto}
+ textarea{min-height:96px}
+ .btn,.formfooter button{min-height:44px}
+ .formfooter{flex-wrap:wrap;gap:10px}
+ .formfooter>*{flex:1 1 120px}
+ .grid,.two,.map-grid,.calcgrid,.formgrid{min-width:0}
+ .grid>*,.two>*,.map-grid>*,.calcgrid>*,.formgrid>*{min-width:0}
+ .modalbg{padding:0!important;align-items:flex-end!important;z-index:50!important}
+ .modal{
+  max-width:100%!important;max-height:calc(100dvh - env(safe-area-inset-top,0px) - 12px)!important;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  border-radius:24px 24px 0 0!important;
+  padding:22px calc(20px + env(safe-area-inset-right,0px))
+   calc(27px + env(safe-area-inset-bottom,0px))
+   calc(20px + env(safe-area-inset-left,0px))!important;
+ }
+ .modal header{position:sticky;top:-22px;z-index:2;background:#fff;padding:8px 0 12px}
+ .modal header button{width:44px;min-width:44px;min-height:44px;display:grid;place-items:center}
+ #app .orbi-auth-shell{
+  min-height:calc(100dvh - env(safe-area-inset-top,0px) - 46px);
+  align-items:center;padding:14px 0;
+ }
+ #app .orbi-auth-card{width:100%;max-width:500px;border-radius:22px!important;padding:clamp(22px,6vw,33px)!important}
+ #app .orbi-auth-card .row{flex-wrap:wrap;gap:10px}
+ #app .orbi-auth-card .row .btn{flex:1 1 145px}
+ .tabs{
+  -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;
+  margin-left:calc(-1 * var(--orbi-mobile-gutter));
+  margin-right:calc(-1 * var(--orbi-mobile-gutter));
+  padding-left:var(--orbi-mobile-gutter);padding-right:var(--orbi-mobile-gutter);
+ }
+ .tabs button{min-height:44px;scroll-snap-align:start}
+ .v32-plus{min-width:44px;min-height:44px}
+ .v35-welcome-active .main{padding:0!important;min-height:100dvh!important}
+ .v35-welcome{min-height:100dvh!important}
+ .v35-frame{
+  min-height:100dvh!important;grid-template-rows:auto 1fr;
+  padding-top:max(25px,calc(env(safe-area-inset-top,0px) + 15px))!important;
+  padding-right:calc(var(--orbi-mobile-gutter) + env(safe-area-inset-right,0px))!important;
+  padding-bottom:max(24px,calc(env(safe-area-inset-bottom,0px) + 14px))!important;
+  padding-left:calc(var(--orbi-mobile-gutter) + env(safe-area-inset-left,0px))!important;
+  gap:clamp(24px,4dvh,37px)!important;
+ }
+ .v35-header{min-height:40px}
+ .v35-brand-name{font-size:20px!important}
+ .v35-main{gap:clamp(25px,3.7dvh,37px)!important;justify-content:start}
+ .v35-copy{padding:0!important}
+ .v35-title{
+  font-size:clamp(42px,9.5vw,56px)!important;line-height:1.065!important;
+  margin-bottom:18px!important;max-width:570px;
+ }
+ .v35-lead{font-size:15px!important;line-height:1.6!important;max-width:475px;margin-bottom:25px!important}
+ .v35-actions{display:flex;flex-direction:column;align-items:stretch;gap:10px!important;width:100%;margin-bottom:12px!important}
+ .v35-cta,.v35-local{
+  width:100%!important;min-height:52px!important;font-size:14px!important;
+  justify-content:space-between!important;padding:0 20px!important;border-radius:13px!important;
+ }
+ .v35-privacy{font-size:11px!important;line-height:1.5!important}
+ .v35-visual{
+  width:100%;height:clamp(210px,29dvh,315px)!important;
+  min-height:210px!important;max-height:none!important;border-radius:22px!important;
+ }
+ .v35-visual-top{top:22px}
+ .v35-visual-bottom{bottom:22px}
+ .v35-visual-message{font-size:clamp(23px,6vw,30px)}
+}
+@media(max-width:375px){
+ .v35-title{font-size:clamp(38px,9.6vw,45px)!important}
+ .v35-visual{height:220px!important}
+ .orbit-bottom button{font-size:9px!important}
+}
+@media(max-height:700px) and (max-width:750px){
+ .v35-frame{gap:20px!important}
+ .v35-title{font-size:clamp(37px,8.9vw,50px)!important}
+ .v35-lead{margin-bottom:19px!important}
+ .v35-visual{height:200px!important;min-height:200px!important}
+}
+@media(display-mode:standalone){body{min-height:100dvh}}
+
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script></head>
 <body>
-<div class="shell"><aside class="sidebar"><div class="brand">◎ ORBITRIP<small>PLANEJADOR DE VIAGENS</small></div><nav class="nav"><button data-route="home" class="active">◫ &nbsp; Minhas viagens</button><button data-route="archived">▤ &nbsp; Arquivadas</button><button data-route="data">↥ &nbsp; Dados e backup</button><button data-route="account">◎ &nbsp; Conta e compartilhamento</button></nav><div class="sidefoot">Planeje cada etapa.<br>Revise seus custos.<br>Guarde suas histórias.<br><br>Orbitrip V3.5 · Mapas gratuitos</div></aside><main class="main" id="app"></main></div><nav class="orbit-bottom" aria-label="Navegação principal"><button data-mobile="home"><span class="icon">⌂</span>Início</button><button data-mobile="route"><span class="icon">▤</span>Roteiro</button><button data-mobile="map"><span class="icon">⌾</span>Mapa</button><button data-mobile="budget"><span class="icon">◈</span>Gastos</button><button data-mobile="more"><span class="icon">☷</span>Mais</button></nav><div id="modal-root"></div>
+<div class="shell"><aside class="sidebar"><div class="brand">◎ ORBITRIP<small>PLANEJADOR DE VIAGENS</small></div><nav class="nav"><button data-route="home" class="active">◫ &nbsp; Minhas viagens</button><button data-route="archived">▤ &nbsp; Arquivadas</button><button data-route="data">↥ &nbsp; Dados e backup</button><button data-route="account">◎ &nbsp; Conta e compartilhamento</button></nav><div class="sidefoot">Planeje cada etapa.<br>Revise seus custos.<br>Guarde suas histórias.<br><br>Orbitrip V3.5.1 · Mapas gratuitos</div></aside><main class="main" id="app"></main></div><nav class="orbit-bottom" aria-label="Navegação principal"><button data-mobile="home"><span class="icon">⌂</span>Início</button><button data-mobile="route"><span class="icon">▤</span>Roteiro</button><button data-mobile="map"><span class="icon">⌾</span>Mapa</button><button data-mobile="budget"><span class="icon">◈</span>Gastos</button><button data-mobile="more"><span class="icon">☷</span>Mais</button></nav><div id="modal-root"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script><script src="./config.js"></script><script src="./cloud.js"></script>
 <script>
 (()=>{
