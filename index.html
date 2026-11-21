@@ -720,7 +720,7 @@ function submit(form){const [kind,id]=form.dataset.submit.split(":");if(cloudAct
 }
 normalized.estimated=money(v.estimated);normalized.latitude=v.latitude!==""&&Number.isFinite(Number(v.latitude))?Number(v.latitude):null;normalized.longitude=v.longitude!==""&&Number.isFinite(Number(v.longitude))?Number(v.longitude):null;if(v.url&&!/^https?:\/\//i.test(v.url)){alert("O link deve começar com http:// ou https://");return}}if(kind==="expense"){normalized.planned=money(v.planned);normalized.actual=money(v.actual)}if(kind==="item"){normalized.price=money(v.price);normalized.bought=id==="new"?false:t.shopping.find(z=>z.id===id)?.bought}if(id==="new")t[list].push({...normalized,id:uid()});else Object.assign(t[list].find(z=>z.id===id),normalized)}save();close();render()}
 function del(list,id){const t=trip();const item=t[list].find(z=>z.id===id);if(!item)return;if(!confirm("Excluir este registro?"))return;t[list]=t[list].filter(x=>x.id!==id);save();render()}
-function action(a,trigger){if(a==="travelerAdd")return addTraveler();if(a==="travelerRemove")return removeTraveler(trigger);if(a==="welcomeStart")return welcomeStart();if(a==="welcomeLocal")return welcomeLocal();if(a==="welcomeBack"){welcomeVisible=true;return render()}const t=trip();if(a==="calcSave")return saveCalculation();if(a==="importConfirm")return confirmImport();if(a==="importParse")return parseWorkbook();if(a==="mapFocus")return initializeMap();if(a==="nextStop")return nextStop();if(a==="goAccount")return navigate("account");if(a==="goData")return navigate("data");if(a==="authSend")return sendCloudCode();if(a==="authVerify")return verifyCloudCode();if(a==="authAgain"){cloudEmail="";cloudAuthError="";return render()}if(a==="cloudLogout")return logoutCloud();if(a==="cloudReconnect")return activateCloud(cloudUser);if(a==="useLocal"){cloudBypass=true;cloudActive=false;cloudLoading=false;cloudUser=null;cloudError="";cloudAuthError="";sessionStorage.setItem("orbitrip-local-mode","1");db=parse();route="home";return render()}if(a==="tryCloud"){cloudBypass=false;sessionStorage.removeItem("orbitrip-local-mode");cloudUser=null;cloudLoading=false;return cloudBoot()}if(a==="shareTrip")return shareTrip();if(a==="createInvite")return createCloudInvite();if(a==="inviteAccept")return acceptCloudInvitation();if(a==="cloudMigrate")return migrateLocalTrips();if(a==="cloudReload")return reloadCloudManually();if(a==="cloudRetry")return queueCloudSave();if(a==="cloudPendingBackup")return downloadPendingBackup();if(a==="cloudRecover")return recoverCloudDraftAsCopy();if(a==="copyInvite"){const v=document.getElementById("orbi-invite-link")?.textContent||"";if(v&&navigator.clipboard?.writeText)navigator.clipboard.writeText(v).then(()=>alert("Link copiado.")).catch(()=>alert("Selecione e copie o link exibido."));return}if(cloudActive&&route==="trip"&&t&&cloudRoles[t.id]==="viewer"&&/^(editTrip|duplicateTrip|deleteTrip|archive|restore|newEvent|editEvent:|removeEvent:|newExpense|editExpense:|removeExpense:|newScenario|editScenario:|removeScenario:|newItem|editItem:|removeItem|toggleItem|cover:|calcSave|importConfirm|importParse)/.test(a)){alert("Esta viagem permite apenas visualização.");return}if(a==="newTrip")return tripForm();if(a==="homeNav")return navigate("home");if(a.startsWith("cover:"))return openCoverEditor(a.slice(6));if(a==="coverSave")return saveCover();if(a==="coverRemove")return removeCover();if(a==="close")return close();if(a==="back")return navigate("home");if(a.startsWith("open:"))return navigate("trip",a.slice(5));if(a==="editTrip")return tripForm(t);if(a==="newEvent")return eventForm();if(a.startsWith("editEvent:"))return eventForm(t.events.find(x=>x.id===a.slice(10)));if(a.startsWith("removeEvent:"))return del("events",a.slice(12));if(a==="newExpense")return expenseForm();if(a.startsWith("editExpense:"))return expenseForm(t.expenses.find(x=>x.id===a.slice(12)));if(a.startsWith("removeExpense:"))return del("expenses",a.slice(14));if(a==="newScenario")return scenarioForm();if(a.startsWith("editScenario:"))return scenarioForm(t.scenarios.find(x=>x.id===a.slice(13)));if(a.startsWith("chooseScenario:")){scenarioId=a.slice(15);tab="route";return render()}if(a.startsWith("removeScenario:")){const id=a.slice(15);if(t.scenarios.length===1)return;if(!confirm("Excluir o cenário e todos os registros exclusivos dele?"))return;t.scenarios=t.scenarios.filter(x=>x.id!==id);for(const k of ["events","expenses","shopping"])t[k]=t[k].filter(x=>x.scenarioId!==id);scenarioId=t.scenarios[0].id;save();return render()}if(a==="newItem")return itemForm();if(a.startsWith("editItem:"))return itemForm(t.shopping.find(x=>x.id===a.slice(9)));if(a.startsWith("removeItem:"))return del("shopping",a.slice(11));if(a.startsWith("toggleItem:")){const x=t.shopping.find(i=>i.id===a.slice(11));if(x)x.bought=!x.bought;save();return render()}if(a==="archive"||a==="restore"){t.archived=a==="archive";save();return navigate(t.archived?"archived":"home")}if(a==="duplicateTrip"){const clone=JSON.parse(JSON.stringify(t));const map=new Map();clone.id=uid();clone.title+=" (cópia)";clone.archived=false;clone.scenarios.forEach(s=>{const old=s.id;s.id=uid();map.set(old,s.id)});for(const k of ["events","expenses","shopping"])clone[k].forEach(e=>{e.id=uid();if(e.scenarioId)e.scenarioId=map.get(e.scenarioId)||""});db.trips.push(clone);save();return navigate("trip",clone.id)}if(a==="deleteTrip"){if(cloudActive&&cloudRoles[t.id]!=="owner"){alert("Só o proprietário pode excluir esta viagem.");return}if(!confirm("Excluir definitivamente esta viagem e todos os dados relacionados?"))return;db.trips=db.trips.filter(x=>x.id!==t.id);save();return navigate("home")}if(a==="export"){const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),el=document.createElement("a");el.href=url;el.download="viagens-backup-"+new Date().toISOString().slice(0,10)+".json";el.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}}
+function action(a,trigger){if(a==="travelerAdd")return addTraveler();if(a==="travelerRemove")return removeTraveler(trigger);if(a==="welcomeStart")return welcomeStart();if(a==="welcomeLocal")return welcomeLocal();if(a==="welcomeBack"){welcomeVisible=true;return render()}const t=trip();if(a==="calcSave")return saveCalculation();if(a==="importConfirm")return confirmImport();if(a==="importParse")return parseWorkbook();if(a==="mapFocus")return initializeMap();if(a==="nextStop")return nextStop();if(a==="goAccount")return navigate("account");if(a==="goData")return navigate("data");if(a==="authSend")return sendCloudCode();if(a==="authVerify")return verifyCloudCode();if(a==="authAgain"){cloudEmail="";cloudAuthError="";return render()}if(a==="cloudLogout")return logoutCloud();if(a==="cloudReconnect")return activateCloud(cloudUser);if(a==="useLocal"){cloudBypass=true;cloudActive=false;cloudLoading=false;cloudUser=null;cloudError="";cloudAuthError="";sessionStorage.setItem("orbitrip-local-mode","1");db=parse();route="home";return render()}if(a==="tryCloud"){cloudBypass=false;sessionStorage.removeItem("orbitrip-local-mode");cloudUser=null;cloudLoading=false;return cloudBoot()}if(a==="shareTrip")return shareTrip();if(a==="createInvite")return createCloudInvite();if(a==="inviteAccept")return acceptCloudInvitation();if(a==="cloudMigrate")return migrateLocalTrips();if(a==="cloudReload")return reloadCloudManually();if(a==="cloudRetry")return cloudRetryPending();if(a==="cloudPendingBackup")return downloadPendingBackup();if(a==="cloudRecover")return recoverCloudDraftAsCopy();if(a==="copyInvite"){const v=document.getElementById("orbi-invite-link")?.textContent||"";if(v&&navigator.clipboard?.writeText)navigator.clipboard.writeText(v).then(()=>alert("Link copiado.")).catch(()=>alert("Selecione e copie o link exibido."));return}if(cloudActive&&route==="trip"&&t&&cloudRoles[t.id]==="viewer"&&/^(editTrip|duplicateTrip|deleteTrip|archive|restore|newEvent|editEvent:|removeEvent:|newExpense|editExpense:|removeExpense:|newScenario|editScenario:|removeScenario:|newItem|editItem:|removeItem|toggleItem|cover:|calcSave|importConfirm|importParse)/.test(a)){alert("Esta viagem permite apenas visualização.");return}if(a==="newTrip")return tripForm();if(a==="homeNav")return navigate("home");if(a.startsWith("cover:"))return openCoverEditor(a.slice(6));if(a==="coverSave")return saveCover();if(a==="coverRemove")return removeCover();if(a==="close")return close();if(a==="back")return navigate("home");if(a.startsWith("open:"))return navigate("trip",a.slice(5));if(a==="editTrip")return tripForm(t);if(a==="newEvent")return eventForm();if(a.startsWith("editEvent:"))return eventForm(t.events.find(x=>x.id===a.slice(10)));if(a.startsWith("removeEvent:"))return del("events",a.slice(12));if(a==="newExpense")return expenseForm();if(a.startsWith("editExpense:"))return expenseForm(t.expenses.find(x=>x.id===a.slice(12)));if(a.startsWith("removeExpense:"))return del("expenses",a.slice(14));if(a==="newScenario")return scenarioForm();if(a.startsWith("editScenario:"))return scenarioForm(t.scenarios.find(x=>x.id===a.slice(13)));if(a.startsWith("chooseScenario:")){scenarioId=a.slice(15);tab="route";return render()}if(a.startsWith("removeScenario:")){const id=a.slice(15);if(t.scenarios.length===1)return;if(!confirm("Excluir o cenário e todos os registros exclusivos dele?"))return;t.scenarios=t.scenarios.filter(x=>x.id!==id);for(const k of ["events","expenses","shopping"])t[k]=t[k].filter(x=>x.scenarioId!==id);scenarioId=t.scenarios[0].id;save();return render()}if(a==="newItem")return itemForm();if(a.startsWith("editItem:"))return itemForm(t.shopping.find(x=>x.id===a.slice(9)));if(a.startsWith("removeItem:"))return del("shopping",a.slice(11));if(a.startsWith("toggleItem:")){const x=t.shopping.find(i=>i.id===a.slice(11));if(x)x.bought=!x.bought;save();return render()}if(a==="archive"||a==="restore"){t.archived=a==="archive";save();return navigate(t.archived?"archived":"home")}if(a==="duplicateTrip"){const clone=JSON.parse(JSON.stringify(t));const map=new Map();clone.id=uid();clone.title+=" (cópia)";clone.archived=false;clone.scenarios.forEach(s=>{const old=s.id;s.id=uid();map.set(old,s.id)});for(const k of ["events","expenses","shopping"])clone[k].forEach(e=>{e.id=uid();if(e.scenarioId)e.scenarioId=map.get(e.scenarioId)||""});db.trips.push(clone);save();return navigate("trip",clone.id)}if(a==="deleteTrip"){if(cloudActive&&cloudRoles[t.id]!=="owner"){alert("Só o proprietário pode excluir esta viagem.");return}if(!confirm("Excluir definitivamente esta viagem e todos os dados relacionados?"))return;db.trips=db.trips.filter(x=>x.id!==t.id);save();return navigate("home")}if(a==="export"){const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),el=document.createElement("a");el.href=url;el.download="viagens-backup-"+new Date().toISOString().slice(0,10)+".json";el.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}}
 document.addEventListener("click",e=>{const mobile=e.target.closest("[data-mobile]");if(mobile){const view=mobile.dataset.mobile;if(view==="home"){navigate("home");return}if(view==="more"){if(route!=="trip"){navigate(cloudActive?"account":"data");return}tab="info";render();return}if(!tripId||!db.trips.some(t=>t.id===tripId)){navigate("home");return}route="trip";tab=view;render();return}const b=e.target.closest("[data-action],[data-route],[data-tab]");if(!b)return;if(b.tagName==="A")e.preventDefault();if(b.dataset.route)return navigate(b.dataset.route);if(b.dataset.tab){tab=b.dataset.tab;return render()}if(b.dataset.action)return action(b.dataset.action,b)});
 document.addEventListener("change",async e=>{if(e.target.id==="map-day"||e.target.id==="map-category"){if(e.target.id==="map-day")orbitMapDay=e.target.value;else orbitMapCategory=e.target.value;initializeMap()}if(e.target.id==="calc-mode"){orbitCalcMode=e.target.value;render()}if(e.target.id==="scenario-select"){scenarioId=e.target.value;orbitMapDay="";orbitMapCategory="";render()}if(e.target.id==="import-file"){const file=e.target.files?.[0];if(!file)return;try{const d=JSON.parse(await file.text());if(!d||!Array.isArray(d.trips)||d.trips.some(t=>!t.id||!Array.isArray(t.scenarios)||!Array.isArray(t.events)||!Array.isArray(t.expenses)||!Array.isArray(t.shopping)))throw Error("Estrutura inválida.");if(cloudActive){if(!confirm("Adicionar cópias destas viagens à sua conta? Os roteiros na nuvem não serão substituídos."))return;d.trips.forEach(t=>{const clone=JSON.parse(JSON.stringify(t));clone.id=uid();db.trips.push(clone)});save();navigate("home");return}if(!confirm("Substituir todos os dados atuais pelo backup selecionado?"))return;db={version:1,trips:d.trips};save();navigate("home")}catch(err){alert("Não foi possível importar o arquivo: "+err.message)}}});
 document.addEventListener("input",e=>{if(e.target.closest("#calculator-form"))calculateLive();if(e.target.closest("#orbi-route-fields"))updateRoutePreview()});
@@ -1077,11 +1077,103 @@ async function cloudWriteSafely(t,payload,revision){
   if(!remote||!baseString)throw err;
   let base;
   try{base=JSON.parse(baseString)}catch{throw err}
-  const combined=cloudMergeValue(base,payload,remote.payload);
+  let combined=cloudMergeValue(base,payload,remote.payload);
+  if(combined===ORBI_MERGE_CONFLICT)combined=cloudMergeAdditions(remote.payload,payload);
   if(combined===ORBI_MERGE_CONFLICT||!combined||combined.id!==t.id)throw err;
   const result=await persist(combined,Number(remote.revision));
   return {...result,rebased:true,submitted};
  }
+}
+
+/* Reaproveita rascunhos anteriores sem sobrescrever campos modificados na nuvem.
+   Só combina coleções por ID quando os itens já existentes são idênticos. */
+function cloudMergeAdditions(remote,local){
+ if(!remote||!local||remote.id!==local.id)return ORBI_MERGE_CONFLICT;
+ const collections=new Set(["events","expenses","shopping","scenarios"]);
+ const out=cloudCopy(remote);
+ for(const key of new Set([...Object.keys(remote),...Object.keys(local)])){
+  if(!collections.has(key)){
+   if(!cloudEqual(remote[key],local[key]))return ORBI_MERGE_CONFLICT;
+   continue;
+  }
+  const r=remote[key],l=local[key];
+  if(!Array.isArray(r)||!Array.isArray(l))return ORBI_MERGE_CONFLICT;
+  const keyed=arr=>arr.every(x=>x&&typeof x==="object"&&typeof x.id==="string")
+    &&new Set(arr.map(x=>x.id)).size===arr.length;
+  if(!keyed(r)||!keyed(l))return ORBI_MERGE_CONFLICT;
+  const present=new Map(r.map(x=>[x.id,x]));
+  for(const item of l){
+   if(present.has(item.id)&&!cloudEqual(present.get(item.id),item))return ORBI_MERGE_CONFLICT;
+  }
+  out[key]=[...r.map(cloudCopy),...l.filter(x=>!present.has(x.id)).map(cloudCopy)];
+ }
+ return out;
+}
+function cloudRecoveryId(originalId){
+ const key="orbitrip-recovery-id-"+cloudUser.id+"-"+originalId;
+ let id=localStorage.getItem(key);
+ if(!id){id=uid();localStorage.setItem(key,id)}
+ return id;
+}
+/* Chamado após ler a nuvem, antes de permitir novo uso. Prioriza salvar
+   tudo o que existe no rascunho. Se não houver união segura, cria cópia. */
+async function cloudResumeDraft(){
+ if(!cloudActive||!cloudUser||cloudWrites)return false;
+ const raw=localStorage.getItem(cloudPendingKey());
+ if(!raw)return false;
+ let draft;
+ try{draft=JSON.parse(raw)}catch{
+  cloudError="O rascunho local precisa ser exportado em Conta antes de prosseguir.";
+  return false;
+ }
+ if(!draft||!Array.isArray(draft.trips)){
+  cloudError="O rascunho local não pôde ser reconhecido. Preserve uma cópia em Conta.";
+  return false;
+ }
+ const remoteMap=new Map(db.trips.map(t=>[t.id,t])),additions=[];
+ for(const item of draft.trips){
+  if(!item||typeof item.id!=="string"||!Array.isArray(item.events)||!Array.isArray(item.expenses)||!Array.isArray(item.shopping)||!Array.isArray(item.scenarios)){
+   cloudError="O rascunho precisa ser recuperado manualmente pela área Conta.";
+   return false;
+  }
+  const remote=remoteMap.get(item.id);
+  if(!remote){additions.push(cloudCopy(item));continue}
+  if(cloudEqual(remote,item))continue;
+  const combined=cloudMergeAdditions(remote,item);
+  if(combined!==ORBI_MERGE_CONFLICT){
+   remoteMap.set(item.id,combined);
+  }else{
+   const copy=cloudCopy(item);
+   copy.id=cloudRecoveryId(item.id);
+   copy.title=String(item.title||"Viagem")+" (recuperada)";
+   if(remoteMap.has(copy.id)&&!cloudEqual(remoteMap.get(copy.id),copy)){
+    cloudError="Há uma cópia de recuperação diferente. Exporte o rascunho em Conta.";
+    return false;
+   }
+   additions.push(copy);
+  }
+ }
+ const ids=new Set(remoteMap.keys());
+ for(const t of additions){
+  if(ids.has(t.id)){
+   if(!cloudEqual(remoteMap.get(t.id),t)){
+    cloudError="Há um rascunho de recuperação com identificação duplicada. Exporte em Conta.";
+    return false;
+   }
+   continue;
+  }
+  ids.add(t.id);remoteMap.set(t.id,t);
+ }
+ const before=new Map(db.trips.map(t=>[t.id,cloudStable(t)]));
+ const changed=[...remoteMap.values()].some(t=>before.get(t.id)!==cloudStable(t));
+ if(!changed){
+  localStorage.removeItem(cloudPendingKey());cloudError="";
+  return true;
+ }
+ db={...db,trips:[...remoteMap.values()]};
+ cloudError="";cloudRemoteHint=false;
+ await queueCloudSave();
+ return !cloudError;
 }
 function cloudPendingKey(){return "orbitrip-unsynced-"+(cloudUser?.id||"unknown")}
 function queueCloudSave(){
@@ -1160,6 +1252,7 @@ async function activateCloud(user){
  try{
   await acceptLinkInvite();
   await cloudLoad();
+  if(localStorage.getItem(cloudPendingKey()))await cloudResumeDraft();
   cloudApi.listen(()=>{cloudRemoteHint=true;queueCloudRefresh()});
  }catch(err){cloudError=err.message||"Erro ao carregar viagens";cloudActive=false;cloudAuthError=cloudError}
  finally{cloudLoading=false;render()}
@@ -1222,6 +1315,23 @@ function downloadPendingBackup(){
  a.href=url;a.download="orbitrip-rascunho-nao-sincronizado.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
 }
 
+async function cloudRetryPending(){
+ if(!cloudActive||cloudWrites)return;
+ if(cloudError.startsWith("Foi encontrado")||localStorage.getItem(cloudPendingKey())){
+  const refreshed=await cloudApi.list();
+  const last=db;
+  /* Se existem alterações na memória, preservá-las no rascunho antes de ler a nuvem. */
+  const key=cloudPendingKey();
+  const raw=localStorage.getItem(key);
+  if(!raw){localStorage.setItem(key,JSON.stringify(last))}
+  cloudRoles=refreshed.roles;
+  cloudRevisions=new Map(refreshed.trips.map(t=>[t.id,Number(t.revision)]));
+  cloudSaved=new Map(refreshed.trips.map(t=>[t.id,JSON.stringify({...t.payload,id:t.id})]));
+  db={version:1,trips:refreshed.trips.map(t=>({...t.payload,id:t.id}))};
+  await cloudResumeDraft();render();return;
+ }
+ cloudError="";await queueCloudSave();render();
+}
 async function recoverCloudDraftAsCopy(){
  if(!cloudActive||!cloudUser||cloudWrites)return alert("Conclua a sincronização atual antes de recuperar o rascunho.");
  const json=localStorage.getItem(cloudPendingKey());
