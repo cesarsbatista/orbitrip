@@ -475,6 +475,19 @@ body.v351-auth-active .orbit-bottom,body.v351-input-active .orbit-bottom{display
 .orbi-route-summary{font-size:12px;color:#455050;margin:9px 0 4px;font-weight:650;overflow-wrap:anywhere}
 .orbi-route-via{font-size:11px;color:#757b7b;margin:3px 0}
 @media(max-width:750px){.orbi-route-fields{padding:14px}.orbi-route-grid{grid-template-columns:1fr}.orbi-route-preview .orbi-maplinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.orbi-route-preview .orbi-maplinks a{justify-content:center}}
+
+/* Status de sincronização discreto na área Conta — sem alertas sobre as viagens. */
+.orbi-sync-ok{font-size:12px;color:#73807e;margin:4px 0 18px}
+.orbi-sync-details{border:1px solid #e4e6e5;background:#f9faf9;border-radius:14px;padding:14px 16px;margin:10px 0 18px;color:#323a3b}
+.orbi-sync-details summary{cursor:pointer;font-size:13px;font-weight:700;line-height:1.5;list-style:none}
+.orbi-sync-details summary::-webkit-details-marker{display:none}
+.orbi-sync-details summary:after{content:"+";float:right;color:#75817f}
+.orbi-sync-details[open] summary:after{content:"−"}
+.orbi-sync-details p{margin:12px 0}
+.orbi-sync-reason{font-size:12px;color:#7b6c53;overflow-wrap:anywhere}
+.orbi-sync-details .row{display:flex;flex-wrap:wrap;gap:8px;padding-top:4px}
+.orbi-sync-details .btn{min-height:44px}
+
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script></head>
 <body>
@@ -979,11 +992,18 @@ document.addEventListener("keydown",e=>{
 
 
 /* ORBITRIP V3.4 — autenticação e armazenamento colaborativo (opcionais) */
-function cloudRibbon(){
- if(cloudError)return '<div class="orbi-cloud-warn" role="alert"><b>Sincronização pendente.</b> '+esc(cloudError)+'<div class="row" style="margin-top:9px">'+(cloudError.startsWith("Foi encontrado")?"":button("Tentar novamente","cloudRetry"))+button("Exportar rascunho","cloudPendingBackup")+(localStorage.getItem(cloudPendingKey())?button("Recuperar rascunho como cópia","cloudRecover"):"")+button("Recarregar nuvem","cloudReload")+'</div></div>';
- if(cloudRemoteHint)return '<div class="orbi-cloud-good">Existem alterações de outra sessão. Termine a edição atual para atualizar. '+button("Atualizar","cloudReload")+'</div>';
- if(cloudWrites)return '<div class="orbi-cloud-good">Sincronizando alterações…</div>';
- return "";
+/* O estado da sincronização fica na Conta, nunca sobre o conteúdo das viagens. */
+function cloudRibbon(){return ""}
+function cloudAccountSync(){
+ const pending=!!cloudError||!!localStorage.getItem(cloudPendingKey());
+ if(!pending)return '<div class="orbi-sync-ok">Sincronização da conta ativa.</div>';
+ return '<details class="orbi-sync-details"><summary>Dados pendentes neste dispositivo</summary>'
+ +'<p class="muted">Há alterações preservadas neste iPhone que ainda precisam ser sincronizadas. Os dados não serão descartados automaticamente.</p>'
+ +(cloudError?'<p class="orbi-sync-reason">'+esc(cloudError)+'</p>':"")
+ +'<div class="row">'+button("Tentar sincronizar","cloudRetry")
+ +button("Exportar cópia de segurança","cloudPendingBackup")
+ +(localStorage.getItem(cloudPendingKey())?button("Recuperar como cópia","cloudRecover"):"")
+ +button("Recarregar nuvem","cloudReload")+'</div></details>';
 }
 function renderAuth(){
  return '<div class="orbi-auth-shell"><div class="card orbi-auth-card"><button type="button" class="v35-auth-back" data-action="welcomeBack">← Voltar à capa</button><img class="orbi-auth-logo" src="./assets/apple-touch-icon.png" alt="Ícone ORBITRIP"><h1>Acesse a ORBITRIP</h1><p class="muted">Entre sem senha para compartilhar roteiros e acompanhar alterações.</p>'
@@ -997,6 +1017,7 @@ function renderAccount(){
  const n=parse().trips.length,already=localStorage.getItem("orbitrip-migrated-"+cloudUser.id);
  return '<div class="top"><div><div class="eyebrow">ORBITRIP / SUA CONTA</div><h1>Conta e compartilhamento</h1><p class="muted">'+esc(cloudUser.email||"Conta conectada")+'</p></div>'+button("Sair da conta","cloudLogout")+'</div>'
  +(cloudInfo?'<div class="orbi-cloud-good">'+esc(cloudInfo)+'</div>':"")
+ +cloudAccountSync()
  +'<div class="two"><div class="card"><h3>Participar de uma viagem</h3><p class="muted">Recebeu um código? Digite-o aqui. Convites por link também funcionam após o login.</p><div class="field"><label for="orbi-invite-code">Código de convite</label><input id="orbi-invite-code" autocomplete="off" placeholder="Código compartilhado"></div>'+button("Participar da viagem","inviteAccept","primary")+'</div>'
  +'<div class="card"><h3>Viagens deste navegador</h3><p class="muted">'+n+' viagem(ns) armazenada(s) no navegador antes de ativar a nuvem.</p>'+(n&&!already?button("Copiar minhas viagens para a nuvem","cloudMigrate"):'<p class="muted">Nenhuma migração pendente nesta conta.</p>')+'<p class="orbi-cloud-state">A migração cria cópias; as viagens locais não são apagadas.</p></div></div><div class="card" style="margin-top:16px"><h3>Segurança e portabilidade</h3><p>Somente participantes autorizados podem visualizar cada viagem. Faça backups JSON regularmente.</p>'+button("Dados e backup","goData")+'</div>';
 }
