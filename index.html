@@ -1101,7 +1101,9 @@ function cloudMergeAdditions(remote,local){
   const keyed=arr=>arr.every(x=>x&&typeof x==="object"&&typeof x.id==="string")
     &&new Set(arr.map(x=>x.id)).size===arr.length;
   if(!keyed(r)||!keyed(l))return ORBI_MERGE_CONFLICT;
-  const present=new Map(r.map(x=>[x.id,x]));
+  const present=new Map(r.map(x=>[x.id,x])),localIds=new Set(l.map(x=>x.id));
+  /* Nunca interpretar exclusões locais como simples adições. */
+  if(r.some(item=>!localIds.has(item.id)))return ORBI_MERGE_CONFLICT;
   for(const item of l){
    if(present.has(item.id)&&!cloudEqual(present.get(item.id),item))return ORBI_MERGE_CONFLICT;
   }
