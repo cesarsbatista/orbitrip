@@ -1,3 +1,15 @@
+## Atualização de sincronização silenciosa — 21/11/2026
+
+- Removido o banner de erro ou aviso de sincronização do topo das telas **Início** e **Viagem**. Os controles de diagnóstico/backup foram movidos para **Conta e compartilhamento → Dados pendentes neste dispositivo**, exibidos apenas quando necessário.
+- Ao autenticar, caso exista rascunho de alterações não enviadas, a ORBITRIP tenta **reconciliar automaticamente** com a nuvem sem substituir informações existentes. Em coleções de etapas, despesas, compras e cenários, as adições são conciliadas por ID; edições ou exclusões concorrentes não são mescladas automaticamente.
+- Se houver conflito que não possa ser unido com segurança, o app tenta criar **uma cópia recuperada** com novo identificador e sufixo "(recuperada)", mantendo o original intacto. O identificador da cópia é persistido para evitar duplicações por novas tentativas.
+- Se a sincronização continuar indisponível, o rascunho permanece no armazenamento local e as opções de exportação/recuperação ficam disponíveis na área Conta. **Não declarar que os dados foram sincronizados até a gravação ser confirmada no Supabase.**
+- Não houve desativação da RLS, mudança de permissões, remoção de dados ou atualização de schema.
+- Testes simulados: recuperação aditiva de etapas, criação de cópia em conflito de metadados, preservação de exclusões, manutenção do rascunho e ausência do banner de topo.
+- Validação com o rascunho real no iPhone ainda necessária: no Supabase, a viagem Rio de Janeiro (Visa) estava na revisão 2, sem eventos gravados, no momento da verificação.
+
+**Antes de atualizar ou reiniciar a PWA caso apareça aviso de pendência:** toque em **Exportar rascunho** e salve o arquivo no app Arquivos do iPhone. Depois feche e reabra a ORBITRIP para carregar a versão atualizada. Se for preciso recuperar manualmente, acesse **Conta e compartilhamento**.
+
 ## Correção de conflitos de sincronização — V3.5.x (19/11/2026)
 
 **Situação observada:** a viagem "Rio de Janeiro (Visa)" estava na revisão 2 do Supabase com zero etapas. O navegador mostrava três etapas não sincronizadas e repetia `CONFLICT_OR_DENIED` ao salvar usando uma revisão anterior. Atualizar código no GitHub **não** modifica revisões das viagens nem deveria, por si só, provocar esse erro.
