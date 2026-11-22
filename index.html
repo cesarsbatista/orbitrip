@@ -557,6 +557,39 @@ input,select,textarea{color:var(--orbi-graphite-text)!important}
  .orbi-card-value{font-size:18px!important}
 }
 
+
+/* Cartões compactos do roteiro: elimina linhas vazias sem alterar posições. */
+.orbi-stage-card.journal-entry{
+ position:relative!important;display:flex!important;flex-direction:column!important;
+ align-items:stretch!important;justify-content:flex-start!important;
+ min-height:0!important;height:auto!important;gap:0!important;
+ padding:15px 18px 13px!important;
+}
+.orbi-stage-card.journal-entry>.orbi-card-actions{
+ position:absolute!important;top:12px;right:13px;z-index:1;
+ grid-row:auto!important;grid-column:auto!important;
+ margin:0!important;
+}
+.orbi-stage-card.journal-entry>.details{
+ display:block!important;width:100%!important;min-width:0!important;
+ padding:0!important;grid-row:auto!important;grid-column:auto!important;
+}
+.orbi-stage-card.journal-entry>.details>.row:first-child{
+ max-width:calc(100% - 164px);
+}
+.orbi-stage-card.journal-entry>.orbi-card-value{
+ display:block!important;grid-row:auto!important;grid-column:auto!important;
+ align-self:flex-end!important;justify-self:auto!important;
+ margin:10px 0 0!important;
+}
+.orbi-stage-card.journal-entry .orbi-maplinks{margin-top:5px;margin-bottom:0}
+@media(max-width:750px){
+ .orbi-stage-card.journal-entry{min-height:0!important;padding:13px 14px 12px!important}
+ .orbi-stage-card.journal-entry>.orbi-card-actions{top:10px;right:10px}
+ .orbi-stage-card.journal-entry>.details{padding-top:45px!important}
+ .orbi-stage-card.journal-entry>.details>.row:first-child{max-width:100%}
+ .orbi-stage-card.journal-entry>.orbi-card-value{margin-top:8px!important}
+}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script></head>
 <body>
