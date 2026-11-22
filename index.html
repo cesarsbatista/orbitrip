@@ -494,6 +494,69 @@ body.v351-auth-active .orbit-bottom,body.v351-input-active .orbit-bottom{display
 .v32-homebar .v32-wordmark{font-family:Outfit,'DM Sans',sans-serif!important;font-weight:750!important;letter-spacing:-.055em!important}
 .orbi-auth-wordmark{font-family:Outfit,'DM Sans',sans-serif;font-size:23px;font-weight:750;letter-spacing:-.055em;color:#292929;margin:0 0 18px}
 @media(max-width:1000px) and (min-width:751px){.sidebar .brand{font-size:22px!important}}
+
+/* ORBITRIP — grafite médio, cartões com ações no topo e valores na base.
+   Variante visual apenas: dados, eventos e cálculos continuam inalterados. */
+:root{--orbi-graphite:#4A5056;--orbi-graphite-hover:#3E444A;--orbi-graphite-text:#4A5056}
+body,.main{color:var(--orbi-graphite-text)!important}
+.sidebar .brand,.v32-wordmark,.v35-brand-name,.orbi-auth-wordmark,
+.top h1,h1,h2,h3,.stat strong,.item strong,.calc-total strong,
+.v35-title,.v35-title span{color:var(--orbi-graphite-text)!important}
+.btn,.btn.primary,.v32-plus,.v35-cta{
+ background:var(--orbi-graphite)!important;color:#fff!important;border-color:var(--orbi-graphite)!important;
+}
+.btn:hover,.btn.primary:hover,.v32-plus:hover,.v35-cta:hover{
+ background:var(--orbi-graphite-hover)!important;border-color:var(--orbi-graphite-hover)!important;
+}
+.btn.ghost,.btn.ghost.danger{background:#fff!important;color:var(--orbi-graphite)!important;border-color:#d8dbde!important}
+.btn.ghost:hover,.btn.ghost.danger:hover{background:#f5f6f7!important;color:var(--orbi-graphite-hover)!important}
+.sidebar .nav button.active,.tabs button.active,.orbit-bottom button.active{color:var(--orbi-graphite)!important}
+.tabs button.active{border-bottom-color:var(--orbi-graphite)!important}
+input,select,textarea{color:var(--orbi-graphite-text)!important}
+.v35-visual-message{color:white}
+.calc-total{background:linear-gradient(130deg,#4A5056,#626970)!important}
+.orbi-stage-card,.orbi-expense-card{
+ display:grid!important;grid-template-columns:minmax(0,1fr);
+ grid-template-rows:auto auto minmax(0,1fr);
+ align-content:stretch;align-items:start!important;
+ gap:0!important;min-width:0;min-height:170px;
+}
+.orbi-stage-card .orbi-card-actions,.orbi-expense-card .orbi-card-actions{
+ grid-column:1;grid-row:1;justify-self:end;align-self:start;
+ display:flex;flex-wrap:nowrap;justify-content:flex-end;gap:7px;
+ max-width:100%;margin:0 0 12px;
+}
+.orbi-card-actions .btn{
+ background:#fff!important;color:var(--orbi-graphite)!important;
+ border:1px solid #d9dcdf!important;white-space:nowrap!important;
+ font-size:11px!important;font-weight:650!important;
+ min-height:36px!important;padding:7px 11px!important;
+}
+.orbi-card-actions .btn:hover{background:#f3f4f5!important;border-color:#c6cbd0!important}
+.orbi-stage-card>.details,.orbi-expense-card>.details{
+ grid-column:1;grid-row:2;width:100%;min-width:0;
+}
+.orbi-stage-card>.orbi-card-value{
+ grid-column:1;grid-row:3;align-self:end;justify-self:end;
+ margin:16px 0 0!important;
+}
+.orbi-card-value{
+ font-size:17px!important;font-weight:800!important;
+ font-variant-numeric:tabular-nums;text-align:right!important;
+ white-space:nowrap;color:var(--orbi-graphite)!important;line-height:1.2;
+}
+.orbi-expense-footer{
+ grid-column:1;grid-row:3;display:flex;align-self:end;
+ justify-content:space-between;align-items:flex-end;flex-wrap:wrap;
+ gap:9px;margin-top:16px;min-width:0;
+}
+.orbi-expense-footer .orbi-actual-amount{margin-bottom:1px}
+@media(max-width:750px){
+ .orbi-stage-card,.orbi-expense-card{min-height:178px}
+ .orbi-card-actions .btn{min-height:40px!important;padding:9px 12px!important}
+ .orbi-card-value{font-size:18px!important}
+}
+
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script></head>
 <body>
@@ -618,8 +681,8 @@ function nextStop(){
  if(!e){alert("Não há outra parada futura com endereço ou coordenadas neste cenário.");return}
  document.getElementById("modal-root").innerHTML='<div class="modalbg"><section class="modal" role="dialog" aria-modal="true"><header><h2>Próxima parada</h2><button data-action="close" aria-label="Fechar">×</button></header><h3>'+esc(e.title)+'</h3><p class="muted">'+date(e.day)+' · '+esc(e.startTime||"Horário livre")+'</p><p>'+esc(e.address||"Coordenadas salvas")+'</p>'+navigationLinks(e)+'</section></div>';
 }
-function renderRoute(t,s){const events=t.events.filter(e=>!e.scenarioId||e.scenarioId===s.id).slice().sort((a,b)=>(a.day+" "+a.startTime).localeCompare(b.day+" "+b.startTime));let prev="";return '<div class="passport-heading">ROTEIRO / PROGRAMAÇÃO</div><div class="toolbar"><div><h2>Programação por dia</h2><p class="muted">Horários, atrações, hospedagens e deslocamentos.</p></div>'+button("Próxima parada","nextStop")+button("+ Adicionar etapa","newEvent","")+'</div>'+(events.length?events.map(e=>{let h="";if(e.day!==prev){prev=e.day;h='<div class="journal-day"><b>'+date(e.day)+'</b><span>Agenda do dia</span></div>'}return h+'<article class="item journal-entry" style="--cat-color:'+categoryColor(e.category)+'"><div class="details"><div class="row"><span class="category-stamp">'+esc(e.category||"Atividade")+'</span><span class="muted">'+esc([e.startTime,e.endTime].filter(Boolean).join(" — "))+'</span></div><strong style="margin-top:9px">'+esc(e.title)+'</strong><div class="meta">'+esc(e.category==="Deslocamento"&&e.routeDestination?e.notes||"":e.address||"")+(e.category!=="Deslocamento"&&e.address&&e.notes?" · ":"")+esc(e.category!=="Deslocamento"?e.notes||"":"")+'</div>'+(e.category==="Deslocamento"&&e.routeOrigin&&e.routeDestination?'<div class="orbi-route-summary">'+esc(e.routeOrigin)+' → '+esc(e.routeDestination)+'</div>'+(routeStops(e.routeWaypoints).length?'<div class="orbi-route-via">Via: '+esc(routeStops(e.routeWaypoints).join(" → "))+'</div>':""):"")+(e.url?'<a class="linksmall" href="'+esc(e.url)+'" target="_blank" rel="noopener noreferrer">Abrir link ↗</a>':"")+navigationLinks(e)+'</div><div class="row">'+(e.estimated?'<div class="amount">'+fmt(e.estimated,t.currency)+'</div>':"")+button("Editar","editEvent:"+e.id)+button("Excluir","removeEvent:"+e.id,"ghost danger")+'</div></article>'}).join(""):'<div class="empty"><h3>Nenhuma etapa neste cenário</h3><p>Adicione atividades, visitas, transportes ou hospedagens.</p></div>')+'<p class="note" style="margin-top:20px">Etapas marcadas como “Todos os cenários” aparecem em qualquer alternativa da viagem. Valores informados nas etapas são indicativos; o orçamento consolidado é calculado na aba Despesas.</p>'}
-function renderBudget(t,s){const expenses=t.expenses.filter(e=>!e.scenarioId||e.scenarioId===s.id);const cats=[...new Set(expenses.map(e=>e.category))];return '<div class="toolbar"><div><h2>Orçamento e despesas</h2><p class="muted">Compare os valores planejados e os efetivamente gastos.</p></div>'+button("+ Adicionar despesa","newExpense","")+'</div><div class="two"><div class="list">'+(expenses.length?expenses.map(e=>'<article class="item"><div class="details"><span class="chip">'+esc(e.category)+'</span><strong style="margin-top:9px">'+esc(e.title)+'</strong><div class="meta">'+(e.day?date(e.day)+" · ":"")+(e.scenarioId?"Exclusivo deste cenário":"Todos os cenários")+'</div></div><div><div class="amount">'+fmt(e.planned,t.currency)+'</div><div class="meta">Real: '+fmt(e.actual,t.currency)+'</div><div class="actions">'+button("Editar","editExpense:"+e.id)+button("Excluir","removeExpense:"+e.id,"ghost danger")+'</div></div></article>').join(""):'<div class="empty"><h3>Sem despesas</h3><p>Cadastre hospedagem, alimentação, combustível, passagens e atrações.</p></div>')+'</div><div class="card"><h3>Distribuição do orçamento</h3>'+(cats.length?cats.map(c=>{const v=sum(expenses.filter(e=>e.category===c).map(e=>e.planned));return '<div class="summaryline"><span>'+esc(c)+'</span><strong>'+fmt(v,t.currency)+'</strong></div><div class="bar"><span style="width:'+Math.min(100,predictedPercent(v,cost(t,s.id)))+'%"></span></div>'}).join(""):'<p class="muted">Categorias aparecerão após o primeiro lançamento.</p>')+'</div></div>'}
+function renderRoute(t,s){const events=t.events.filter(e=>!e.scenarioId||e.scenarioId===s.id).slice().sort((a,b)=>(a.day+" "+a.startTime).localeCompare(b.day+" "+b.startTime));let prev="";return '<div class="passport-heading">ROTEIRO / PROGRAMAÇÃO</div><div class="toolbar"><div><h2>Programação por dia</h2><p class="muted">Horários, atrações, hospedagens e deslocamentos.</p></div>'+button("Próxima parada","nextStop")+button("+ Adicionar etapa","newEvent","")+'</div>'+(events.length?events.map(e=>{let h="";if(e.day!==prev){prev=e.day;h='<div class="journal-day"><b>'+date(e.day)+'</b><span>Agenda do dia</span></div>'}return h+'<article class="item journal-entry orbi-stage-card" style="--cat-color:'+categoryColor(e.category)+'"><div class="orbi-card-actions">'+button("Editar","editEvent:"+e.id)+button("Excluir","removeEvent:"+e.id,"ghost danger")+'</div><div class="details"><div class="row"><span class="category-stamp">'+esc(e.category||"Atividade")+'</span><span class="muted">'+esc([e.startTime,e.endTime].filter(Boolean).join(" — "))+'</span></div><strong style="margin-top:9px">'+esc(e.title)+'</strong><div class="meta">'+esc(e.category==="Deslocamento"&&e.routeDestination?e.notes||"":e.address||"")+(e.category!=="Deslocamento"&&e.address&&e.notes?" · ":"")+esc(e.category!=="Deslocamento"?e.notes||"":"")+'</div>'+(e.category==="Deslocamento"&&e.routeOrigin&&e.routeDestination?'<div class="orbi-route-summary">'+esc(e.routeOrigin)+' → '+esc(e.routeDestination)+'</div>'+(routeStops(e.routeWaypoints).length?'<div class="orbi-route-via">Via: '+esc(routeStops(e.routeWaypoints).join(" → "))+'</div>':""):"")+(e.url?'<a class="linksmall" href="'+esc(e.url)+'" target="_blank" rel="noopener noreferrer">Abrir link ↗</a>':"")+navigationLinks(e)+'</div>'+(e.estimated?'<div class="amount orbi-card-value">'+fmt(e.estimated,t.currency)+'</div>':"")+'</article>'}).join(""):'<div class="empty"><h3>Nenhuma etapa neste cenário</h3><p>Adicione atividades, visitas, transportes ou hospedagens.</p></div>')+'<p class="note" style="margin-top:20px">Etapas marcadas como “Todos os cenários” aparecem em qualquer alternativa da viagem. Valores informados nas etapas são indicativos; o orçamento consolidado é calculado na aba Despesas.</p>'}
+function renderBudget(t,s){const expenses=t.expenses.filter(e=>!e.scenarioId||e.scenarioId===s.id);const cats=[...new Set(expenses.map(e=>e.category))];return '<div class="toolbar"><div><h2>Orçamento e despesas</h2><p class="muted">Compare os valores planejados e os efetivamente gastos.</p></div>'+button("+ Adicionar despesa","newExpense","")+'</div><div class="two"><div class="list">'+(expenses.length?expenses.map(e=>'<article class="item orbi-expense-card"><div class="orbi-card-actions">'+button("Editar","editExpense:"+e.id)+button("Excluir","removeExpense:"+e.id,"ghost danger")+'</div><div class="details"><span class="chip">'+esc(e.category)+'</span><strong style="margin-top:9px">'+esc(e.title)+'</strong><div class="meta">'+(e.day?date(e.day)+" · ":"")+(e.scenarioId?"Exclusivo deste cenário":"Todos os cenários")+'</div></div><div class="orbi-expense-footer"><div class="meta orbi-actual-amount">Realizado: '+fmt(e.actual,t.currency)+'</div><div class="amount orbi-card-value">'+fmt(e.planned,t.currency)+'</div></div></article>').join(""):'<div class="empty"><h3>Sem despesas</h3><p>Cadastre hospedagem, alimentação, combustível, passagens e atrações.</p></div>')+'</div><div class="card"><h3>Distribuição do orçamento</h3>'+(cats.length?cats.map(c=>{const v=sum(expenses.filter(e=>e.category===c).map(e=>e.planned));return '<div class="summaryline"><span>'+esc(c)+'</span><strong>'+fmt(v,t.currency)+'</strong></div><div class="bar"><span style="width:'+Math.min(100,predictedPercent(v,cost(t,s.id)))+'%"></span></div>'}).join(""):'<p class="muted">Categorias aparecerão após o primeiro lançamento.</p>')+'</div></div>'}
 function predictedPercent(x,total){return total?x/total*100:0}
 function renderCompare(t,s){return '<div class="toolbar"><div><h2>Comparativo de cenários</h2><p class="muted">Alternativas de custo para a mesma viagem.</p></div>'+button("+ Criar cenário","newScenario","")+'</div><div class="grid">'+t.scenarios.map(x=>'<article class="card"><div class="row" style="justify-content:space-between"><span class="chip">'+(x.id===s?.id?"Selecionado":"Alternativa")+'</span></div><h2 style="margin-top:16px">'+esc(x.name)+'</h2><p class="muted">'+esc(x.notes||"Sem observações")+'</p><strong style="font-size:25px;display:block;margin:24px 0 3px">'+fmt(cost(t,x.id),t.currency)+'</strong><p class="muted">Orçamento estimado</p><div class="row" style="margin-top:18px">'+button("Selecionar","chooseScenario:"+x.id)+button("Editar","editScenario:"+x.id)+(t.scenarios.length>1?button("Excluir","removeScenario:"+x.id,"ghost danger"):"")+'</div></article>').join("")+'</div><p class="note" style="margin-top:20px">Uma despesa pode valer para todos os cenários ou apenas para um cenário. Despesas compartilhadas entram no cálculo de todos eles.</p>'}
 function renderShopping(t,s){const items=t.shopping.filter(e=>!e.scenarioId||e.scenarioId===s.id);return '<div class="toolbar"><div><h2>Lista de compras</h2><p class="muted">Itens, quantidades, referências de preço e itens adquiridos.</p></div>'+button("+ Novo item","newItem","")+'</div>'+(items.length?'<div class="list">'+items.map(i=>'<article class="item"><div class="details"><strong>'+esc(i.title)+'</strong><div class="meta">'+esc(i.quantity||"")+" · "+esc(i.store||"Sem loja")+' · '+(i.bought?"Comprado":"Pendente")+'</div></div><div class="row"><strong>'+fmt(i.price,t.currency)+'</strong>'+button(i.bought?"Desmarcar":"Comprado","toggleItem:"+i.id)+button("Editar","editItem:"+i.id)+button("Excluir","removeItem:"+i.id,"ghost danger")+'</div></article>').join("")+'</div><div class="card" style="margin-top:15px"><b>Total da lista: '+fmt(sum(items.map(i=>i.price)),t.currency)+'</b></div>':'<div class="empty"><h3>Lista vazia</h3><p>Adicione produtos para a viagem.</p></div>')+'<p class="note" style="margin-top:18px">A lista de compras é independente do orçamento. Para contabilizá-la no custo total, registre o valor correspondente também em Despesas.</p>'}
