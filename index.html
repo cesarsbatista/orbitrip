@@ -523,14 +523,19 @@ input,select,textarea{color:var(--orbi-graphite-text)!important}
 }
 .orbi-stage-card .orbi-card-actions,.orbi-expense-card .orbi-card-actions{
  grid-column:1;grid-row:1;justify-self:end;align-self:start;
- display:flex;flex-wrap:nowrap;justify-content:flex-end;gap:7px;
- max-width:100%;margin:0 0 12px;
+ display:flex;flex-wrap:nowrap;justify-content:flex-end;gap:6px;
+ max-width:100%;margin:0 0 9px;
 }
 .orbi-card-actions .btn{
  background:#fff!important;color:var(--orbi-graphite)!important;
  border:1px solid #d9dcdf!important;white-space:nowrap!important;
- font-size:11px!important;font-weight:650!important;
- min-height:36px!important;padding:7px 11px!important;
+ position:relative!important;border-radius:9px!important;
+ font-size:10px!important;font-weight:600!important;line-height:1.1!important;
+ height:28px!important;min-height:28px!important;padding:4px 8px!important;
+}
+/* Visual menor; área vertical de toque de 44px sem aumentar o botão. */
+.orbi-card-actions .btn::after{
+ content:"";position:absolute;inset:-8px 0;pointer-events:auto;
 }
 .orbi-card-actions .btn:hover{background:#f3f4f5!important;border-color:#c6cbd0!important}
 .orbi-stage-card>.details,.orbi-expense-card>.details{
@@ -553,7 +558,8 @@ input,select,textarea{color:var(--orbi-graphite-text)!important}
 .orbi-expense-footer .orbi-actual-amount{margin-bottom:1px}
 @media(max-width:750px){
  .orbi-stage-card,.orbi-expense-card{min-height:178px}
- .orbi-card-actions .btn{min-height:40px!important;padding:9px 12px!important}
+ .orbi-card-actions .btn{height:30px!important;min-height:30px!important;padding:5px 8px!important}
+ .orbi-card-actions .btn::after{inset:-7px 0}
  .orbi-card-value{font-size:18px!important}
 }
 
@@ -575,7 +581,7 @@ input,select,textarea{color:var(--orbi-graphite-text)!important}
  padding:0!important;grid-row:auto!important;grid-column:auto!important;
 }
 .orbi-stage-card.journal-entry>.details>.row:first-child{
- max-width:calc(100% - 164px);
+ max-width:calc(100% - 145px);
 }
 .orbi-stage-card.journal-entry>.orbi-card-value{
  display:block!important;grid-row:auto!important;grid-column:auto!important;
@@ -586,7 +592,7 @@ input,select,textarea{color:var(--orbi-graphite-text)!important}
 @media(max-width:750px){
  .orbi-stage-card.journal-entry{min-height:0!important;padding:13px 14px 12px!important}
  .orbi-stage-card.journal-entry>.orbi-card-actions{top:10px;right:10px}
- .orbi-stage-card.journal-entry>.details{padding-top:45px!important}
+ .orbi-stage-card.journal-entry>.details{padding-top:38px!important}
  .orbi-stage-card.journal-entry>.details>.row:first-child{max-width:100%}
  .orbi-stage-card.journal-entry>.orbi-card-value{margin-top:8px!important}
 }
