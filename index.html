@@ -904,7 +904,12 @@ function expenseForm(e){const t=trip();modal(e?"Editar despesa":"Nova despesa",'
 function scenarioForm(s){modal(s?"Editar cenário":"Novo cenário",field("Nome","name",s?.name||"","text","required")+field("Observações","notes",s?.notes,"textarea"),"scenario:"+(s?.id||"new"))}
 function itemForm(i){const t=trip();modal(i?"Editar item":"Novo item",'<div class="formgrid">'+field("Produto","title",i?.title||"","text","required")+field("Quantidade","quantity",i?.quantity)+field("Preço total","price",i?.price??"","number",'min="0" step="0.01"')+field("Loja / referência","store",i?.store)+'<div class="wide">'+scope(t,i?.scenarioId??"")+'</div></div>',"item:"+(i?.id||"new"))}
 const getObj=f=>Object.fromEntries(new FormData(f).entries());
-function submit(form){const [kind,id]=form.dataset.submit.split(":");if(cloudActive&&cloudRoles[tripId]==="viewer"&&!(kind==="trip"&&id==="new")){alert("Viagem somente para leitura.");return}const v=getObj(form);const t=trip();if(kind==="trip"){v.travelers=Array.from(form.querySelectorAll("[data-orbi-traveler]")).map(el=>el.value.trim()).filter(Boolean).join(", ");if(v.start&&v.end&&v.end<v.start){alert("A data final deve ser posterior à inicial.");return}if(id==="new"){const x={...v,id:uid(),archived:false,scenarios:[{id:uid(),name:"Principal",notes:""}],events:[],expenses:[],shopping:[]};db.trips.push(x);tripId=x.id;route="trip";scenarioId=x.scenarios[0].id}else Object.assign(t,v)}else if(kind==="scenario"){const x={...v,id:id==="new"?uid():id};if(id==="new"){t.scenarios.push(x);scenarioId=x.id}else Object.assign(t.scenarios.find(z=>z.id===id),v)}else {const list={event:"events",expense:"expenses",item:"shopping"}[kind];const normalized={...v};if(kind==="event"){if(v.category==="Deslocamento"){
+function submit(form){const [kind,id]=form.dataset.submit.split(":");if(cloudActive&&cloudRoles[tripId]==="viewer"&&!(kind==="trip"&&id==="new")){alert("Viagem somente para leitura.");return}const v=getObj(form);const t=trip();
+ const oldStage=kind==="event"&&id!=="new"?t?.events.find(x=>x.id===id):null;
+ const oldExpense=kind==="expense"&&id!=="new"?t?.expenses.find(x=>x.id===id):null;
+ const priorStageValue=oldStage?money(oldStage.estimated):null;
+ const priorExpenseValue=oldExpense?money(oldExpense.planned):null;
+ if(kind==="trip"){v.travelers=Array.from(form.querySelectorAll("[data-orbi-traveler]")).map(el=>el.value.trim()).filter(Boolean).join(", ");if(v.start&&v.end&&v.end<v.start){alert("A data final deve ser posterior à inicial.");return}if(id==="new"){const x={...v,id:uid(),archived:false,scenarios:[{id:uid(),name:"Principal",notes:""}],events:[],expenses:[],shopping:[]};db.trips.push(x);tripId=x.id;route="trip";scenarioId=x.scenarios[0].id}else Object.assign(t,v)}else if(kind==="scenario"){const x={...v,id:id==="new"?uid():id};if(id==="new"){t.scenarios.push(x);scenarioId=x.id}else Object.assign(t.scenarios.find(z=>z.id===id),v)}else {const list={event:"events",expense:"expenses",item:"shopping"}[kind];const normalized={...v};if(kind==="event"){if(v.category==="Deslocamento"){
  normalized.routeOrigin=String(v.routeOrigin||"").trim();
  normalized.routeDestination=String(v.routeDestination||"").trim();
  const routePoints=routeStops(v.routeWaypoints);
@@ -917,7 +922,24 @@ function submit(form){const [kind,id]=form.dataset.submit.split(":");if(cloudAct
  normalized.routeMode=["driving","walking","transit","bicycling"].includes(v.routeMode)?v.routeMode:"driving";
  if(normalized.routeDestination&&!String(v.address||"").trim())normalized.address=normalized.routeDestination;
 }
-normalized.estimated=money(v.estimated);normalized.latitude=v.latitude!==""&&Number.isFinite(Number(v.latitude))?Number(v.latitude):null;normalized.longitude=v.longitude!==""&&Number.isFinite(Number(v.longitude))?Number(v.longitude):null;if(v.url&&!/^https?:\/\//i.test(v.url)){alert("O link deve começar com http:// ou https://");return}}if(kind==="expense"){normalized.planned=money(v.planned);normalized.actual=money(v.actual)}if(kind==="item"){normalized.price=money(v.price);normalized.bought=id==="new"?false:t.shopping.find(z=>z.id===id)?.bought}if(id==="new")t[list].push({...normalized,id:uid()});else Object.assign(t[list].find(z=>z.id===id),normalized)}save();close();render()}
+normalized.estimated=money(v.estimated);normalized.latitude=v.latitude!==""&&Number.isFinite(Number(v.latitude))?Number(v.latitude):null;normalized.longitude=v.longitude!==""&&Number.isFinite(Number(v.longitude))?Number(v.longitude):null;if(v.url&&!/^https?:\/\//i.test(v.url)){alert("O link deve começar com http:// ou https://");return}}if(kind==="expense"){normalized.planned=money(v.planned);normalized.actual=money(v.actual)}if(kind==="item"){normalized.price=money(v.price);normalized.bought=id==="new"?false:t.shopping.find(z=>z.id===id)?.bought}if(id==="new")t[list].push({...normalized,id:uid()});else Object.assign(t[list].find(z=>z.id===id),normalized);
+ /* Atualiza os dois cadastros quando representam a mesma despesa.
+    Editar apenas o realizado não sobrescreve o preço previsto da etapa. */
+ if(kind==="event"&&(id==="new"&&money(normalized.estimated)>0||id!=="new"&&money(normalized.estimated)!==priorStageValue)){
+  const stage=id==="new"?t.events[t.events.length-1]:t.events.find(x=>x.id===id);
+  if(stage)for(const expense of t.expenses){
+   const linked=budgetLinkedEvent(t,expense,expense.scenarioId);
+   if(linked?.id===stage.id)expense.planned=money(stage.estimated);
+  }
+ }
+ if(kind==="expense"&&(id==="new"||money(normalized.planned)!==priorExpenseValue)){
+  const expense=id==="new"?t.expenses[t.expenses.length-1]:t.expenses.find(x=>x.id===id);
+  if(expense){
+   const stage=budgetLinkedEvent(t,expense,expense.scenarioId);
+   if(stage)stage.estimated=money(expense.planned);
+  }
+ }
+ }save();close();render()}
 function duplicateEvent(id){
  const t=trip();if(!t)return;
  if(cloudActive&&cloudRoles[t.id]==="viewer"){alert("Esta viagem permite apenas visualização.");return}
