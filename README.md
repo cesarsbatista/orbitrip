@@ -1,3 +1,14 @@
+## Correção do Orçamento previsto — 23/11/2026
+
+O indicador **Orçamento previsto** agora considera, por cenário, a soma de valores estimados inseridos nas **etapas do roteiro** e das despesas planejadas na aba **Despesas**, sem contabilizar duas vezes uma etapa e a despesa correspondente. Registros vinculados são reconhecidos por referência explícita, pelo identificador da importação ou por título/data coincidentes no mesmo cenário. A distribuição por categoria e a previsão na Home utilizam o mesmo cálculo.
+
+- No cadastro de etapa, `Valor informativo` foi renomeado para **Valor previsto**.
+- A aba Despesas apresenta também as etapas cujo valor entra no orçamento e que não têm uma despesa correspondente.
+- Editar o valor previsto de uma etapa vinculada atualiza a despesa correspondente; editar o planejado da despesa atualiza a etapa. Alterar apenas o valor realizado não modifica o previsto.
+- **Valor realizado** continua vindo exclusivamente de despesas com valor efetivamente lançado.
+- As viagens, cenários, etapas e despesas armazenados no Supabase não foram alterados por esta correção: é uma atualização do cálculo no navegador.
+- Verificações: com os valores de referência gravados no Supabase ao testar, o cenário Principal passou de R$ 0,00 para R$ 1.802,50 em valores previstos; o Intermediário totalizou R$ 1.830,75, porque agora inclui R$ 350,00 em valores de etapas antes apenas informativos além das despesas existentes (R$ 1.480,75). O valor exibido depois pode variar conforme alterações dos usuários. Testes simulados de edição bidirecional, novas etapas, ausência de dupla contagem, distribuição e apresentação dos cartões passaram.
+
 ## Atualização de sincronização silenciosa — 21/11/2026
 
 - Removido o banner de erro ou aviso de sincronização do topo das telas **Início** e **Viagem**. Os controles de diagnóstico/backup foram movidos para **Conta e compartilhamento → Dados pendentes neste dispositivo**, exibidos apenas quando necessário.
