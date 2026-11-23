@@ -634,10 +634,23 @@ input,select,textarea{color:var(--orbi-graphite-text)!important}
 }
 
 /* Cabeçalho diário: data e dia da semana com espaçamento explícito. */
-.journal-day{display:flex!important;align-items:center!important;gap:22px!important}
-.journal-day>b{flex:0 0 auto}
-.journal-day>span{display:inline-block!important;margin:0!important;white-space:nowrap}
-@media(max-width:750px){.journal-day{gap:18px!important}}
+.journal-day{
+ display:flex!important;
+ flex-direction:column!important;
+ align-items:flex-start!important;
+ gap:3px!important;
+}
+.journal-day>b{
+ flex:0 0 auto;
+ margin:0!important;
+ line-height:1.15!important;
+}
+.journal-day>span{
+ display:block!important;
+ margin:0!important;
+ line-height:1.2!important;
+ white-space:normal!important;
+}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script></head>
 <body>
