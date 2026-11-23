@@ -1387,6 +1387,8 @@ function queueCloudRefresh(){
  },1100);
 }
 async function activateCloud(user){
+ /* Após autenticar, o destino padrão é sempre Início / Minhas viagens. */
+ welcomeVisible=false;route="home";tripId=null;tab="route";scenarioId=null;
  cloudUser=user;cloudLoading=true;render();
  try{
   await acceptLinkInvite();
@@ -1395,6 +1397,22 @@ async function activateCloud(user){
   cloudApi.listen(()=>{cloudRemoteHint=true;queueCloudRefresh()});
  }catch(err){cloudError=err.message||"Erro ao carregar viagens";cloudActive=false;cloudAuthError=cloudError}
  finally{cloudLoading=false;render()}
+}
+/* No carregamento do site, restaurar uma sessão existente sem exigir clique
+   em Começar. Sem sessão, preservar a capa pública como tela inicial. */
+async function resumeAuthenticatedHome(){
+ if(!cloudEnabled||cloudBypass)return;
+ try{
+  const user=await cloudApi.init();
+  if(!user||cloudBypass||!welcomeVisible)return;
+  await activateCloud(user);
+ }catch(err){
+  /* A abertura pública deve continuar funcionando se a sessão não existir
+     ou se a verificação automática estiver temporariamente indisponível. */
+  if(welcomeVisible)return;
+  cloudAuthError=err?.message||"Não foi possível verificar a sessão.";
+  render();
+ }
 }
 async function cloudBoot(){
  if(!cloudEnabled||cloudBypass){cloudLoading=false;render();return}
@@ -1522,6 +1540,7 @@ document.addEventListener("keydown",e=>{
 });
 
 render();
+resumeAuthenticatedHome();
 if(route==="trip"&&tab==="calculator")setTimeout(calculateLive,0);
 })();
 </script>
